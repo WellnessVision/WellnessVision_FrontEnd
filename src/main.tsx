@@ -2,7 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import FirstPage from './pages/FirstPage'
-import 'bootstrap/dist/css/bootstrap.css'
+import HP_Dashboard from './pages/HP/HP_Dashboard'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -11,11 +12,11 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
+    element: <FirstPage/>,
   },
   {
-    path: "page",
-    element: <FirstPage/>,
+    path: "HP_Dashboard",
+    element: <HP_Dashboard/>,
   },
 ]);
 

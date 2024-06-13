@@ -1,0 +1,55 @@
+#sidebar{
+    margin-top: -60px;
+}
+
+#parentM li a:hover{
+    background-color: rgb(67, 67, 233);
+}
+
+#WellnessVision{
+    text-align: center;
+    color:aqua;
+    margin-left: 22px;
+    font-size: 20px;
+}
+
+#navbar{
+    margin-left: 245px;
+    width: 1277PX;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+.name {
+    margin-right: -350px;
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: 590;
+}  
+
+.WellnessVisionIcon {
+    position: absolute;
+    width: 73px;
+    height: 45px;
+    border-radius: 10px;
+  }
+
+#WellnessVisionName{
+    margin-left: 85px;
+    font-weight: 600;
+    font-size: 22px;
+    font-family:'Courier New', Courier, monospace;
+}
+
+.account a:hover{
+    background-color: rgb(122, 122, 122);
+    color: white;
+}
+
+.account_div a:hover{
+    border: 0.8px solid;
+}
