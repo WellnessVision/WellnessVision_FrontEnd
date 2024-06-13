@@ -2,9 +2,11 @@ import React from 'react'
 
 function FirstPage() {
   return (
-    <div className="alert alert-danger" role="alert">
-  A simple danger alert—check it out!
-</div>
+    <div className="d-flex">
+      Landing Page
+      <a href='/HP_Dashboard'>Login</a>
+    </div>
+
   )
 }
 
