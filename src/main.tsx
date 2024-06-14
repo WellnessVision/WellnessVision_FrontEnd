@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import FirstPage from './pages/Register'
+import FirstPage from './pages/LandingPage'
 import HP_Dashboard from './pages/HP/HP_Dashboard'
-import Register from './pages/FirstPage'
+import HP_Register from './pages/HP/HP_Register'
 import Login from './pages/Login'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
@@ -21,8 +21,8 @@ const router = createBrowserRouter([
     element: <HP_Dashboard/>,
   },
   {
-    path: "Register/:user_type",
-    element: <Register/>,
+    path: "HP_Register",
+    element: <HP_Register/>,
   },
   {
     path: "Login",
