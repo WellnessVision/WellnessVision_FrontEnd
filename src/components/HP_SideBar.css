@@ -1,5 +1,10 @@
 #sidebar{
-    margin-top: -60px;
+    z-index: 0;
+    width:1560px;
+}
+
+.container-fluid{
+    display:block;
 }
 
 #parentM li a:hover{
@@ -14,8 +19,8 @@
 }
 
 #navbar{
-    margin-left: 245px;
-    width: 1277PX;
+    margin-left: 248px;
+    width:unset;
 }
 
 .profile-pic {
