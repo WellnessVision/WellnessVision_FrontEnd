@@ -1,3 +1,7 @@
+.blur{
+    filter: blur(15px);
+  }
+
 .header{
     position: absolute;
     margin-top: -60px;
@@ -56,4 +60,12 @@
     height: 0.5px; 
     background-color: rgb(194, 192, 192); 
     margin: 10px 0;
+}
+
+.index{
+    z-index: 2;
+}
+
+.index_button{
+    z-index: 5;
 }

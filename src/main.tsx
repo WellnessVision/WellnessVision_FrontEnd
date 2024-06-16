@@ -7,6 +7,7 @@ import HP_Register from './pages/HP/HP_Register'
 import Login from './pages/Login'
 import HP_ViewEvents from './pages/HP/HP_ViewEvents'
 import HP_OneEvents from './pages/HP/HP_OneEvent'
+import HP_Test from './pages/HP/HP_Test'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   createBrowserRouter,
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "HP_OneEvents",
     element: <HP_OneEvents/>,
+  },
+  {
+    path: "HP_Test",
+    element: <HP_Test/>,
   },
 ]);
 

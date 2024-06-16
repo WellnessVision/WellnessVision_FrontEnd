@@ -1,0 +1,75 @@
+
+.clear_button_addEvent{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 60px;
+    height: 35px;
+}
+
+.clear_button_text_addEvent{
+    position: absolute;
+    margin-top: -12px;
+    margin-left: -17px;
+}
+
+.time_wrong_addEvent{
+    color: #ffff;
+    margin-top: -15px;
+    font-size: 16px;
+    font-weight: 590;
+    width: 760px;
+    height: 26px;
+    border-radius: 10px;
+    background-color: #FF474D;
+}
+
+.RsTag_addEvent{
+    height: 45px;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+  }
+
+  .popup.show {
+    border-radius: 5px;
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .popup-inner {
+    background: white;
+    position: relative;
+  }
+
+  .popup-inner_HP_AddPhysicalEvent{
+    border-radius: 5px;
+  }
+  
+  .close-btn {
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    height: 30px;
+    width: 50px;
+  }
+
+  .closeAddEvent{
+    position: absolute;
+    top: 2px;
+    left: 17px;
+  }
+  
