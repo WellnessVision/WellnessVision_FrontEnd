@@ -1,0 +1,63 @@
+/* .popup-inner_HP_HallAvailability{
+    border-radius: 5px;
+}
+
+.Hall_ID_HP_HallAvailability{
+    position: relative;
+    left: 0;
+}
+
+.Hall_type_HP_HallAvailability{
+    margin-top: -40px;
+    margin-left: 150px;
+}
+
+.seats_HP_HallAvailability{
+    margin-left: -50px;
+}
+
+.price_HP_HallAvailability{
+    margin-left: -200px;
+}
+
+.duration_HP_HallAvailability{
+    margin-top: -40px;
+    margin-left: 220px;
+}
+
+.card_HP_HallAvailability{
+    justify-content: left;
+} */
+
+.duration_HP_HallAvailability{
+    margin-left: 20px;
+}
+
+.popup-inner_HP_HallAvailability{
+    border-radius: 5px;
+}
+
+.HP_HallAvailability_fontSize{
+    font-size:17px;
+}
+
+.HP_HallAvailability_cansel{
+    width: 150px;
+}
+
+.HP_HallAvailability_hallBook{
+    width: 150px;
+    margin-left: 50px;
+}
+
+.HP_HallAvailability_hallBook_text{
+    font-weight: 590;
+}
+
+.title_HP_HallAvailability{
+    font-size: 22px;
+}
+
+.HP_HallAvailability_div{
+    padding: 0 15px 0 0;
+}
