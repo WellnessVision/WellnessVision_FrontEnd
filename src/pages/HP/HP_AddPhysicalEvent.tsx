@@ -10,7 +10,7 @@ interface HP_AddPhysicalEventProps {
     children?: React.ReactNode;
   }
 
-const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleClose, children }) => {
+const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleClose, children}) => {
  
   const [showPopup_2, togglePopup_2] = useToggle();
   const [eventTitle, setEventTitle] = useState('');
@@ -20,11 +20,14 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
   const [hallType, setHallType] = useState('');
   const [expectedCapacity, setExpectedCapacity] = useState('');
   const [ticketPrice, setTicketPrice] = useState('');
+  const [date, setDate] = useState('');
+  const [minDate, setMinDate] = useState('');
   const [startTime, setStartTime] = useState('');
   const [message, setMessage] = useState('');
   const [endTime, setEndTime] = useState('');
   const [duration, setDuration] = useState('');
-  const [finalduration, setFinalDuration] = useState('');
+  const [finalDuration, setFinalDuration] = useState('');
+  const [eventData, setEventData] = useState<any>(null); 
 
 
   useEffect(() => {
@@ -41,23 +44,31 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
     }
   }, [startTime, endTime]);
 
+  useEffect(() => {
+    const today = new Date();
+    today.setDate(today.getDate() + 1); 
+    const formattedDate = today.toISOString().split('T')[0];
+    setMinDate(formattedDate);
+  }, []);
+
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       togglePopup_2();
-      const response = await axios.post('http://localhost:15000/register', {
+      const response = await axios.post('http://localhost:15000/physicalEvent', {
         eventTitle,
         finalEventType,
         hallType,
+        date,
         startTime,
         endTime,
-        finalduration,
+        finalDuration,
         expectedCapacity,
         ticketPrice
       });
-      // setMessage(response.data.message || 'Registration successful');
+      setEventData(response.data); 
     } catch (error) {
-      // setMessage('Error registering user');
+      setMessage('Error registering event');
     }
   };
 
@@ -83,6 +94,7 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
     setEventType('');
     setOtherEventType('');
     setHallType('');
+    setDate('');
     setStartTime('');
     setEndTime('');
     setDuration('');
@@ -165,6 +177,19 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                     <option value="Free Space">Free Space Hall (Yoga Mats)</option>
                   </select>
                 </div>
+              </div>
+              <div className="form-group">
+              <label htmlFor="exampleInputPassword1" className="form-label event_date_HP_AddPhysicalEvent">Event Date (The date should be tomorrow or later)</label>
+                <input 
+                    type="date"
+                    className="form-control"
+                    id="EventDate"
+                    placeholder="Event Date (The date should be tomorrow or later)"
+                    required
+                    value={date}
+                    min={minDate}
+                    onChange={(e) => setDate(e.target.value)}
+                />
               </div>
               <div className="name-group">
                 <div className="form-group">
@@ -262,8 +287,8 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
               </div>
               <button type="submit" className="btn btn-primary">Check Hall Availability</button>
             </form>
-            <HallAvailability show_2={showPopup_2} handleClose_2={togglePopup_2} />
-          </div>
+            <HallAvailability show_2={showPopup_2} handleClose_2={togglePopup_2} eventData={eventData}/>
+            </div>
         </div>
       </div>
     </div>
