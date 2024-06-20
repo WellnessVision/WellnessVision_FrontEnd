@@ -41,7 +41,7 @@
     font-size:17px;
 }
 
-.HP_HallAvailability_cansel{
+.HP_HallAvailability_cancel_button{
     width: 150px;
 }
 
@@ -60,4 +60,19 @@
 
 .HP_HallAvailability_div{
     padding: 0 15px 0 0;
+}
+
+.HP_HallAvailability_button_div{
+    margin-top: 15px;
+}
+
+.Unfortunately_header_HP_HallAvailability{
+    color: red;
+    font-weight: 590;
+    font-size: 22px;
+}
+
+.Unfortunately_text_HP_HallAvailability{
+    font-weight: 590;
+    margin-top: -10px;
 }
