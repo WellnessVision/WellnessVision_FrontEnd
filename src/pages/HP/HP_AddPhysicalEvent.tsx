@@ -23,9 +23,11 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
     const [minDate, setMinDate] = useState('');
     const [startTime, setStartTime] = useState('');
     const [message, setMessage] = useState('');
+    const [language, setLanguage] = useState('');
     const [endTime, setEndTime] = useState('');
     const [duration, setDuration] = useState('');
     const [finalDuration, setFinalDuration] = useState('');
+    const [eventDescription, setEventDescription] = useState('');
     const [eventImage, setEventImage] = useState<File | null>(null);
     const [eventData, setEventData] = useState<any>(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -63,6 +65,7 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
         try {
             
             const nullImage = "pending";
+            const hpId = 1;
 
             const response = await axios.post('http://localhost:15000/physicalEvent', {
                 eventTitle,
@@ -74,6 +77,9 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                 finalDuration,
                 expectedCapacity,
                 ticketPrice,
+                language,
+                eventDescription,
+                hpId,
                 nullImage
             });
 
@@ -307,13 +313,38 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                                     </div>
                                 </div>
                             </div>
+                            <div className="name-group image_language_div_HP_addPhysicalEvent">
                             <div className="form-group">
+                            <label htmlFor="exampleInputPassword1" className="form-label cover_image_HP_addPhysicalEvent">Cover Image</label>
                                 <input
                                     type="file"
                                     className="form-control-file"
                                     required
                                     id="exampleFormControlFile1"
                                     onChange={handleFileChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    className="form-control language_HP_addPhysicalEvent"
+                                    id="EventLanguage"
+                                    placeholder="Language"
+                                    required
+                                    value={language}
+                                    onChange={(e) => setLanguage(e.target.value)}
+                                />
+                            </div>
+                            </div>
+                            <div className="form-group">
+                                <textarea
+                                    className="form-control"
+                                    id="EventDescription"
+                                    placeholder="Event Description"
+                                    maxLength={1000}
+                                    required
+                                    value={eventDescription}
+                                    onChange={(e) => setEventDescription(e.target.value)}
                                 />
                             </div>
                             <button type="submit" className="btn btn-primary" disabled={isButtonDisabled}>Check Hall Availability</button>
