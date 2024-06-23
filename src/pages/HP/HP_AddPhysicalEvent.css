@@ -28,6 +28,7 @@
 }
 
 .popup {
+    z-index: 2;
     position: fixed;
     top: 0;
     left: 0;
@@ -75,5 +76,23 @@
 
   .event_date_HP_AddPhysicalEvent{
     margin-left: -400px;
+  }
+
+  .cover_image_HP_addPhysicalEvent{
+    position: absolute;
+    margin-top: -28px;
+    margin-left: 0;
+  }
+  
+  .image_language_div_HP_addPhysicalEvent{
+    margin-top: 25px;
+  }
+
+  .language_HP_addPhysicalEvent{
+    height: 50px;
+  }
+
+  .hp_header{
+    margin-top: -65px;
   }
   

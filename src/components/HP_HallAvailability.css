@@ -76,3 +76,7 @@
     font-weight: 590;
     margin-top: -10px;
 }
+
+.popup-inner_HP_HallAvailability{
+    z-index: 3;
+}
