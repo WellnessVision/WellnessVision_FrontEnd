@@ -1,9 +1,69 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HPSideBar from '../../components/HP_SideBar';
 import './HP_OneEvent.css';
 import yoga01 from '../../resources/yoga01.png'
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
+interface PhysicalEvent {
+    event_id: number;
+    hall_id: string;
+    eventTitle: string;
+    finalEventType: string;
+    date: string;
+    startTime: number;
+    endTime: number;
+    finalDuration: number;
+    capacity: number;
+    ticketPrice: number;
+    eventImage: string;
+    hall_capacity: number;
+    total_hall_charge: number;
+    advance_percentage: number;
+    advance_payment: number;
+    payment_id: number;
+    language: string;
+    event_description: string;
+  }
+
+  const formatTime = (hour: number): string => {
+    const period = hour >= 12 ? 'PM' : 'AM';
+    const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+    return `${formattedHour}:00 ${period}`;
+  };
 
 const HP_OneEvent: React.FC = () => {
+  const { eventId } = useParams<{ eventId: string }>();
+  const [event, setEvent] = useState<PhysicalEvent | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const response = await axios.get<PhysicalEvent>(`http://localhost:15000/viewOnePhysicalEventDetail?`,{
+            params: { eventId: eventId }
+        });
+        setEvent(response.data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
+      }
+    };
+
+    fetchEvent();
+  }, [eventId]);
+
+  if (error) {
+    return <div style={{ color: 'red' }}>{error}</div>;
+  }
+
+  if (!event) {
+    return <div>Loading...</div>;
+  }
+
     return (
         <div>
             <HPSideBar activeMenuItem="Events" />
@@ -12,24 +72,24 @@ const HP_OneEvent: React.FC = () => {
                 <img src ={yoga01} className="image" alt="Card image" />
                 <div className="card-body">
                 <div className='base_details'>
-                    <h5 className="card-title title">Maintain Body Correctly</h5>
+                    <h5 className="card-title title">{event.eventTitle}</h5>
                     <div className="straight-line"></div>
-                    <p className="card-text detail"><i className='bi bi-bookmark-star-fill'></i> Awareness Lecture</p>
-                    <p className="card-text detail physical"><i className='bi bi-soundwave'></i> Physical (In WellnessVision Premises)</p>
-                    <p className="card-text detail"><i className='bi bi-calendar2-week-fill'></i> 2024/06/15</p>
-                    <p className="card-text detail date"><i className='bi bi-alarm-fill'></i> 9.00 PM</p> 
-                    <p className="card-text detail duration"><i className='bi bi-hourglass-split'></i> 2 hour duration</p> 
-                    <p className="card-text detail price"><i className='bi bi-cash-stack'></i> Rs.1500/= (Per participant)</p> 
-                    <p className="card-text detail seats"><i className='bi bi-person-workspace'></i> 1000 Seats</p> 
+                    <p className="card-text detail"><i className='bi bi-bookmark-star-fill'></i> {event.finalEventType}</p>
+                    <p className="card-text detail physical"><i className='bi bi-soundwave'></i> {event.hall_id} (WellnessVision Hall)</p>
+                    <p className="card-text detail"><i className='bi bi-calendar2-week-fill'></i> {event.date}</p>
+                    <p className="card-text detail date"><i className='bi bi-alarm-fill'></i> {formatTime(event.startTime)}</p> 
+                    <p className="card-text detail duration"><i className='bi bi-hourglass-split'></i> {event.finalDuration} hour duration</p> 
+                    <p className="card-text detail price"><i className='bi bi-cash-stack'></i> Rs.{event.ticketPrice}/= (Per participant)</p> 
+                    <p className="card-text detail seats"><i className='bi bi-person-workspace'></i> {event.hall_capacity} Seats</p> 
                     <p className="card-text detail booked"><i className='bi bi-bag-check-fill'></i> 540 Bookings</p> 
-                    <p className="card-text detail language"><i className='bi bi-volume-up-fill'></i> Sinhala Language</p> 
+                    <p className="card-text detail language"><i className='bi bi-volume-up-fill'></i> {event.language} Language</p> 
                     </div>
                     <div>
                         <h5 className='description'>Description</h5>
-                        <p>Join us for a rejuvenating yoga event designed to harmonize your mind, body, and spirit. Whether you're a beginner or an experienced yogi, our skilled instructors will guide you through a series of invigorating poses and calming breathing exercises. Experience the tranquility of nature as we practice outdoors, connecting deeply with ourselves and the environment. Come away feeling refreshed, balanced, and inspired. Don't miss this opportunity to enhance your well-being and meet like-minded individuals in a serene setting.</p>
+                        <p>{event.event_description}</p>
                     </div>
                     <div className='button_div'>
-                    <a href="HP_OneEvents" className="btn btn-primary back_button"><i className='bi bi-arrow-left-circle'></i> Back to Events</a>
+                    <a href="/HP_ViewEvents" className="btn btn-primary back_button"><i className='bi bi-arrow-left-circle'></i> Back to Events</a>
                     <a href="HP_OneEvents" className="btn btn-success view_button"><i className='bi bi-chat-left-dots'></i> Contact Event Manager</a>
                     <a href="HP_OneEvents" className="btn btn-danger book_button"><i className='bi bi-trash3'></i> Delete Event</a>
                     </div>

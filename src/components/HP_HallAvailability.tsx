@@ -3,20 +3,26 @@ import axios from 'axios';
 import '../pages/HP/HP_AddPhysicalEvent.css';
 import './HP_HallAvailability.css';
 import '../pages/HP/HP_OneEvent.css';
+import { useNavigate } from 'react-router-dom';
+import { useToggle } from '../pages/HP/useToggle';
+import loading_gif from '../resources/prosecing.gif'
 
 interface HP_HallAvailabilityProps {
   show_2: boolean;
+  handleClose: () => void;
   handleClose_2: () => void;
   eventData: any;
   finalDuration: number;
   eventImage: File | null; 
 }
 
-const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handleClose_2, eventData, finalDuration, eventImage }) => {
+const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handleClose_2, handleClose, eventData, finalDuration, eventImage }) => {
   const [message, setMessage] = useState('');
   const [event_id, setEventId] = useState('');
   const [totalCharge, setTotalCharge] = useState(0);
   const [advancePayment, setAdvancePayment] = useState(0);
+  const navigate = useNavigate();
+  const [showLoadingPopup, toggleLoadingPopup] = useState(false);
 
   useEffect(() => {
     if (eventData && eventData.event_id) {
@@ -33,6 +39,9 @@ const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handl
 
   const handleOrderPhysicalEvent = async (event: FormEvent) => {
     event.preventDefault();
+    handleClose_2();
+    handleClose();
+    toggleLoadingPopup(true);
     if (event_id) {
       try {
         if (!eventImage) {
@@ -55,7 +64,8 @@ const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handl
             'Content-Type': 'multipart/form-data',
           },
         });
-        handleClose_2();
+        toggleLoadingPopup(false);
+        navigate('/HP_ViewEvents');
       } catch (error) {
         setMessage('Error registering event');
       }
@@ -131,6 +141,7 @@ const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handl
           </div>
         </div>
       </div>
+      <img className={`${showLoadingPopup ? 'showLoading' : 'showLoading_2'}`} src={loading_gif}/>
     </div>
   );
 };
