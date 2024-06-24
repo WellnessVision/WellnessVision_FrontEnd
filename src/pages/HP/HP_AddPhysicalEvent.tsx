@@ -349,7 +349,7 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                             </div>
                             <button type="submit" className="btn btn-primary" disabled={isButtonDisabled}>Check Hall Availability</button>
                         </form>
-                        <HallAvailability show_2={showPopup_2} handleClose_2={togglePopup_2} eventData={eventData} finalDuration={parseInt(finalDuration)}  eventImage={eventImage}/>
+                        <HallAvailability show_2={showPopup_2} handleClose_2={togglePopup_2} handleClose={handleClose} eventData={eventData} finalDuration={parseInt(finalDuration)}  eventImage={eventImage}/>
                     </div>
                 </div>
             </div>
