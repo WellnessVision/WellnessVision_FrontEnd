@@ -11,6 +11,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #f0f8ff;
+    margin-top: -25px;
 }
 
 .form_div {
@@ -37,8 +38,14 @@ body {
 }
 
 .Profession {
+    margin-left: -625PX;
+    font-size: 18px;
+    font-weight: 590;
+}
+
+.Profession_2 {
     margin-left: -610PX;
-    margin-bottom: 20px;
+    margin-top: -10px;
     font-size: 18px;
     font-weight: 590;
 }
@@ -102,4 +109,36 @@ body {
 .message {
     margin-top: 20px;
     color: green;
+}
+
+.passwordNotMatchingErrorHpRegister{
+    margin-top: 10px;
+    font-weight: 590;
+    color: red;
+}
+
+.passwordPattenErrorHpRegisterDiv{
+    margin-top: -15px;
+    background-color:bisque;
+    border-radius: 5px;
+
+}
+
+.passwordPattenErrorHpRegister{
+    opacity: 1;
+    visibility: visible;
+    margin-top: 10px;
+    font-weight: 590;
+    color: red;
+    padding: 5px;
+}
+
+.passwordPattenErrorHpRegisterNotShow{
+    opacity: 0;
+    visibility: hidden;
+
+}
+
+.profilePicture{
+    margin-top: -50px;
 }
