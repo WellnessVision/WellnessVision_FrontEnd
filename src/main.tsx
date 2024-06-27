@@ -12,6 +12,7 @@ import AdminViewHealthProfessionalRegistrationRequest from './pages/Admin/HP_reg
 import AdminViewOneHealthProfessionalRegistrationRequest from './pages/Admin/HP_viewOneRegistrationRequest'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: "AdminViewOneHealthProfessionalRegistrationRequest/:requestId",
     element: <AdminViewOneHealthProfessionalRegistrationRequest/>,
+  },
+  {
+    path: "TM_Sidebar",
+    element: <TM_Sidebar activeMenuItem={''}/>
   },
 ]);
 
