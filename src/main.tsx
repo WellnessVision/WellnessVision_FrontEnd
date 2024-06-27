@@ -8,6 +8,8 @@ import Login from './pages/Login'
 import HP_ViewEvents from './pages/HP/HP_ViewEvents'
 import HP_OneEvents from './pages/HP/HP_OneEvent'
 import HP_Test from './pages/HP/HP_Test'
+import AdminViewHealthProfessionalRegistrationRequest from './pages/Admin/HP_registrationRequest'
+import AdminViewOneHealthProfessionalRegistrationRequest from './pages/Admin/HP_viewOneRegistrationRequest'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
@@ -46,9 +48,17 @@ const router = createBrowserRouter([
     element: <HP_Test/>,
   },
   {
+    path: "AdminViewHealthProfessionalRegistrationRequest",
+    element: <AdminViewHealthProfessionalRegistrationRequest/>,
+  },
+  {
+    path: "AdminViewOneHealthProfessionalRegistrationRequest/:requestId",
+    element: <AdminViewOneHealthProfessionalRegistrationRequest/>,
+  },
+  {
     path: "TM_Sidebar",
     element: <TM_Sidebar activeMenuItem={''}/>
-  }
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
