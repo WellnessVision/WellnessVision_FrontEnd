@@ -4,6 +4,7 @@ import "./HP_Register.css"
 
 const HP_Register: React.FC = () => {
     const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState<string | null>(null);
     const [password, setPassword] = useState('');
     const [confomationPassword, setConfomationPassword] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -26,6 +27,38 @@ const HP_Register: React.FC = () => {
     const [certificateImage, setCertificateImage] = useState<File | null>(null);
     const [otherVerificationPdf, setOtherVerificationPdf] = useState<File | null>(null);
     const [profilePicture, setProfilePicture] = useState<File | null>(null);
+    const [phoneNumber, setPhoneNumber] = useState<string>('');
+    const [phoneNumberError, setPhoneNumberError] = useState<JSX.Element | null>(null);
+
+    const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setEmail(value);
+
+        const emailRegex = /@/;
+        if (!emailRegex.test(value)) {
+            setEmailError('Email must contain "@" character ');
+        } else {
+            setEmailError(null);
+        }
+    };
+
+    const handlePhoneNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        const phoneRegex = /^0\d{9}$/;
+
+        if (!phoneRegex.test(value)) {
+            setPhoneNumberError(
+                <div>
+                    <span>Mobiled number must start with 0</span><br />
+                    <span>and have exactly 10 digits</span>
+                </div>
+            );
+        } else {
+            setPhoneNumberError(null);
+        }
+
+        setPhoneNumber(value);
+    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newPassword = e.target.value;
@@ -75,7 +108,7 @@ const HP_Register: React.FC = () => {
 
     const handleRegister = async (event: React.FormEvent) => {
         event.preventDefault();
-        if((message != '') || (passwordPattonError != '')){
+        if((message != '') || (passwordPattonError != '') || (emailError != null) || (phoneNumberError != null)){
             alert("Something wrong in your data");
             return;
         }
@@ -89,6 +122,7 @@ const HP_Register: React.FC = () => {
         formData.append('province', province);
         formData.append('zip', zip);
         formData.append('email', email);
+        formData.append('phoneNumber', phoneNumber);
         if (profilePicture) formData.append('profilePicture', profilePicture);
         formData.append('password', password);
         formData.append('profession', profession);
@@ -244,17 +278,33 @@ const HP_Register: React.FC = () => {
                         </div>
                     </div>
                     <h1 className='Profession'>Account Details</h1>
+                    <div className="name-group">
                     <div className="form-group">
                         <input 
-                            type="email" 
+                            type="text" 
                             className="form-control" 
                             id="exampleInputEmail1" 
                             aria-describedby="emailHelp" 
                             placeholder="Email" 
                             required
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={handleEmailChange}
                         />
+                    </div>
+                    <label className='passwordNotMatchingErrorHpRegister'>{emailError}</label>
+                    <div className="form-group">
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            id="exampleInputEmail1" 
+                            aria-describedby="emailHelp" 
+                            placeholder="Mobiled Number" 
+                            required
+                            value={phoneNumber}
+                            onChange={handlePhoneNumberChange}
+                        />
+                    </div>
+                    <label className='passwordNotMatchingErrorHpRegister phoneNumberError_HP_Resister'>{phoneNumberError}</label>
                     </div>
                     <div className="form-group">
                        <label htmlFor="exampleFormControlFile1">Profile Picture</label>
