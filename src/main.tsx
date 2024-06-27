@@ -10,6 +10,7 @@ import HP_OneEvents from './pages/HP/HP_OneEvent'
 import HP_Test from './pages/HP/HP_Test'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
     path: "HP_Test",
     element: <HP_Test/>,
   },
+  {
+    path: "TM_Sidebar",
+    element: <TM_Sidebar activeMenuItem={''}/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
