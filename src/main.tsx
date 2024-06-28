@@ -11,6 +11,7 @@ import HP_Test from './pages/HP/HP_Test'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
+import Volunteer_Sidebar from './pages/Volunteer/Volunteer_Sidebar'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "TM_Sidebar",
     element: <TM_Sidebar activeMenuItem={''}/>
+  },
+  {
+    path: "Volunteer_Sidebar",
+    element: <Volunteer_Sidebar activeMenuItem={''}/>
   }
 ]);
 
