@@ -4,7 +4,7 @@ import Sidebar from '../../components/HP_SideBar'
 function HP_Dashboard() {
   return (
     <div className="d-flex">
-    <Sidebar />
+    <Sidebar/>
   </div>
   )
 }

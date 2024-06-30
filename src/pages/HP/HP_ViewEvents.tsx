@@ -40,7 +40,7 @@ const HP_ViewEvents: React.FC = () => {
   const [showPopup, togglePopup] = useToggle();
   const [events, setEvents] = useState<PhysicalEvent[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const hpId = 1;
+  const hpId = Number(localStorage.getItem('hpId'));
   const navigate = useNavigate();
 
   const fetchEvents = async () => {

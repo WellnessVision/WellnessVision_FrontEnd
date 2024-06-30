@@ -142,7 +142,7 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
 
     return (
         <div className={`popup ${show ? 'show' : ''}`}>
-            <div className="popup-inner popup-inner_HP_AddPhysicalEvent">
+            <div className="popup-inner" id='popup-inner_HP_AddPhysicalEvent'>
                 <button className="btn btn-danger close-btn" onClick={() => { handleClose(); ClearAll(); }}>
                     <i className="bi bi-x-lg closeAddEvent"></i>
                 </button>

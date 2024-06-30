@@ -44,7 +44,6 @@
   }
 
   .popup.show {
-    border-radius: 5px;
     visibility: visible;
     opacity: 1;
   }
@@ -54,14 +53,14 @@
     position: relative;
   }
 
-  .popup-inner_HP_AddPhysicalEvent{
-    border-radius: 5px;
+  #popup-inner_HP_AddPhysicalEvent{
+    margin-top: 25px;
   }
   
   .close-btn {
     justify-content: center;
     position: absolute;
-    top: 10px;
+    top: -15px;
     right: 10px;
     cursor: pointer;
     height: 30px;

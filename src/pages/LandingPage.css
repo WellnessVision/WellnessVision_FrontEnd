@@ -1,0 +1,22 @@
+#login_landing_page{
+    position: absolute;
+    margin-left: 1340px;
+}
+
+#register_landing_page{
+    position: absolute;
+    margin-left: 1430px;
+}
+
+.icon_landing_page{
+    width: 73px;
+    height: 45px;
+    border-radius: 10px;
+}
+
+.wellnessVision_landing_page{
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 22px;
+    font-family:'Courier New', Courier, monospace;
+}
