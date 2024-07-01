@@ -9,10 +9,15 @@ import HP_ViewEvents from './pages/HP/HP_ViewEvents'
 import HP_OneEvents from './pages/HP/HP_OneEvent'
 import HP_Test from './pages/HP/HP_Test'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NU_Register from './pages/NormalUser/NU_Register'
+
+
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import NU_SideBar from './pages/NormalUser/NU_SideBar'
+
 
 const router = createBrowserRouter([
   {
@@ -28,12 +33,20 @@ const router = createBrowserRouter([
     element: <HP_Register/>,
   },
   {
+    path: "NU_Register",
+    element: <NU_Register/>,
+  },
+  {
     path: "Login",
     element: <Login/>,
   },
   {
     path: "HP_ViewEvents",
     element: <HP_ViewEvents/>,
+  },
+  {
+    path: "NU_temp",
+    element: <NU_SideBar/>,
   },
   {
     path: "HP_OneEvents",
