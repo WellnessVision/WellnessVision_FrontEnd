@@ -13,10 +13,15 @@ import AdminViewOneHealthProfessionalRegistrationRequest from './pages/Admin/HP_
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
+import Volunteer_Sidebar from './pages/Volunteer/Volunteer_Sidebar'
+import NU_Register from './pages/NormalUser/NU_Register'
+
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import NU_SideBar from './pages/NormalUser/NU_SideBar'
+
 
 const router = createBrowserRouter([
   {
@@ -30,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "HP_Register",
     element: <HP_Register/>,
+  },
+  {
+    path: "NU_Register",
+    element: <NU_Register/>,
   },
   {
     path: "Login",
@@ -59,6 +68,10 @@ const router = createBrowserRouter([
     path: "TM_Sidebar",
     element: <TM_Sidebar activeMenuItem={''}/>
   },
+  {
+    path: "Volunteer_Sidebar",
+    element: <Volunteer_Sidebar activeMenuItem={''}/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
