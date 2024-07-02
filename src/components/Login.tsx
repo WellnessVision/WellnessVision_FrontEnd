@@ -13,6 +13,7 @@ const Login: React.FC = () => {
                 password
             });
             setMessage(response.data);
+            
         } catch (error) {
             setMessage('Error logging in');
         }
