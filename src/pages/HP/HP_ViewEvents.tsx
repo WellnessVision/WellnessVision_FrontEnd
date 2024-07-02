@@ -40,13 +40,13 @@ const HP_ViewEvents: React.FC = () => {
   const [showPopup, togglePopup] = useToggle();
   const [events, setEvents] = useState<PhysicalEvent[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const hpId = 1;
+  const hpId = Number(localStorage.getItem('hpId'));
   const navigate = useNavigate();
 
   const fetchEvents = async () => {
     try {
       const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/viewPhysicalEvent`, {
-        params: { hp_id: hpId }
+        params: { hp_id: hpId, eventState: "Upcoming" }
       });
       setEvents(response.data);
     } catch (err) {
@@ -68,7 +68,7 @@ const HP_ViewEvents: React.FC = () => {
 
   return (
     <div>
-      <HPSideBar activeMenuItem="Events" />
+      <HPSideBar activeMenuItem="UpcomingEvents" />
       <div className={`blurBackground ${showPopup ? 'blur' : ''}`}>
         <h3 className="header">All Events</h3>
         <a onClick={togglePopup} className="btn btn-success add_physical">

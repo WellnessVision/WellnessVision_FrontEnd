@@ -1,0 +1,12 @@
+.fine_details_Hp_DeletePhysicalEventFineDetails{
+    width: 550px;
+    color: red;
+    font-weight: 590;
+    font-size: large;
+}
+
+.fine_details_card__Hp_DeletePhysicalEventFineDetails {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

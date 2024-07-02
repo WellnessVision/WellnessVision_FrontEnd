@@ -23,6 +23,7 @@ const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handl
   const [advancePayment, setAdvancePayment] = useState(0);
   const navigate = useNavigate();
   const [showLoadingPopup, toggleLoadingPopup] = useState(false);
+  const hpId = String(localStorage.getItem('hpId'));
 
   useEffect(() => {
     if (eventData && eventData.event_id) {
@@ -56,8 +57,8 @@ const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handl
         formData.append('total_hall_charge', totalCharge.toString());
         formData.append('advance_percentage', eventData.advance_percentage.toString());
         formData.append('advance_payment', advancePayment.toString());
-        formData.append('payment_state', 'paid');
         formData.append('userEmail', 'ruchithsathnidu123@gmail.com');
+        formData.append('hpId', hpId);
 
         await axios.post('http://localhost:15000/physicalEventImageUpload', formData, {
           headers: {
