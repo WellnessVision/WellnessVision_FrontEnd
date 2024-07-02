@@ -26,6 +26,11 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
     const [language, setLanguage] = useState('');
     const [endTime, setEndTime] = useState('');
     const [duration, setDuration] = useState('');
+    const [accountNumber, setAccountNumber] = useState('');
+    const [accountNumberError, setAccountNumberError] = useState<JSX.Element | null>(null);
+    const [accountOwnerName, setAccountOwnerName] = useState('');
+    const [branchName, setBranchName] = useState('');
+    const [bankName, setBankName] = useState('');
     const [finalDuration, setFinalDuration] = useState('');
     const [eventDescription, setEventDescription] = useState('');
     const [eventImage, setEventImage] = useState<File | null>(null);
@@ -65,7 +70,7 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
         try {
             
             const nullImage = "pending";
-            const hpId = 1;
+            const hpId = Number(localStorage.getItem('hpId'));
 
             const response = await axios.post('http://localhost:15000/physicalEvent', {
                 eventTitle,
@@ -80,7 +85,11 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                 language,
                 eventDescription,
                 hpId,
-                nullImage
+                nullImage,
+                accountNumber,
+                accountOwnerName,
+                branchName,
+                bankName
             });
 
             setEventData(response.data);
@@ -99,6 +108,23 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
             setEndTime('');
             setMessage('End time must be greater than start time');
         }
+    };
+
+    const handlePhoneNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        const accountNumberRegex = /^\d+$/;
+
+        if (!accountNumberRegex.test(value)) {
+            setAccountNumberError(
+                <div>
+                    <span>Account number must be a number</span><br />
+                </div>
+            );
+        } else {
+            setAccountNumberError(null);
+        }
+
+        setAccountNumber(value);
     };
 
     const handleClear = () => {
@@ -147,7 +173,7 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                     <i className="bi bi-x-lg closeAddEvent"></i>
                 </button>
                 <div className="hp_form">
-                    <div className="form_div">
+                    <div className="form_div hp_form_padding_HP_addPhysicalEvent">
                         <h1 className="hp_header_HP_AddPhysicalEvent hp_header">Add New Physical Event</h1>
                         <form onSubmit={handleAddPhysicalEvent}>
                             <div className="form-group">
@@ -206,7 +232,7 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                                     </select>
                                 </div>
                             </div>
-                            <div className="form-group">
+                            <div className="form-group EventDate_HP_addPhysicalEvent_for_hp">
                                 <label htmlFor="exampleInputPassword1" className="form-label event_date_HP_AddPhysicalEvent">Event Date (The date should be tomorrow or later)</label>
                                 <input
                                     type="date"
@@ -281,7 +307,7 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                                 </button>
                             </div>
                             {message && !duration && <p className="time_wrong_addEvent">{message}</p>}
-                            <div className="name-group">
+                            <div className="name-group capasity_HP_addPhysicalEvent">
                                 <div className="form-group">
                                     <input
                                         type="number"
@@ -336,7 +362,7 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                                 />
                             </div>
                             </div>
-                            <div className="form-group">
+                            <div className="form-group EventDescription_add_physical_event_hp">
                                 <textarea
                                     className="form-control"
                                     id="EventDescription"
@@ -347,7 +373,54 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                                     onChange={(e) => setEventDescription(e.target.value)}
                                 />
                             </div>
-                            <button type="submit" className="btn btn-primary" disabled={isButtonDisabled}>Check Hall Availability</button>
+                            <p className='Money_receipts_details_HP_addPhysicalEvent'>Money receipts details</p>
+                            <div className="name-group Money_receipts_details_HP_addPhysicalEvent">
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    className="form-control language_HP_addPhysicalEvent"
+                                    id="EventLanguage"
+                                    placeholder="Account Number"
+                                    required
+                                    value={accountNumber}
+                                    onChange={handlePhoneNumberChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    className="form-control language_HP_addPhysicalEvent"
+                                    id="EventLanguage"
+                                    placeholder="Account Holder Name"
+                                    required
+                                    value={accountOwnerName}
+                                    onChange={(e) => setAccountOwnerName(e.target.value)}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    className="form-control language_HP_addPhysicalEvent"
+                                    id="EventLanguage"
+                                    placeholder="Branch Name"
+                                    required
+                                    value={branchName}
+                                    onChange={(e) => setBranchName(e.target.value)}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    className="form-control language_HP_addPhysicalEvent"
+                                    id="EventLanguage"
+                                    placeholder="Bank Name"
+                                    required
+                                    value={bankName}
+                                    onChange={(e) => setBankName(e.target.value)}
+                                />
+                            </div>
+                                </div>
+                            <button type="submit" className="btn btn-primary submit_button_HP_addPhysicalEvent" disabled={isButtonDisabled}>Check Hall Availability</button>
                         </form>
                         <HallAvailability show_2={showPopup_2} handleClose_2={togglePopup_2} handleClose={handleClose} eventData={eventData} finalDuration={parseInt(finalDuration)}  eventImage={eventImage}/>
                     </div>

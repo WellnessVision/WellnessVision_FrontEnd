@@ -94,4 +94,27 @@
   .hp_header{
     margin-top: -65px;
   }
+
+ .EventDescription_add_physical_event_hp{
+       margin-top: -15px;
+  }
   
+.Money_receipts_details_HP_addPhysicalEvent{
+    margin-top: -8px;
+}
+
+.EventDate_HP_addPhysicalEvent_for_hp{
+  margin-top: -20px;
+}
+
+.submit_button_HP_addPhysicalEvent{
+  margin-top: -25px;
+}
+
+.capasity_HP_addPhysicalEvent{
+  margin-top: -20px;
+}
+
+.hp_form_padding_HP_addPhysicalEvent{
+  padding: 20px 15px 10px 15px;
+}

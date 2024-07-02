@@ -4,6 +4,8 @@ import './HP_OneEvent.css';
 import yoga01 from '../../resources/yoga01.png'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Hp_DeletePhysicalEventFineDetailsProps from '../../components/Hp_DeletePhysicalEventFineDetails';
+import { useToggle } from '../../pages/HP/useToggle';
 
 interface PhysicalEvent {
     event_id: number;
@@ -32,8 +34,10 @@ interface PhysicalEvent {
     return `${formattedHour}:00 ${period}`;
   };
 
-const HP_OneEvent: React.FC = () => {
+  const HP_OneEvent: React.FC = () => {
+  const [showPopup, togglePopup] = useToggle();
   const { eventId } = useParams<{ eventId: string }>();
+  localStorage.setItem('eventId', String(eventId));
   const [event, setEvent] = useState<PhysicalEvent | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -66,7 +70,7 @@ const HP_OneEvent: React.FC = () => {
 
     return (
         <div>
-            <HPSideBar activeMenuItem="Events" />
+            <HPSideBar activeMenuItem="UpcomingEvents" />
             <div className="cardHang_2">
             <div className="card" style={{ width: '95%' }}>
                 <img src ={yoga01} className="image" alt="Card image" />
@@ -91,11 +95,12 @@ const HP_OneEvent: React.FC = () => {
                     <div className='button_div'>
                     <a href="/HP_ViewEvents" className="btn btn-primary back_button"><i className='bi bi-arrow-left-circle'></i> Back to Events</a>
                     <a href="HP_OneEvents" className="btn btn-success view_button"><i className='bi bi-chat-left-dots'></i> Contact Event Manager</a>
-                    <a href="HP_OneEvents" className="btn btn-danger book_button"><i className='bi bi-trash3'></i> Delete Event</a>
+                    <a className="btn btn-danger book_button" onClick={togglePopup}><i className='bi bi-trash3'></i> Delete Event</a>
                     </div>
                 </div> 
                 </div>
             </div>
+            <Hp_DeletePhysicalEventFineDetailsProps show={showPopup} handleClose={togglePopup}/>
         </div>
     );
 }

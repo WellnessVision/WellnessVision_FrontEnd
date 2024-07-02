@@ -31,7 +31,7 @@ const Login: React.FC<LoginProps> = ({ show, handleClose }) => {
             const loginData = response.data;
             if (loginData.user_type === "HP") {
                 localStorage.setItem('hpId', String(loginData.id));
-                navigate('/HP_ViewEvents');
+                navigate('/HP_Dashboard');
             } else {
                 alert(loginData.user_type);
             }

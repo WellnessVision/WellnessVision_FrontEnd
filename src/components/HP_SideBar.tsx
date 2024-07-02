@@ -1,19 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/js/dist/dropdown.js';
 import 'bootstrap/js/dist/collapse.js';
 import './HP_SideBar.css';
 import NotificationIcon from './HP_NotificationIcon';
-import profilePic from '../resources/R_A_R_Sathnidu.jpg';
 import WellnessVision from '../resources/WellnessVision_new_icon.png';
+import axios from 'axios';
 
 interface SidebarProps {
     activeMenuItem: string;
 }
 
+interface HP_Profile {
+    firstName: string;
+    lastName: string;
+    profilePicture: string;
+  }
+
 const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
     const notificationCount = 3;
+    const [error, setError] = useState<string | null>(null);
+    const hpId = Number(localStorage.getItem('hpId'));
+    const [profileDetails, setProfileDetails] = useState<HP_Profile | null>(null);
+
+    const fetchProfileDetails = async () => {
+        try {
+          const response = await axios.get<HP_Profile>(`http://localhost:15000/healthProfessionalDashboardProfileDetails`, {
+            params: { hpId: hpId }
+          });
+          setProfileDetails(response.data);
+        } catch (err) {
+          if (err instanceof Error) {
+            setError(err.message);
+          } else {
+            setError('An unknown error occurred');
+          }
+        }
+      };
+    
+      useEffect(() => {
+        fetchProfileDetails();
+      }, []);
 
     return (
         <div>
@@ -24,8 +52,12 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                     <div className="ml-auto">
                         <NotificationIcon count={notificationCount} />
                     </div>
-                    <div className="name">Ruchith Sathnidu</div>
-                    <img src={profilePic} alt="Profile" className="profile-pic" id='Profile' />
+                    {profileDetails && (
+                        <>
+                            <div className="name">{profileDetails.firstName + " " + profileDetails.lastName}</div>
+                            <img src={profileDetails.profilePicture} alt="Profile" className="profile-pic" id='Profile' />
+                        </>
+                    )}
                 </div>
             </nav>
 
@@ -38,16 +70,16 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                         <hr className='text-white d-none d-sm-block'></hr>
                         <ul className="nav nav-pills flex-column mt-2 mt-sm-0" id='parentM'>
                             <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'Dashboard' ? 'active' : ''}`}>
-                                <a href="HP_Dashboard" className="nav-link text-white text-center text-sm-start" aria-current="page">
+                                <a href="/HP_Dashboard" className={`nav-link text-white text-center text-sm-start ${activeMenuItem === 'Dashboard' ? 'active' : ''}`} aria-current="page">
                                     <i className='bi bi-speedometer2'></i>
                                     <span className='ms-2 d-none d-sm-inline'>Dashboard</span>
                                 </a>
                             </li>
 
-                            <li className="nav-item my-1 py-2 py-sm-0">
-                                <a href="#submenu1" className={`nav-link text-white text-center text-sm-start ${activeMenuItem === 'Events' ? 'active' : ''}`} data-bs-toggle="collapse" aria-current="page">
-                                    <i className='bi bi-grid'></i>
-                                    <span className='ms-2 d-none d-sm-inline'>Events</span>
+                            <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'UpcomingEvents' ? 'active' : ''}`}>
+                                <a href="#submenu1" className={`nav-link text-white text-center text-sm-start ${activeMenuItem === 'UpcomingEvents' ? 'active' : ''}`} data-bs-toggle="collapse" aria-current="page">
+                                    <i className='bi bi-calendar2-week'></i>
+                                    <span className='ms-2 d-none d-sm-inline'>Upcoming Events</span>
                                     <i className='bi bi-arrow-down-short text-end'></i>
                                 </a>
                                 <ul className="nav collapse ms-2 flex-column" id='submenu1' data-bs-parent="#parentM">
@@ -57,7 +89,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                                         </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link text-white" href="#" aria-current="page">
+                                        <a className="nav-link text-white" href="/HP_ViewEvents" aria-current="page">
                                             Physical <span className='d-none d-sm-inline'>Events</span>
                                         </a>
                                     </li>
@@ -69,10 +101,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                                 </ul>
                             </li>
 
-                            <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'UpcomingEvents' ? 'active' : ''}`}>
-                                <a href="#submenu2" className="nav-link text-white text-center text-sm-start" data-bs-toggle="collapse" aria-current="page">
-                                    <i className='bi bi-calendar2-week'></i>
-                                    <span className='ms-2 d-none d-sm-inline'>Upcoming Events</span>
+                            <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'PreviousEvents' ? 'active' : ''}`}>
+                                <a href="#submenu2" className={`nav-link text-white text-center text-sm-start ${activeMenuItem === 'PreviousEvents' ? 'active' : ''}`} data-bs-toggle="collapse" aria-current="page">
+                                    <i className='bi bi-grid'></i>
+                                    <span className='ms-2 d-none d-sm-inline'>Previous Events</span>
                                     <i className='bi bi-arrow-down-short text-end'></i>
                                 </a>
                                 <ul className="nav collapse ms-2 flex-column" id='submenu2' data-bs-parent="#parentM">
@@ -95,14 +127,14 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                             </li>
 
                             <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'Appointments' ? 'active' : ''}`}>
-                                <a href="#" className="nav-link text-white text-center text-sm-start" aria-current="page">
+                                <a href="#" className={`nav-link text-white text-center text-sm-start ${activeMenuItem === 'Appointments' ? 'active' : ''}`} aria-current="page">
                                     <i className='bi bi-alarm'></i>
                                     <span className='ms-2 d-none d-sm-inline'>Appointments</span>
                                 </a>
                             </li>
 
                             <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'Articles' ? 'active' : ''}`}>
-                                <a href="#" className="nav-link text-white text-center text-sm-start" aria-current="page">
+                                <a href="#" className={`nav-link text-white text-center text-sm-start ${activeMenuItem === 'Articles' ? 'active' : ''}`} aria-current="page">
                                     <i className='bi bi-file-text'></i>
                                     <span className='ms-2 d-none d-sm-inline'>Awareness Articles</span>
                                 </a>
@@ -122,6 +154,6 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
             </div>
         </div>
     );
-}
+};
 
 export default Sidebar;
