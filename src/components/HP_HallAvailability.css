@@ -76,3 +76,19 @@
     font-weight: 590;
     margin-top: -10px;
 }
+
+.popup-inner_HP_HallAvailability{
+    z-index: 3;
+}
+
+.showLoading {
+    position: absolute;
+    visibility: visible;
+    opacity: 1;
+  }
+
+.showLoading_2 {
+    position: absolute;
+    visibility: unset;
+    opacity: 0;
+  }

@@ -8,9 +8,13 @@ import Login from './pages/Login'
 import HP_ViewEvents from './pages/HP/HP_ViewEvents'
 import HP_OneEvents from './pages/HP/HP_OneEvent'
 import HP_Test from './pages/HP/HP_Test'
+import AdminViewHealthProfessionalRegistrationRequest from './pages/Admin/HP_registrationRequest'
+import AdminViewOneHealthProfessionalRegistrationRequest from './pages/Admin/HP_viewOneRegistrationRequest'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
+import Volunteer_Sidebar from './pages/Volunteer/Volunteer_Sidebar'
 import NU_Register from './pages/NormalUser/NU_Register'
-
 
 import {
   createBrowserRouter,
@@ -45,17 +49,29 @@ const router = createBrowserRouter([
     element: <HP_ViewEvents/>,
   },
   {
-    path: "NU_temp",
-    element: <NU_SideBar/>,
-  },
-  {
-    path: "HP_OneEvents",
+    path: "HP_OneEvents/:eventId",
     element: <HP_OneEvents/>,
   },
   {
     path: "HP_Test",
     element: <HP_Test/>,
   },
+  {
+    path: "AdminViewHealthProfessionalRegistrationRequest",
+    element: <AdminViewHealthProfessionalRegistrationRequest/>,
+  },
+  {
+    path: "AdminViewOneHealthProfessionalRegistrationRequest/:requestId",
+    element: <AdminViewOneHealthProfessionalRegistrationRequest/>,
+  },
+  {
+    path: "TM_Sidebar",
+    element: <TM_Sidebar activeMenuItem={''}/>
+  },
+  {
+    path: "Volunteer_Sidebar",
+    element: <Volunteer_Sidebar activeMenuItem={''}/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
