@@ -6,7 +6,8 @@ import '../pages/HP/HP_OneEvent.css';
 import '../components/Hp_DeletePhysicalEventFineDetails.css'
 import { useNavigate } from 'react-router-dom';
 import { useToggle } from '../pages/HP/useToggle';
-import loading_gif from '../resources/prosecing.gif'
+import loading_gif from '../resources/prosecing.gif';
+import Hp_DeletePhysicalEventReasonAndContinue from '../components/Hp_DeletePhysicalEventReasonAndContinue';
 
 interface Hp_DeletePhysicalEventFineDetailsProps {
   show: boolean;
@@ -31,6 +32,7 @@ const Hp_DeletePhysicalEventFineDetails: React.FC<Hp_DeletePhysicalEventFineDeta
     const navigate = useNavigate();
     const [showLoadingPopup, toggleLoadingPopup] = useState(false);
     const eventId = String(localStorage.getItem('eventId'));
+    const [showPopup_Deletereason, togglePopup_Deletereason] = useToggle();
 
 
     const fetchFineData = async () => {
@@ -55,7 +57,7 @@ fetchFineData();
 
 
     return (
-        <div className={`popup ${show ? 'show' : ''} popup_HP_HallAvailability_popup`}>
+        <div className={`popup ${show ? 'show popup_Hp_DeletePhysicalEventFineDetails' : ''} popup_HP_HallAvailability_popup`}>
           <div className="popup-inner popup-inner_HP_HallAvailability">
             <div className="card HP_HallAvailability_fontSize" style={{ width: '100%' }}>
               <div className="card-body fine_details_card__Hp_DeletePhysicalEventFineDetails">
@@ -74,10 +76,10 @@ fetchFineData();
                       <div className='fine_details_Hp_DeletePhysicalEventFineDetails'><p className="card-text detail">{fineAmountDetails.fineAmountDetails}</p></div>
                       <div className='HP_HallAvailability_button_div'>
                         <button className="btn btn-primary HP_HallAvailability_cancel_button" onClick={handleClose}>
-                          <i className="bi bi-arrow-left-circle"></i> Cancel
+                          <i className="bi bi-arrow-left-circle"></i> Go Back
                         </button>
-                        <button className="btn btn-warning HP_HallAvailability_hallBook">
-                          <i className="bi bi-bag-plus-fill"></i><span className='HP_HallAvailability_hallBook_text'> Book Now</span>
+                        <button className="btn btn-danger HP_HallAvailability_hallBook" onClick={togglePopup_Deletereason}>
+                          <i className="bi bi-check2-square"></i><span className='HP_HallAvailability_hallBook_text'> Continue</span>
                         </button>
                       </div>
                     </div>
@@ -89,6 +91,7 @@ fetchFineData();
               </div>
             </div>
           </div>
+          <Hp_DeletePhysicalEventReasonAndContinue showPopup_Deletereason={showPopup_Deletereason} handleClose_Deletereason={togglePopup_Deletereason} fineAmountData={fineAmountDetails}/>
           <img className={`${showLoadingPopup ? 'showLoading' : 'showLoading_2'}`} src={loading_gif}/>
         </div>
       );

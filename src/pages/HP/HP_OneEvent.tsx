@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Hp_DeletePhysicalEventFineDetailsProps from '../../components/Hp_DeletePhysicalEventFineDetails';
 import { useToggle } from '../../pages/HP/useToggle';
+import Hp_ViewModifyMoneyReceiptsDetails from '../../components/Hp_ViewModifyMoneyReceiptsDetails'
 
 interface PhysicalEvent {
     event_id: number;
@@ -26,6 +27,12 @@ interface PhysicalEvent {
     payment_id: number;
     language: string;
     event_description: string;
+    hp_id: number,
+    event_state: string,
+    accountNumber: string,
+    accountOwnerName: string,
+    branchName: string,
+    bankName: string
   }
 
   const formatTime = (hour: number): string => {
@@ -36,6 +43,7 @@ interface PhysicalEvent {
 
   const HP_OneEvent: React.FC = () => {
   const [showPopup, togglePopup] = useToggle();
+  const [showPopup_2, togglePopup_2] = useToggle();
   const { eventId } = useParams<{ eventId: string }>();
   localStorage.setItem('eventId', String(eventId));
   const [event, setEvent] = useState<PhysicalEvent | null>(null);
@@ -78,7 +86,7 @@ interface PhysicalEvent {
                 <div className='base_details'>
                     <h5 className="card-title title">{event.eventTitle}</h5>
                     <div className="straight-line"></div>
-                    <p className="card-text detail"><i className='bi bi-bookmark-star-fill'></i> {event.finalEventType}</p>
+                    <p className="card-text detail"><i className='bi bi-award-fill'></i> {event.event_id} (Event ID)<span className='event_id_span_hp_one_event'><i className='bi bi-bookmark-star-fill'></i> {event.finalEventType}</span></p>
                     <p className="card-text detail physical"><i className='bi bi-soundwave'></i> {event.hall_id} (WellnessVision Hall)</p>
                     <p className="card-text detail"><i className='bi bi-calendar2-week-fill'></i> {event.date}</p>
                     <p className="card-text detail date"><i className='bi bi-alarm-fill'></i> {formatTime(event.startTime)}</p> 
@@ -94,6 +102,7 @@ interface PhysicalEvent {
                     </div>
                     <div className='button_div'>
                     <a href="/HP_ViewEvents" className="btn btn-primary back_button"><i className='bi bi-arrow-left-circle'></i> Back to Events</a>
+                    <a className="btn btn-warning View_Modify_Money_receipts_details_hp_one_physical_event" onClick={togglePopup_2}><i className='bi bi-info-circle'></i> Money receipts details</a>
                     <a href="HP_OneEvents" className="btn btn-success view_button"><i className='bi bi-chat-left-dots'></i> Contact Event Manager</a>
                     <a className="btn btn-danger book_button" onClick={togglePopup}><i className='bi bi-trash3'></i> Delete Event</a>
                     </div>
@@ -101,6 +110,7 @@ interface PhysicalEvent {
                 </div>
             </div>
             <Hp_DeletePhysicalEventFineDetailsProps show={showPopup} handleClose={togglePopup}/>
+            <Hp_ViewModifyMoneyReceiptsDetails show_2={showPopup_2} handleClose_2={togglePopup_2} MoneyReceiptsDetails={event}/>
         </div>
     );
 }

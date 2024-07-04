@@ -20,7 +20,6 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import NU_SideBar from './pages/NormalUser/NU_SideBar'
 
 
 const router = createBrowserRouter([
