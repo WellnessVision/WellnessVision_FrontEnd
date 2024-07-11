@@ -1,0 +1,25 @@
+.eventCloseMessageCloseButton{
+    margin-left: 10px;
+}
+
+.eventCloseMessageContinueButton{
+    width: 250px;
+    margin-left: 150px;
+}
+
+.eventCloseMessagePara_1{
+    font-size: large;
+    font-weight: 590;
+    color: red;
+}
+
+.eventCloseMessagePara_2{
+    font-size: large;
+    font-weight: 590;
+    color: red;
+    margin-top: -10px;
+}
+
+.eventBookingCloseForHPLoadingGif{
+    z-index: 10;
+}

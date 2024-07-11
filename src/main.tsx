@@ -15,6 +15,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
 import Volunteer_Sidebar from './pages/Volunteer/Volunteer_Sidebar'
 import NU_Register from './pages/NormalUser/NU_Register'
+import HP_LodingPage from './pages/HP/HP_LodingPage'
 
 import {
   createBrowserRouter,
@@ -70,7 +71,11 @@ const router = createBrowserRouter([
   {
     path: "Volunteer_Sidebar",
     element: <Volunteer_Sidebar activeMenuItem={''}/>
-  }
+  },
+  {
+    path: "HP_LodingPage",
+    element: <HP_LodingPage/>,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
