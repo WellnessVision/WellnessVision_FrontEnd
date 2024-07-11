@@ -15,15 +15,16 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
 import Volunteer_Sidebar from './pages/Volunteer/Volunteer_Sidebar'
 import NU_Register from './pages/NormalUser/NU_Register'
+import HP_LodingPage from './pages/HP/HP_LodingPage'
+import NU_Dashboard from './pages/NormalUser/NU_Dashboard'
+import NU_ViewAllPhysicalEvents from './pages/NormalUser/NU_ViewAllPhysicalEvents'
+import NU_ViewBookedPhysicalEvents from './pages/NormalUser/NU_ViewBookedphysicalEvents'
 
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import NU_Dashboard from './pages/NormalUser/NU_Dashboard'
-import NU_ViewAllPhysicalEvents from './pages/NormalUser/NU_ViewAllPhysicalEvents'
-import NU_ViewBookedPhysicalEvents from './pages/NormalUser/NU_ViewBookedphysicalEvents'
 
 
 const router = createBrowserRouter([
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
     element: <Volunteer_Sidebar activeMenuItem={''}/>
   },
   {
+    path: "HP_LodingPage",
+    element: <HP_LodingPage/>,
+  },
+  {
     path: "NU_Dashboard",
     element: <NU_Dashboard/>
   },
@@ -87,7 +92,6 @@ const router = createBrowserRouter([
     path: "NU_ViewBookedPhysicalEvents",
     element: <NU_ViewBookedPhysicalEvents/>
   }
-
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

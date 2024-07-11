@@ -86,6 +86,9 @@ const HP_ViewEvents: React.FC = () => {
                   <h5 className="card-title title">{event.eventTitle}</h5>
                   <div className="straight-line"></div>
                   <p className="card-text detail">
+                    <i className="bi bi-award-fill"></i> {event.event_id} (Event ID)
+                  </p>
+                  <p className="card-text detail">
                     <i className="bi bi-bookmark-star-fill"></i> {event.finalEventType}
                   </p>
                   <p className="card-text detail">

@@ -1,0 +1,28 @@
+.hpViewParticipantUserDetailsImage{
+    width: 250px;
+    border-radius: 50%;
+}
+
+.hpViewParticipantUserDetails_card{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.hpViewParticipantUserDetails_popup_inner{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.hpViewParticipantUserDetails_style{
+    font-weight: 590;
+    font-size: 17px;
+}
+
+.HP_ViewBookingParticipationDetails_closeButton{
+    width: 150px;
+    margin-right: 50px;
+}
