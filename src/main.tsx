@@ -16,6 +16,10 @@ import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
 import Volunteer_Sidebar from './pages/Volunteer/Volunteer_Sidebar'
 import NU_Register from './pages/NormalUser/NU_Register'
 import HP_LodingPage from './pages/HP/HP_LodingPage'
+import NU_Dashboard from './pages/NormalUser/NU_Dashboard'
+import NU_ViewAllPhysicalEvents from './pages/NormalUser/NU_ViewAllPhysicalEvents'
+import NU_ViewBookedPhysicalEvents from './pages/NormalUser/NU_ViewBookedphysicalEvents'
+
 
 import {
   createBrowserRouter,
@@ -76,6 +80,18 @@ const router = createBrowserRouter([
     path: "HP_LodingPage",
     element: <HP_LodingPage/>,
   },
+  {
+    path: "NU_Dashboard",
+    element: <NU_Dashboard/>
+  },
+  {
+    path: "NU_ViewAllPhysicalEvents",
+    element: <NU_ViewAllPhysicalEvents/>
+  },
+  {
+    path: "NU_ViewBookedPhysicalEvents",
+    element: <NU_ViewBookedPhysicalEvents/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

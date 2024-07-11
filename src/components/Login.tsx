@@ -32,7 +32,12 @@ const Login: React.FC<LoginProps> = ({ show, handleClose }) => {
             if (loginData.user_type === "HP") {
                 localStorage.setItem('hpId', String(loginData.id));
                 navigate('/HP_Dashboard');
-            } else {
+            }
+            else if(loginData.user_type === "NU"){
+                localStorage.setItem('userId', String(loginData.id));
+                navigate('/NU_Dashboard');
+            }
+            else {
                 alert(loginData.user_type);
             }
         } catch (err) {
