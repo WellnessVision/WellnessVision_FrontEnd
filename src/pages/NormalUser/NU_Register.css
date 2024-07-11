@@ -1,33 +1,13 @@
-/* NU_Register.css */
-body {
-    background-color: #f0f8ff; 
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-.hp_form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f8ff;
-}
-
-.dob-input input {
-    left: 117px;
-    position: relative;
-    width: 34%;
-}
-
-.alertplacement {
+.alertplacement_NU_Registration {
     display: flex;
     justify-content: left;
     position: fixed;
     right: 32px;
     top: 22px;
+    max-width: 280px;
 }
 
-.Lable-on-left {
+.Lable-on-left_NU_Registration {
     display: flex;
     justify-content: left;
     left: 0px;
@@ -35,7 +15,7 @@ body {
     bottom: 7px;
 }
 
-.profile-pic-label {
+.profile-pic-label_NU_Registration {
     display: flex;
     justify-content: left;
     left: 0px;
@@ -44,101 +24,6 @@ body {
     padding-top: 19px;
 }
 
-.dob {
-    display: flex;
-    justify-content: left;
-    left: 1px;
-    position: relative;
-    bottom: 0px;
-}
-
-.form_div {
-    margin-top: 50px;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 800px;
-    text-align: center;
-}
-
-.hp_header {
-    margin-bottom: 20px;
-    font-size: 28px;
-    font-weight: 590;
-}
-
-.personal {
-    margin-left: -625PX;
-    margin-bottom: 20px;
-    font-size: 18px;
-    font-weight: 590;
-}
-
-.Profession {
-    margin-left: -610PX;
-    margin-bottom: 20px;
-    font-size: 18px;
-    font-weight: 590;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.name-group {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-.name-group .form-group {
-    flex: 1;
-    margin-right: 10px;
-}
-
-.name-group .form-group:last-child {
-    margin-right: 0;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    border-color: #66afe9;
-    outline: none;
-}
-
-.form-check {
-    margin-top: 15px;
-    text-align: left;
-}
-
-.form-check-input {
-    margin-right: 10px;
-}
-
-.btn-primary {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-
-.message {
-    margin-top: 20px;
-    color: green;
+.user_form_div_NU_Registration{
+    margin-top: 10px;
 }

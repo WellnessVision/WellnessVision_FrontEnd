@@ -16,11 +16,14 @@ import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
 import Volunteer_Sidebar from './pages/Volunteer/Volunteer_Sidebar'
 import NU_Register from './pages/NormalUser/NU_Register'
 
+
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import NU_SideBar from './pages/NormalUser/NU_SideBar'
+import NU_Dashboard from './pages/NormalUser/NU_Dashboard'
+import NU_ViewAllPhysicalEvents from './pages/NormalUser/NU_ViewAllPhysicalEvents'
+import NU_ViewBookedPhysicalEvents from './pages/NormalUser/NU_ViewBookedphysicalEvents'
 
 
 const router = createBrowserRouter([
@@ -71,7 +74,20 @@ const router = createBrowserRouter([
   {
     path: "Volunteer_Sidebar",
     element: <Volunteer_Sidebar activeMenuItem={''}/>
+  },
+  {
+    path: "NU_Dashboard",
+    element: <NU_Dashboard/>
+  },
+  {
+    path: "NU_ViewAllPhysicalEvents",
+    element: <NU_ViewAllPhysicalEvents/>
+  },
+  {
+    path: "NU_ViewBookedPhysicalEvents",
+    element: <NU_ViewBookedPhysicalEvents/>
   }
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
