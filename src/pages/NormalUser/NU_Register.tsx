@@ -88,7 +88,7 @@ const NU_Register: React.FC = () => {
         }
     };
     return (
-        <div className='hp_form'>
+        <div className='hp_form user_form_div_NU_Registration'>
             <div className='form_div'>
                 <h1 className='hp_header user-header'>User Registration</h1>
                 <form onSubmit={handleRegister}>
@@ -154,7 +154,11 @@ const NU_Register: React.FC = () => {
                                 onChange={(e) => { setPasswordConfirm(e.target.value); setMessage('') }}
                             />
                         </div>
-                        {passwordErrMessage && <div className="alert alert-danger alertplacement" role="alert">{passwordErrMessage}</div>}
+                        
+                        
+                        {passwordErrMessage &&<div className="name-group"> <div className="alert alert-danger alertplacement_NU_Registration" role="alert">{passwordErrMessage}</div></div>}
+                        
+                        
                     </div>
                     
                     
@@ -270,7 +274,7 @@ const NU_Register: React.FC = () => {
                     <div className="name-group">
                     
                     <div className="form-group">
-                    <label className="Lable-on-left">Please enter any specifications you want to get notified on..  </label>
+                    <label className="Lable-on-left_NU_Registration">Please enter any specifications you want to get notified on..  </label>
                         <input 
                                 type="text" 
                                 className="form-control" 
@@ -298,7 +302,7 @@ const NU_Register: React.FC = () => {
                 </form>
                 
                 
-                {message && <div className="alert alert-danger alertplacement" role="alert">{message}</div>}
+                {message && <div className="alert alert-danger alertplacement_NU_Registration" role="alert">{message}</div>}
                 </div>
             
         </div>
