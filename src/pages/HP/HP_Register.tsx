@@ -270,7 +270,7 @@ const HP_Register: React.FC = () => {
                                 type="text" 
                                 className="form-control" 
                                 id="inputZip" 
-                                placeholder="Zip" 
+                                placeholder="Postal Code" 
                                 required
                                 value={zip}
                                 onChange={(e) => setZip(e.target.value)}

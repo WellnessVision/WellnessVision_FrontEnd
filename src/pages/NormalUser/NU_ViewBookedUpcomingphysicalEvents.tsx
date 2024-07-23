@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import HPSideBar from '../../components/HP_SideBar';
+import NU_Sidebar from './NU_components/NU_Sidebar'
+import '../HP/HP_ViewEvents.css';
 import yoga01 from '../../resources/yoga01.png';
-import './HP_ViewEvents.css';
 import AddEvent from '../HP/HP_AddPhysicalEvent';
-import HallAvailability from '../../components/HP_HallAvailability';
-import { useToggle } from './useToggle';
+import { useToggle } from '../HP/useToggle';
 
 interface PhysicalEvent {
   event_id: number;
@@ -27,6 +26,7 @@ interface PhysicalEvent {
   payment_id: number;
   language: string;
   event_description: string;
+  hp_id: number;
 }
 
 const formatTime = (hour: number): string => {
@@ -36,17 +36,17 @@ const formatTime = (hour: number): string => {
 };
 
 
-const HP_ViewEvents: React.FC = () => {
+const NU_ViewBookedUpcomingphysicalEvents: React.FC = () => {
   const [showPopup, togglePopup] = useToggle();
   const [events, setEvents] = useState<PhysicalEvent[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const hpId = Number(localStorage.getItem('hpId'));
+  const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/viewPhysicalEvent`, {
-        params: { hp_id: hpId, eventState: "Upcoming" }
+      const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/getBookedUpcomingPhysicalEventsForUsers`, {
+        params: { userId, bookingState: "Booking", eventState: "Available" }
       });
       setEvents(response.data);
     } catch (err) {
@@ -62,18 +62,15 @@ const HP_ViewEvents: React.FC = () => {
     fetchEvents();
   }, []);
 
-  const handleViewDetails = (eventId: number) => {
-    navigate(`/HP_OneEvents/${eventId}`);
+  const handleViewDetails = (eventId: number, hpId: number) => {
+    navigate(`/NU_ViewOneBookedUpcomingphysicalEvents/${eventId}/${hpId}`);
   };
 
   return (
     <div>
-      <HPSideBar activeMenuItem={["PhysicalEvents", "UpcomingEvents", "Events"]}/>
+    <NU_Sidebar activeMenuItem={["PhysicalBooked_Events", "UpcomingBooked_Events", "Booked_Events"]}/>
       <div className={`blurBackground ${showPopup ? 'blur' : ''}`}>
-        <h3 className="header">All Events</h3>
-        <a onClick={togglePopup} className="btn btn-success add_physical">
-          <i className="bi bi-plus-lg"></i> New Physical Event
-        </a>
+        <h3 className="header">Booked Upcoming Events</h3>
         <div className="cardHang">
           {events.length > 0 ? (
             events.map(event => (
@@ -97,7 +94,7 @@ const HP_ViewEvents: React.FC = () => {
                   <p className="card-text detail date">
                     <i className="bi bi-alarm-fill"></i> {formatTime(event.startTime)}
                   </p>
-                  <a onClick={() => handleViewDetails(event.event_id)} className="btn btn-primary">
+                  <a onClick={() => handleViewDetails(event.event_id, event.hp_id)} className="btn btn-primary">
                     <i className="bi bi-eye"></i> View Details
                   </a>
                 </div>
@@ -108,10 +105,8 @@ const HP_ViewEvents: React.FC = () => {
           )}
         </div>
       </div>
-      <AddEvent show={showPopup} handleClose={togglePopup} />
-      {error && <div style={{ color: 'red' }}>{error}</div>}
     </div>
   );
 };
 
-export default HP_ViewEvents;
+export default NU_ViewBookedUpcomingphysicalEvents;

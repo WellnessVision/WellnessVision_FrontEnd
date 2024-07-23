@@ -8,8 +8,8 @@ import Login from './pages/Login'
 import HP_ViewEvents from './pages/HP/HP_ViewEvents'
 import HP_OneEvents from './pages/HP/HP_OneEvent'
 import HP_Test from './pages/HP/HP_Test'
-import AdminViewHealthProfessionalRegistrationRequest from './pages/Admin/HP_registrationRequest'
-import AdminViewOneHealthProfessionalRegistrationRequest from './pages/Admin/HP_viewOneRegistrationRequest'
+import AdminViewHealthProfessionalRegistrationRequest from './pages/Admin/Admin_ViewHealthProfessionalRegistrationRequest'
+import AdminViewOneHealthProfessionalRegistrationRequest from './pages/Admin/Admin_ViewOneHealthProfessionalRegistrationRequest'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
@@ -17,8 +17,11 @@ import Volunteer_Sidebar from './pages/Volunteer/Volunteer_Sidebar'
 import NU_Register from './pages/NormalUser/NU_Register'
 import HP_LodingPage from './pages/HP/HP_LodingPage'
 import NU_Dashboard from './pages/NormalUser/NU_Dashboard'
-import NU_ViewAllPhysicalEvents from './pages/NormalUser/NU_ViewAllPhysicalEvents'
-import NU_ViewBookedPhysicalEvents from './pages/NormalUser/NU_ViewBookedphysicalEvents'
+import NU_ViewUpcomingPhysicalEvents from './pages/NormalUser/NU_ViewUpcomingPhysicalEvents'
+import NU_ViewBookedUpcomingphysicalEvents from './pages/NormalUser/NU_ViewBookedUpcomingphysicalEvents'
+import NU_ViewOneUpcomingPhysicalEvent from './pages/NormalUser/NU_ViewOneUpcomingPhysicalEvent'
+import NU_ViewOneBookedUpcomingphysicalEvents from './pages/NormalUser/NU_ViewOneBookedUpcomingphysicalEvents'
+import Admin_Dashboard from './pages/Admin/Admin_Dashboard'
 
 
 import {
@@ -65,10 +68,6 @@ const router = createBrowserRouter([
     element: <AdminViewHealthProfessionalRegistrationRequest/>,
   },
   {
-    path: "AdminViewOneHealthProfessionalRegistrationRequest/:requestId",
-    element: <AdminViewOneHealthProfessionalRegistrationRequest/>,
-  },
-  {
     path: "TM_Sidebar",
     element: <TM_Sidebar activeMenuItem={''}/>
   },
@@ -85,12 +84,24 @@ const router = createBrowserRouter([
     element: <NU_Dashboard/>
   },
   {
-    path: "NU_ViewAllPhysicalEvents",
-    element: <NU_ViewAllPhysicalEvents/>
+    path: "NU_ViewUpcomingPhysicalEvents",
+    element: <NU_ViewUpcomingPhysicalEvents/>
   },
   {
-    path: "NU_ViewBookedPhysicalEvents",
-    element: <NU_ViewBookedPhysicalEvents/>
+    path: "NU_ViewBookedUpcomingphysicalEvents",
+    element: <NU_ViewBookedUpcomingphysicalEvents/>
+  },
+  {
+    path: "NU_ViewOneUpcomingPhysicalEvent/:eventId/:hpId",
+    element: <NU_ViewOneUpcomingPhysicalEvent />,
+  },
+  {
+    path: "NU_ViewOneBookedUpcomingphysicalEvents/:eventId/:hpId",
+    element: <NU_ViewOneBookedUpcomingphysicalEvents />,
+  },
+  {
+    path: "Admin_Dashboard",
+    element: <Admin_Dashboard />,
   }
 ]);
 

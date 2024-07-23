@@ -11,6 +11,56 @@
     background-color: rgb(67, 67, 233);
 }
 
+#parentM > li.nav-item > a.nav-link[data-menu="Events"]:hover,
+#parentM > li.nav-item > a.nav-link[data-menu="Events"].active {
+    background-color: #4d4949;
+}
+
+#submenuEvents > li.nav-item > a.nav-link[data-menu="UpcomingEvents"]:hover,
+#submenuEvents > li.nav-item > a.nav-link[data-menu="UpcomingEvents"].active {
+    background-color: #696767;
+}
+
+#submenuUpcoming > li.nav-item > a.nav-link[data-menu="PhysicalEvents"]:hover,
+#submenuUpcoming > li.nav-item > a.nav-link[data-menu="PhysicalEvents"].active {
+    background-color: #007bff; 
+}
+
+#parentM > li.nav-item > a.nav-link[data-menu="Booked_Events"]:hover,
+#parentM > li.nav-item > a.nav-link[data-menu="Booked_Events"].active {
+    background-color: #4d4949;
+}
+
+#submenuBooked_Events > li.nav-item > a.nav-link[data-menu="UpcomingBooked_Events"]:hover,
+#submenuBooked_Events > li.nav-item > a.nav-link[data-menu="UpcomingBooked_Events"].active {
+    background-color: #696767; 
+}
+
+#submenuUpcomingBooked_Events > li.nav-item > a.nav-link[data-menu="PhysicalBooked_Events"]:hover,
+#submenuUpcomingBooked_Events > li.nav-item > a.nav-link[data-menu="PhysicalBooked_Events"].active {
+    background-color: #007bff; 
+}
+
+#parentM > li.nav-item > a.nav-link[data-menu="Deleted_Events"]:hover,
+#parentM > li.nav-item > a.nav-link[data-menu="Deleted_Events"].active {
+    background-color: #4d4949;
+}
+
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="PhysicalDeleted_Events"]:hover,
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="PhysicalDeleted_Events"].active {
+    background-color: #007bff; 
+}
+
+#parentM > li.nav-item > a.nav-link[data-menu="RegistretionRequest"]:hover,
+#parentM > li.nav-item > a.nav-link[data-menu="RegistretionRequest"].active {
+    background-color: #4d4949;
+}
+
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="HealthProfessionalRegistretionRequest"]:hover,
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="HealthProfessionalRegistretionRequest"].active {
+    background-color: #007bff; 
+}
+
 #WellnessVision{
     text-align: center;
     color:aqua;

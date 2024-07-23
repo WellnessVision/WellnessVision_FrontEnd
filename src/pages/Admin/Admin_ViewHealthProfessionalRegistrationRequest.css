@@ -1,0 +1,12 @@
+.Admin_ViewHealthProfessionalRegistrationRequest_hedder{
+    margin-top: -50px;
+    font-size: 20px;
+    font-weight: 590;
+}
+.Admin_ViewHealthProfessionalRegistrationRequest_profilePic{
+    width: 100px;
+    border-radius: 50%;
+}
+.Admin_ViewHealthProfessionalRegistrationRequest_viewMore{
+    width: 180px;
+}

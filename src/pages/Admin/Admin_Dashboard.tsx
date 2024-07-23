@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../../components/HP_SideBar';
+import Sidebar from '../../components/Admin_Sidebar';
 import axios from 'axios';
 
 interface HP_Profile {
@@ -8,7 +8,7 @@ interface HP_Profile {
   email: string;
 }
 
-const HP_Dashboard: React.FC = () => {
+const Admin_Dashboard: React.FC = () => {
   // const [error, setError] = useState<string | null>(null);
   // const hpId = Number(localStorage.getItem('hpId'));
   // const [profileDetails, setProfileDetails] = useState<HP_Profile[]>([]);
@@ -39,4 +39,4 @@ const HP_Dashboard: React.FC = () => {
   );
 };
 
-export default HP_Dashboard;
+export default Admin_Dashboard;

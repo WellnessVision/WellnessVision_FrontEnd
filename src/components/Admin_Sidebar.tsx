@@ -12,22 +12,22 @@ interface SidebarProps {
     activeMenuItem: string[];
 }
 
-interface HP_Profile {
+interface Admin_Profile {
     firstName: string;
     lastName: string;
-    profilePicture: string;
+    profilePic: string;
   }
 
-const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
+const Admin_Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
     const notificationCount = 3;
     const [error, setError] = useState<string | null>(null);
-    const hpId = Number(localStorage.getItem('hpId'));
-    const [profileDetails, setProfileDetails] = useState<HP_Profile | null>(null);
+    const adminId = Number(localStorage.getItem('adminId'));
+    const [profileDetails, setProfileDetails] = useState<Admin_Profile | null>(null);
 
     const fetchProfileDetails = async () => {
         try {
-          const response = await axios.get<HP_Profile>(`http://localhost:15000/healthProfessionalDashboardProfileDetails`, {
-            params: { hpId: hpId }
+          const response = await axios.get<Admin_Profile>(`http://localhost:15000/adminDashboardProfileDetails`, {
+            params: { adminId: adminId }
           });
           setProfileDetails(response.data);
         } catch (err) {
@@ -59,7 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                     {profileDetails && (
                         <>
                             <div className="name">{profileDetails.firstName + " " + profileDetails.lastName}</div>
-                            <img src={profileDetails.profilePicture} alt="Profile" className="profile-pic" id='Profile' />
+                            <img src={profileDetails.profilePic} alt="Profile" className="profile-pic" id='Profile' />
                         </>
                     )}
                 </div>
@@ -87,7 +87,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                 )}`}
               >
                 <a
-                  href="/HP_Dashboard"
+                  href="/Admin_Dashboard"
                   className={`nav-link text-white text-center text-sm-start ${isActive(
                     "Dashboard"
                   )}`}
@@ -97,8 +97,57 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                   <span className="ms-2 d-none d-sm-inline">Dashboard</span>
                 </a>
               </li>
-
-              <li
+       
+              <li className={`nav-item my-1 py-2 py-sm-0 ${isExpanded([
+                        "RegistretionRequest",
+                        "HealthProfessionalRegistretionRequest",
+                        "VolunteerRegistretionRequest",
+                        ])}`}>
+                        <a
+                            href="#submenuRegistretionRequest"
+                            className={`nav-link text-white text-center text-sm-start ${isActive(
+                            "RegistretionRequest"
+                            )}`}
+                            data-bs-toggle="collapse"
+                            aria-current="page"
+                            data-menu="RegistretionRequest"
+                        >
+                            <i className="bi bi-calendar2-week"></i>
+                            <span className="ms-2 d-none d-sm-inline">Registretion Request</span>
+                            <i className="bi bi-arrow-down-short text-end"></i>
+                        </a>
+                        <ul
+                            className={`nav collapse ms-2 flex-column ${isExpanded([
+                            "HealthProfessionalRegistretionRequest",
+                            "VolunteerRegistretionRequest",
+                            ])}`}
+                            id="submenuRegistretionRequest"
+                            data-bs-parent="#parentM"
+                        >
+                            <li className="nav-item">
+                            <a
+                                className={`nav-link text-white ${isActive("HealthProfessionalRegistretionRequest")}`}
+                                href="/AdminViewHealthProfessionalRegistrationRequest"
+                                aria-current="page"
+                                data-menu="HealthProfessionalRegistretionRequest"
+                            >
+                                <i className="bi bi-calendar"></i> Health Professional
+                            </a>
+                            </li>
+                            <li className="nav-item">
+                            <a
+                                className={`nav-link text-white ${isActive("VolunteerRegistretionRequest")}`}
+                                href="#"
+                                aria-current="page"
+                                data-menu="VolunteerRegistretionRequest"
+                            >
+                                Volunteer
+                            </a>
+                            </li>
+                        </ul>
+                </li>
+                
+                <li
                 className={`nav-item my-1 py-2 py-sm-0 ${isExpanded([
                   "UpcomingEvents",
                   "PhysicalEvents",
@@ -159,7 +208,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                           className={`nav-link text-white ${isActive(
                             "PhysicalEvents"
                           )}`}
-                          href="/HP_ViewEvents"
+                          href="#"
                           aria-current="page"
                           data-menu="PhysicalEvents"
                         >
@@ -338,4 +387,4 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
   );
 };
 
-export default Sidebar;
+export default Admin_Sidebar;

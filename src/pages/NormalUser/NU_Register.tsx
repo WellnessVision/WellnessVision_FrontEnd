@@ -16,6 +16,7 @@ const NU_Register: React.FC = () => {
     const [province, setProvince] = useState('');
     const [preferences, setPreferences] = useState('');
     const [message, setMessage] = useState('');
+    const [zip, setZip] = useState('');
     const [passwordErrMessage, setPasswordErrMessage] = useState('');
     const [profilePic, setProfilePic] = useState<File | null>(null);
     const user_type = "NU";
@@ -69,6 +70,7 @@ const NU_Register: React.FC = () => {
                     formData.append('city', city);
                     formData.append('district', district);
                     formData.append('province', province);
+                    formData.append('zip', zip);
                     formData.append('password', password);
                     formData.append('profilePic', profilePic);
 
@@ -268,13 +270,24 @@ const NU_Register: React.FC = () => {
                                 <option value="Sabaragamuwa">Sabaragamuwa</option>
                                 <option value="Western">Western</option>
                             </select>
+                            </div>
+                            <div className="form-group col-md-2">
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                id="inputZip" 
+                                placeholder="Postal Code" 
+                                required
+                                value={zip}
+                                onChange={(e) => setZip(e.target.value)}
+                            />
                         </div>
                        
                     </div>
                     <div className="name-group">
                     
                     <div className="form-group">
-                    <label className="Lable-on-left_NU_Registration">Please enter any specifications you want to get notified on..  </label>
+                    <label className="Lable-on-left_NU_Registration">what are you looking for (events, non-communicable diseases )</label>
                         <input 
                                 type="text" 
                                 className="form-control" 

@@ -37,6 +37,10 @@ const Login: React.FC<LoginProps> = ({ show, handleClose }) => {
                 localStorage.setItem('userId', String(loginData.id));
                 navigate('/NU_Dashboard');
             }
+            else if(loginData.user_type === "SA"){
+                localStorage.setItem('adminId', String(loginData.id));
+                navigate('/Admin_Dashboard');
+            }
             else {
                 alert(loginData.user_type);
             }

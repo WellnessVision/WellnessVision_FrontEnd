@@ -37,7 +37,7 @@ const LandingPage: React.FC = () => {
                     </div>
                 </div>
                 <button  onClick={togglePopup} className="btn btn-outline-success me-2" id='login_landing_page' type="button">Log In</button>
-                <button className="btn btn-outline-success me-2" id='register_landing_page' type="button">Register</button>
+                <a href='/NU_Register' className="btn btn-outline-success me-2" id='register_landing_page' type="button">Register</a>
                 <Login show={showPopup} handleClose={togglePopup} />
             </nav>
         </div>
