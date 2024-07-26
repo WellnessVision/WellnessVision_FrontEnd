@@ -1,0 +1,32 @@
+.volunteer_back_button{
+    margin-left: 5px;
+    width: 250px;
+}
+
+.volunteer_view_button{
+    width: 230px;
+    margin-left: 160px;
+}
+
+.volunteer_hide_button{
+    width: 180px;
+    margin-left: 50px;
+}
+
+.volunteer_edit_button{
+    width: 180px;
+    margin-left: 50px;
+}
+
+.memories{
+    margin-top: 50px;
+}
+
+.memory_image{
+    border-radius: 5px 0 5px 0;
+    margin: 0px 1px 20px 2px;
+    border: solid lightgray;
+    width: 370px;
+    height: 370px;
+    object-fit: scale-down;
+}

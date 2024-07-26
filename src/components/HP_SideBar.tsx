@@ -37,8 +37,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                         </a>
                         <hr className='text-white d-none d-sm-block'></hr>
                         <ul className="nav nav-pills flex-column mt-2 mt-sm-0" id='parentM'>
-                            <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'Dashboard' ? 'active' : ''}`}>
-                                <a href="HP_Dashboard" className="nav-link text-white text-center text-sm-start" aria-current="page">
+                            <li className="nav-item my-1 py-2 py-sm-0">
+                                <a href="HP_Dashboard" className={`nav-link text-white text-center text-sm-start ${activeMenuItem === 'Dashboard' ? 'active' : ''}`} aria-current="page">
                                     <i className='bi bi-speedometer2'></i>
                                     <span className='ms-2 d-none d-sm-inline'>Dashboard</span>
                                 </a>
@@ -69,8 +69,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                                 </ul>
                             </li>
 
-                            <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'UpcomingEvents' ? 'active' : ''}`}>
-                                <a href="#submenu2" className="nav-link text-white text-center text-sm-start" data-bs-toggle="collapse" aria-current="page">
+                            <li className="nav-item my-1 py-2 py-sm-0">
+                                <a href="#submenu2" className={`nav-link text-white text-center text-sm-start ${activeMenuItem === 'UpcommingEvents' ? 'active' : ''}`} data-bs-toggle="collapse" aria-current="page">
                                     <i className='bi bi-calendar2-week'></i>
                                     <span className='ms-2 d-none d-sm-inline'>Upcoming Events</span>
                                     <i className='bi bi-arrow-down-short text-end'></i>
@@ -94,15 +94,15 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                                 </ul>
                             </li>
 
-                            <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'Appointments' ? 'active' : ''}`}>
-                                <a href="#" className="nav-link text-white text-center text-sm-start" aria-current="page">
+                            <li className="nav-item my-1 py-2 py-sm-0">
+                                <a href="HP_Dashboard" className={`nav-link text-white text-center text-sm-start ${activeMenuItem === 'Appointments' ? 'active' : ''}`} aria-current="page">
                                     <i className='bi bi-alarm'></i>
                                     <span className='ms-2 d-none d-sm-inline'>Appointments</span>
                                 </a>
                             </li>
 
-                            <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'Articles' ? 'active' : ''}`}>
-                                <a href="#" className="nav-link text-white text-center text-sm-start" aria-current="page">
+                            <li className="nav-item my-1 py-2 py-sm-0">
+                                <a href="HP_Dashboard" className={`nav-link text-white text-center text-sm-start ${activeMenuItem === 'Articles' ? 'active' : ''}`} aria-current="page">
                                     <i className='bi bi-file-text'></i>
                                     <span className='ms-2 d-none d-sm-inline'>Awareness Articles</span>
                                 </a>
