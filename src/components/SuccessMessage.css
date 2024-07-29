@@ -1,0 +1,10 @@
+.SuccessMessage_popup{
+    width: 500px;
+}
+.SuccessMessage_message{
+    margin-top: -80px;
+}
+.SuccessMessage_gotItButton{
+    margin-top: 50px;
+    margin-left: 20px;
+}

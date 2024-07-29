@@ -1,11 +1,18 @@
+.main_in_landing_page{
+    background: url('../resources/main_langing_image.jpg');
+    background-size: cover;
+    margin-top: -40px;
+}
+
+
 #login_landing_page{
     position: absolute;
-    margin-left: 1340px;
+    margin-left: 1300px;
 }
 
 #register_landing_page{
     position: absolute;
-    margin-left: 1430px;
+    margin-left: 1400px;
 }
 
 .icon_landing_page{
@@ -19,4 +26,202 @@
     font-weight: 600;
     font-size: 22px;
     font-family:'Courier New', Courier, monospace;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 0 50px 50px;
+    z-index: 0;
+    width: 80%;
+    margin-left: 150px;
+}
+
+.hero__main-img {
+    width: 650px;
+    border-radius: 50px;
+}
+
+.hero__info {
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+.hero__main-title {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.recycle {
+    color: #ff5722;
+}
+
+.hero__info-description {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+/* Features Section */
+.features {
+    margin: 40px 0;
+}
+
+.feature-item {
+    margin-bottom: 20px;
+}
+
+.feature-item h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.feature-item p {
+    font-size: 18px;
+}
+
+.services {
+    padding: 40px 20px;
+    z-index: 1;
+    margin-top: -70px;
+}
+
+.slide-title h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #0277bd;
+}
+
+.slider-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.slider-info .up, .slider-info .down {
+    text-align: center;
+}
+
+.slider-info img {
+    width: 100px;
+    height: 100px;
+}
+
+.slide-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.slides {
+    display: flex;
+    width: 400%;
+    height: 100%;
+}
+
+.slide {
+    margin-top: -50px;
+    width: 100%;
+    transition: 1s;
+}
+
+.slide h2 {
+    text-align: center;
+    padding-top: 100px;
+    color: #0277bd;
+}
+
+.navigation-manual {
+    position: absolute;
+    width: 100%;
+    margin-top: -40px;
+    display: flex;
+    justify-content: center;
+}
+
+.manual-btn {
+    border: 2px solid #0277bd;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.manual-btn:not(:last-child) {
+    margin-right: 40px;
+}
+
+.manual-btn:hover {
+    background: #0277bd;
+}
+
+
+input[name="radio-btn"] {
+    display: none;
+}
+
+#radio1:checked ~ .slide {
+    margin-left: -41%;
+}
+
+#radio2:checked ~ .slide {
+    margin-left: -72%;
+}
+
+#radio3:checked ~ .slide {
+    margin-left: -86%;
+}
+
+.slider-pic .info-item {
+    display: none;
+    margin-top: -100px;
+}
+
+#radio1:checked ~ .slider-pic .info-item.s1 {
+    display: block;
+    margin-left: 260px;
+}
+
+#radio2:checked ~ .slider-pic .info-item.s2 {
+    display: block;
+    margin-left: 260px;
+}
+
+#radio3:checked ~ .slider-pic .info-item.s3 {
+    display: block;
+    margin-left: 260px;
+}
+
+.main_colour{
+    background: rgba(227, 242, 253, 0.9); 
+}
+.s1_image{
+    width: 650px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+.s2_image{
+    width: 650px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+.s3_image{
+    width: 650px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+.hero_hp_landing_page{
+    margin-top: -80px;
+}
+.hero_Volunteer_landing_page{
+    margin-top: -80px;
+}
+.landing_signUpBotton{
+    text-decoration: none;
 }

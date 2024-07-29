@@ -13,8 +13,9 @@
 }
 
 .time_wrong_addEvent{
+    z-index: 5;
     color: #ffff;
-    margin-top: -15px;
+    margin-top: -20px;
     font-size: 16px;
     font-weight: 590;
     width: 760px;
@@ -84,7 +85,7 @@
   }
   
   .image_language_div_HP_addPhysicalEvent{
-    margin-top: 25px;
+    margin-top: 20px;
   }
 
   .language_HP_addPhysicalEvent{
@@ -117,4 +118,7 @@
 
 .hp_form_padding_HP_addPhysicalEvent{
   padding: 20px 15px 10px 15px;
+}
+.HP_AddPhysicalEventPaddingToExpectedCapacity{
+  padding: 0 0 10px 0;
 }

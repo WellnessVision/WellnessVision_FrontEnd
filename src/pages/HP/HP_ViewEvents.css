@@ -69,3 +69,8 @@
 .index_button{
     z-index: 5;
 }
+.HP_ViewEvents_searchByEventName{
+    position: absolute;
+    margin-top: -60px;
+    margin-left: 1000px;
+}

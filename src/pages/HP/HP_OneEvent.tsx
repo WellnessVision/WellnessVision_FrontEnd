@@ -153,7 +153,7 @@ interface PhysicalEvent {
 
     return (
         <div>
-            <HPSideBar activeMenuItem="UpcomingEvents" />
+             <HPSideBar activeMenuItem={["PhysicalEvents", "UpcomingEvents", "Events"]}/>
             <div className="cardHang_2">
             <div className="card" style={{ width: '95%' }}>
                 <img src ={event.eventImage} className="image" alt="Card image" />
@@ -213,7 +213,7 @@ interface PhysicalEvent {
                   <span> 
                   <a
             className={`btn participantDetailsParticipationMarkButton ${
-              participant.participantState === 'NotParticipate' ? 'btn-outline-success participantDetailsMarkasParticepateShow' : 'btn-success participantDetailsMarkasNotParticepateShow'
+              participant.participantState === 'NotParticipate' ? 'btn btn-outline-secondary participantDetailsMarkasParticepateShow' : 'btn-success participantDetailsMarkasNotParticepateShow'
             }`}
             onClick={() =>
               handleMarkAsParticipate(participant.bookingId, participant.participantState === 'NotParticipate' ? 'Participated' : 'NotParticipate')

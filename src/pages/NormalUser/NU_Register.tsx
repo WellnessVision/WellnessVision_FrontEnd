@@ -1,6 +1,9 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import "./NU_Register.css";
+import SuccessMessage from '../../components/SuccessMessage';
+import { useToggle } from '../../pages/HP/useToggle';
+import loading_gif from '../../resources/prosecing.gif';
 
 const NU_Register: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -16,9 +19,15 @@ const NU_Register: React.FC = () => {
     const [province, setProvince] = useState('');
     const [preferences, setPreferences] = useState('');
     const [message, setMessage] = useState('');
+    const [zip, setZip] = useState('');
     const [passwordErrMessage, setPasswordErrMessage] = useState('');
     const [profilePic, setProfilePic] = useState<File | null>(null);
     const user_type = "NU";
+    const [showPopup, togglePopup] = useToggle();
+    const [successState, setSuccessState] = useState<string>('');
+    const [successMessage, setSuccessMessage] = useState<string>('');
+    const [showLoadingPopup, toggleLoadingPopup] = useState(false);
+    const [successFlag, setSuccessFlag] = useState(false);
 
 
     useEffect(() => {
@@ -57,6 +66,7 @@ const NU_Register: React.FC = () => {
         if (password === passwordConfirm && !passwordErrMessage) {
             if (profilePic) {
                 try {
+                    toggleLoadingPopup(true);
                     const formData = new FormData();
                     formData.append('user_type', user_type);
                     formData.append('email', email);
@@ -69,6 +79,7 @@ const NU_Register: React.FC = () => {
                     formData.append('city', city);
                     formData.append('district', district);
                     formData.append('province', province);
+                    formData.append('zip', zip);
                     formData.append('password', password);
                     formData.append('profilePic', profilePic);
 
@@ -77,8 +88,11 @@ const NU_Register: React.FC = () => {
                             'Content-Type': 'multipart/form-data',
                         },
                     });
-
-                    setMessage(response.data.message || 'Registration successful');
+                    toggleLoadingPopup(false);
+                    setSuccessMessage('Registration Successful. Thank you!');
+                    setSuccessState('Success');
+                    setSuccessFlag(true);
+                    togglePopup();
                 } catch (error) {
                     setMessage('Error registering user');
                 }
@@ -268,13 +282,24 @@ const NU_Register: React.FC = () => {
                                 <option value="Sabaragamuwa">Sabaragamuwa</option>
                                 <option value="Western">Western</option>
                             </select>
+                            </div>
+                            <div className="form-group col-md-2">
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                id="inputZip" 
+                                placeholder="Postal Code" 
+                                required
+                                value={zip}
+                                onChange={(e) => setZip(e.target.value)}
+                            />
                         </div>
                        
                     </div>
                     <div className="name-group">
                     
                     <div className="form-group">
-                    <label className="Lable-on-left_NU_Registration">Please enter any specifications you want to get notified on..  </label>
+                    <label className="Lable-on-left_NU_Registration">what are you looking for (events, non-communicable diseases )</label>
                         <input 
                                 type="text" 
                                 className="form-control" 
@@ -300,11 +325,10 @@ const NU_Register: React.FC = () => {
                 
                     <button type="submit" className="btn btn-primary">Register</button>
                 </form>
-                
-                
                 {message && <div className="alert alert-danger alertplacement_NU_Registration" role="alert">{message}</div>}
                 </div>
-            
+                <img className={`${showLoadingPopup ? 'showLoading HP_Register_loading_gif NU_Register_loading_gif' : 'HP_Register_loading_gif_notShow'}`} src={loading_gif}/>
+                {successFlag && <SuccessMessage  show={showPopup} handleClose={togglePopup} message={successMessage} successState={successState}/>}
         </div>
     );
 };

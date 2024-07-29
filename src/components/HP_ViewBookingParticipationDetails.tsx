@@ -102,13 +102,13 @@ interface participationUserDetails {
             {userDetails?.address2 === '' ?  <p className="card-text hpViewParticipantUserDetails_style"><i className='bi bi-calendar2-week-fill'></i> {userDetails?.address}, {userDetails?.city}, {userDetails?.district}, {userDetails?.province} (Address)</p> 
             : <p className="card-text hpViewParticipantUserDetails_style"><i className='bi bi-calendar2-week-fill'></i> {userDetails?.address}, {userDetails?.address2}, {userDetails?.city}, {userDetails?.district}, {userDetails?.province} (Address)</p>}
             <a className="btn btn-primary HP_ViewBookingParticipationDetails_closeButton" onClick={handleClose_4}>
-                      <i className="bi bi-arrow-left-circle"></i> Cancel
+                      <i className="bi bi-arrow-left-circle"></i> Go Back
                     </a>
             { bookingState === 'Booking' ? (
                   <span> 
                   <a
             className={`btn participantDetailsParticipationMarkButton ${
-              participantState === 'NotParticipate' ? 'btn-outline-success participantDetailsMarkasParticepateShow' : 'btn-success participantDetailsMarkasNotParticepateShow'
+              participantState === 'NotParticipate' ? 'btn btn-outline-secondary participantDetailsMarkasParticepateShow' : 'btn-success participantDetailsMarkasNotParticepateShow'
             }`}
             onClick={() =>
               handleMarkAsParticipate(Number(bookingId), participantState === 'NotParticipate' ? 'Participated' : 'NotParticipate')
@@ -118,7 +118,7 @@ interface participationUserDetails {
             {participantState === 'NotParticipate' ? 'Mark as Participate' : 'Participated'}
           </a>
                   </span> ) : (
-                    <p className='deleteUserHpParticipentMark'>Canceled Event Booking</p>
+                    <a className='deleteUserHpParticipentMark'>Canceled Event Booking</a>
                   )}
             </div>
          </div>

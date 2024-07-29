@@ -25,7 +25,6 @@ const Hp_DeletePhysicalEventReasonAndContinue: React.FC<Hp_DeletePhysicalEventRe
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-          handleClose_Deletereason();
           toggleLoadingPopup(true);
           await axios.put(`http://localhost:15000/deletePhysicalEventForHP`, null, {
             params: {
@@ -35,8 +34,9 @@ const Hp_DeletePhysicalEventReasonAndContinue: React.FC<Hp_DeletePhysicalEventRe
               deleteReason
             }
           });
-          navigate('/HP_ViewEvents');
+          navigate(`/HP_ViewOneDeletedEvents/${eventId}`);
           toggleLoadingPopup(false);
+          handleClose_Deletereason();
         } 
         catch (err) {
           if (err instanceof Error) {
@@ -66,6 +66,7 @@ return (
                         className="form-control"
                         id="deleteReason"
                         name="deleteReason"
+                        maxLength={100}
                         required
                         placeholder='What is the reason for deletion?'
                         value={deleteReason}
