@@ -13,6 +13,7 @@ import AdminViewOneHealthProfessionalRegistrationRequest from './pages/Admin/Adm
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
+import Volunteer_Dashboard from './pages/Volunteer/Volunteer_Dashboard'
 import Volunteer_Sidebar from './pages/Volunteer/Volunteer_Sidebar'
 import NU_Register from './pages/NormalUser/NU_Register'
 import HP_LodingPage from './pages/HP/HP_LodingPage'
@@ -34,13 +35,14 @@ import NU_ViewPreviousPhysicalEvents from './pages/NormalUser/NU_ViewPreviousPhy
 import NU_ViewOnePreviousPhysicalEvents from './pages/NormalUser/NU_ViewOnePreviousPhysicalEvents'
 import NU_ViewBookedPreviousphysicalEvents from './pages/NormalUser/NU_ViewBookedPreviousphysicalEvents'
 import NU_ViewOneBookedPreviousphysicalEvents from './pages/NormalUser/NU_ViewOneBookedPreviousphysicalEvents'
-
+import Volunteer_MyEvents_Previous from './pages/Volunteer/Volunteer_MyEvents_Previous'
+import Volunteer_OneEventPrevious from './pages/Volunteer/Volunteer_OneEventPrevious'
+import Volunteer_MyEvents_Upcomming from './pages/Volunteer/Volunteer_MyEvents_Upcomming'
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-
 
 const router = createBrowserRouter([
   {
@@ -82,6 +84,26 @@ const router = createBrowserRouter([
   {
     path: "TM_Sidebar",
     element: <TM_Sidebar activeMenuItem={''}/>
+  },
+  {
+    path: "Volunteer_Dashboard",
+    element: <Volunteer_Dashboard/>
+  },
+  {
+    path: "Volunteer_MyEvents_Previous",
+    element: <Volunteer_MyEvents_Previous/>
+  },
+  {
+    path: "Volunteer_OneEventPrevious/:eventId",
+    element: <Volunteer_OneEventPrevious/>,
+  },
+  {
+    path: "Volunteer_MyEvents_Upcomming",
+    element: <Volunteer_MyEvents_Upcomming/>,
+  },
+  {
+    path: "Volunteer_MyEvents_Upcomming",
+    element: <Volunteer_MyEvents_Upcomming/>
   },
   {
     path: "Volunteer_Sidebar",

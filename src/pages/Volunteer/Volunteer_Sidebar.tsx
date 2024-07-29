@@ -30,8 +30,9 @@ const Volunteer_Sidebar: React.FC<VolunteerSidebarProps> = ({activeMenuItem}) =>
               </a>
               <hr className='text-white d-none d-sm-block'></hr>
               <ul className="nav nav-pills flex-column mt-2 mt-sm-0" id='parentM'>
-                  <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'Dashboard' ? 'active' : ''}`}>
-                      <a href="#" className="nav-link text-white text-center text-sm-start" aria-current="page">
+
+                  <li className="nav-item my-1 py-2 py-sm-0">
+                      <a href="#" className={`nav-link text-white text-center text-sm-start  ${activeMenuItem === 'Dashboard' ? 'active' : ''}`} aria-current="page">
                           <i className='bi bi-speedometer2'></i>
                           <span className='ms-2 d-none d-sm-inline'>Dashboard</span>
                       </a>
@@ -62,29 +63,42 @@ const Volunteer_Sidebar: React.FC<VolunteerSidebarProps> = ({activeMenuItem}) =>
                       </ul>
                   </li>
 
-                  <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'MyEvents' ? 'active' : ''}`}>
-                      <a href="#" className="nav-link text-white text-center text-sm-start" aria-current="page">
+                  <li className="nav-item my-1 py-2 py-sm-0">
+                      <a href="#submenu2" className= "nav-link text-white text-center text-sm-start" data-bs-toggle="collapse" aria-current="page">
                           <i className='bi bi-calendar-range'></i>
                           <span className='ms-2 d-none d-sm-inline'>My Events</span>
+                          <i className='bi bi-arrow-down-short text-end'></i>
                       </a>
+                      <ul className="nav collapse ms-2 flex-column" id='submenu2' data-bs-parent="#parentM">
+                          <li className="nav-item">
+                              <a className={`nav-link text-white ${activeMenuItem === 'Upcomming' ? 'active' : ''}`} href="#" aria-current="page">
+                                  Upcomming <span className='d-none d-sm-inline'>Events</span>
+                              </a>
+                          </li>
+                          <li className="nav-item">
+                              <a className={`nav-link text-white ${activeMenuItem === 'Previous' ? 'active' : ''}`} href="#" aria-current="page">
+                                  Previous <span className='d-none d-sm-inline'>Events</span>
+                              </a>
+                          </li> 
+                      </ul>
                   </li>                  
 
-                  <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'Appointments' ? 'active' : ''}`}>
-                      <a href="#" className="nav-link text-white text-center text-sm-start" aria-current="page">
+                  <li className="nav-item my-1 py-2 py-sm-0">
+                      <a href="#" className={`nav-link text-white text-center text-sm-start  ${activeMenuItem === 'Appointments' ? 'active' : ''}`} aria-current="page">
                           <i className='bi bi-alarm'></i>
                           <span className='ms-2 d-none d-sm-inline'>Make an Appointment</span>
                       </a>
                   </li>
 
-                  <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'Bookings' ? 'active' : ''}`}>
-                      <a href="#" className="nav-link text-white text-center text-sm-start" aria-current="page">
+                  <li className="nav-item my-1 py-2 py-sm-0">
+                      <a href="#" className={`nav-link text-white text-center text-sm-start  ${activeMenuItem === 'Bookings' ? 'active' : ''}`} aria-current="page">
                           <i className='bi bi-journal-medical'></i>
                           <span className='ms-2 d-none d-sm-inline'>My Bookings</span>
                       </a>
                   </li>
 
-                  <li className={`nav-item my-1 py-2 py-sm-0 ${activeMenuItem === 'Articles' ? 'active' : ''}`}>
-                      <a href="#" className="nav-link text-white text-center text-sm-start" aria-current="page">
+                  <li className="nav-item my-1 py-2 py-sm-0">
+                      <a href="#" className={`nav-link text-white text-center text-sm-start  ${activeMenuItem === 'Articles' ? 'active' : ''}`} aria-current="page">
                           <i className='bi bi-file-text'></i>
                           <span className='ms-2 d-none d-sm-inline'>Awareness Articles</span>
                       </a>
