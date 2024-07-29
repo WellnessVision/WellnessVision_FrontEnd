@@ -14,6 +14,7 @@ interface NU_DeletePhysicalEventBookingProps {
   handleClose_3: () => void;
   MoneyReceiptsDetails: any;
   eventId: any;
+  setDeleteStateFun: any;
 }
 
 interface fineAmountData {
@@ -28,21 +29,22 @@ interface fineAmountData {
     twoDaysBeforeState: string;
   }
 
-const NU_DeletePhysicalEventBooking: React.FC<NU_DeletePhysicalEventBookingProps> = ({ show_3, handleClose_3, MoneyReceiptsDetails, eventId}) => {
+const NU_DeletePhysicalEventBooking: React.FC<NU_DeletePhysicalEventBookingProps> = ({ show_3, handleClose_3, MoneyReceiptsDetails, eventId, setDeleteStateFun}) => {
     const [fineAmountDetails, setFineAmountDetails] = useState<fineAmountData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
     const [showLoadingPopup, toggleLoadingPopup] = useState(false);
     const [showPopup_Deletereason, togglePopup_Deletereason] = useToggle();
     const userId = localStorage.getItem('userId');
-    const [bookingId, setBookingId] = useState(MoneyReceiptsDetails.bookingId);
+    const [bookingId, setBookingId] = useState(MoneyReceiptsDetails?.bookingId);
     const [twoDaysBeforeState, setTwoDaysBeforeState] = useState(MoneyReceiptsDetails.twoDaysBeforeState);
   
 
     const fetchFineData = async () => {
+      setFineAmountDetails(null);
         try {
           const response = await axios.get<fineAmountData>(`http://localhost:15000/getFineAmountForNU`, {
-            params: { eventId: eventId }
+            params: { eventId: eventId, bookingId: bookingId }
           });
           setFineAmountDetails(response.data);
         } catch (err) {
@@ -51,12 +53,22 @@ const NU_DeletePhysicalEventBooking: React.FC<NU_DeletePhysicalEventBookingProps
           } else {
             setError('An unknown error occurred');
           }
+          navigate(`/HP_LodingPage`);
+          setTimeout(() => {
+          navigate('/NU_ViewBookedUpcomingphysicalEvents');
+          alert("Sorry, The event was deleted already");
+        }, 100);
         }
       };
 
 useEffect(() => {
 fetchFineData();
 }, []);
+
+const handleCloseDeleteEventBooking = () => {
+  setDeleteStateFun(false);
+  handleClose_3();
+};
 
 const eventBookingDeletion = useCallback(async (fineAmount: number, depositAmount: number, twoDaysBeforeState: string) => {
     try {
@@ -104,7 +116,7 @@ const eventBookingDeletion = useCallback(async (fineAmount: number, depositAmoun
                       <p className="card-text detail"><i className='bi bi-cash-stack'></i> Rs.{fineAmountDetails.ticketPrice} - Rs.{fineAmountDetails.fineAmount} = Rs.{fineAmountDetails.depositAmount}/= (Deposit Amount)</p>
                       <div className='fine_details_Hp_DeletePhysicalEventFineDetails'><p className="card-text detail">{fineAmountDetails.fineAmountDetails}</p></div>
                       <div className='HP_HallAvailability_button_div'>
-                        <button className="btn btn-primary HP_HallAvailability_cancel_button" onClick={handleClose_3}>
+                        <button className="btn btn-primary HP_HallAvailability_cancel_button" onClick={handleCloseDeleteEventBooking}>
                           <i className="bi bi-arrow-left-circle"></i> Go Back
                         </button>
                         <button className="btn btn-danger HP_HallAvailability_hallBook" onClick={() => eventBookingDeletion(fineAmountDetails.fineAmount, fineAmountDetails.depositAmount, fineAmountDetails.twoDaysBeforeState)}>
@@ -114,6 +126,8 @@ const eventBookingDeletion = useCallback(async (fineAmount: number, depositAmoun
                     </div>
                   ) : (
                     <div>
+                        <p className="card-text detail">Sorry, You are already participated to the event Or, </p>
+                        <p className="card-text detail">Event booking closed, please "Refresh" your browser</p>
                     </div>
                   )}
                 </div>

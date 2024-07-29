@@ -19,7 +19,7 @@ interface HP_Profile {
   }
 
 const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
-    const notificationCount = 3;
+    const [notificationCount, setNotificationCount] = useState<number>(0);
     const [error, setError] = useState<string | null>(null);
     const hpId = Number(localStorage.getItem('hpId'));
     const [profileDetails, setProfileDetails] = useState<HP_Profile | null>(null);
@@ -42,6 +42,25 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
       useEffect(() => {
         fetchProfileDetails();
       }, []);
+
+      useEffect(() => {
+        const fetchEvent = async () => {
+          try {
+            const response = await axios.get<number>(`http://localhost:15000/getNotificationsCountForAnyUser`,{
+                params: { ownerId: hpId }
+            });
+            setNotificationCount(response.data);
+          } catch (err) {
+            if (err instanceof Error) {
+              setError(err.message);
+            } else {
+              setError('An unknown error occurred');
+            }
+          }
+        };
+    
+        fetchEvent();
+      }, [hpId]);
 
     const isActive = (item: string) => (activeMenuItem.includes(item) ? "active" : "");
     const isExpanded = (items: string[]) =>
@@ -103,6 +122,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                   "UpcomingEvents",
                   "PhysicalEvents",
                   "OnlineEvents",
+                  "PreviousEvents",
+                  "PreviousPhysicalEvents",
                 ])}`}
               >
                 <a
@@ -123,6 +144,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                     "UpcomingEvents",
                     "PhysicalEvents",
                     "OnlineEvents",
+                    "PreviousEvents",
+                    "PreviousPhysicalEvents",
                   ])}`}
                   id="submenuEvents"
                   data-bs-parent="#parentM"
@@ -179,7 +202,12 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                       </li>
                     </ul>
                   </li>
-                  <li className="nav-item">
+                  <li
+                    className={`nav-item ${isExpanded([
+                      "PreviousPhysicalEvents",
+                      "PreviousOnlineEvents",
+                    ])}`}
+                  >
                     <a
                       href="#submenuPrevious"
                       className={`nav-link text-white text-center text-sm-start ${isActive(
@@ -194,15 +222,21 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                       <i className="bi bi-arrow-down-short text-end"></i>
                     </a>
                     <ul
-                      className="nav collapse ms-2 flex-column"
+                      className={`nav collapse ms-2 flex-column ${isExpanded([
+                        "PreviousPhysicalEvents",
+                        "PreviousOnlineEvents",
+                      ])}`}
                       id="submenuPrevious"
                       data-bs-parent="#submenuEvents"
                     >
                       <li className="nav-item">
                         <a
-                          className="nav-link text-white"
-                          href="#"
+                         className={`nav-link text-white ${isActive(
+                          "PreviousPhysicalEvents"
+                        )}`}
+                          href="/HP_ViewPreviousPhysicalEvents"
                           aria-current="page"
+                          data-menu="PreviousPhysicalEvents"
                         >
                           Physical Events
                         </a>
@@ -249,7 +283,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                             <li className="nav-item">
                             <a
                                 className={`nav-link text-white ${isActive("PhysicalDeleted_Events")}`}
-                                href="#"
+                                href="/HP_ViewDeletedEvents"
                                 aria-current="page"
                                 data-menu="PhysicalDeleted_Events"
                             >
@@ -292,7 +326,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                 className={`nav-item my-1 py-2 py-sm-0 ${isActive("Payments")}`}
               >
                 <a
-                  href="#"
+                  href="/HP_ViewPhysicalEventPayment"
                   className={`nav-link text-white text-center text-sm-start ${isActive(
                     "Payments"
                   )}`}

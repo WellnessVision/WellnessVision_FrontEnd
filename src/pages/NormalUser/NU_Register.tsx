@@ -1,6 +1,9 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import "./NU_Register.css";
+import SuccessMessage from '../../components/SuccessMessage';
+import { useToggle } from '../../pages/HP/useToggle';
+import loading_gif from '../../resources/prosecing.gif';
 
 const NU_Register: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -20,6 +23,11 @@ const NU_Register: React.FC = () => {
     const [passwordErrMessage, setPasswordErrMessage] = useState('');
     const [profilePic, setProfilePic] = useState<File | null>(null);
     const user_type = "NU";
+    const [showPopup, togglePopup] = useToggle();
+    const [successState, setSuccessState] = useState<string>('');
+    const [successMessage, setSuccessMessage] = useState<string>('');
+    const [showLoadingPopup, toggleLoadingPopup] = useState(false);
+    const [successFlag, setSuccessFlag] = useState(false);
 
 
     useEffect(() => {
@@ -58,6 +66,7 @@ const NU_Register: React.FC = () => {
         if (password === passwordConfirm && !passwordErrMessage) {
             if (profilePic) {
                 try {
+                    toggleLoadingPopup(true);
                     const formData = new FormData();
                     formData.append('user_type', user_type);
                     formData.append('email', email);
@@ -79,8 +88,11 @@ const NU_Register: React.FC = () => {
                             'Content-Type': 'multipart/form-data',
                         },
                     });
-
-                    setMessage(response.data.message || 'Registration successful');
+                    toggleLoadingPopup(false);
+                    setSuccessMessage('Registration Successful. Thank you!');
+                    setSuccessState('Success');
+                    setSuccessFlag(true);
+                    togglePopup();
                 } catch (error) {
                     setMessage('Error registering user');
                 }
@@ -313,11 +325,10 @@ const NU_Register: React.FC = () => {
                 
                     <button type="submit" className="btn btn-primary">Register</button>
                 </form>
-                
-                
                 {message && <div className="alert alert-danger alertplacement_NU_Registration" role="alert">{message}</div>}
                 </div>
-            
+                <img className={`${showLoadingPopup ? 'showLoading HP_Register_loading_gif NU_Register_loading_gif' : 'HP_Register_loading_gif_notShow'}`} src={loading_gif}/>
+                {successFlag && <SuccessMessage  show={showPopup} handleClose={togglePopup} message={successMessage} successState={successState}/>}
         </div>
     );
 };

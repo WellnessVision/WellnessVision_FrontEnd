@@ -40,7 +40,7 @@ const UserPhysicalEventBookingPaymentSlip: React.FC<UserPhysicalEventBookingPaym
             params: { eventId, userId, ticketPrice, accountNumber, accountOwnerName, branchName, bankName}
           });
           handleClose();
-          navigate('/NU_ViewUpcomingPhysicalEvents');
+          navigate('/NU_ViewBookedUpcomingphysicalEvents');
         } catch (err) {
           if (err instanceof Error) {
             setError(err.message);
@@ -73,7 +73,7 @@ const handleUserPhysicalEventTemporaryBookingCancel = useCallback(async (eventId
           <div className="popup-inner popup-inner_HP_HallAvailability">
             <div className="card HP_HallAvailability_fontSize" style={{ width: '100%' }}>
               <div className="card-body fine_details_card__Hp_DeletePhysicalEventFineDetails">
-                <h5 className="card-title title_HP_HallAvailability">Receipt for deletion of physical events</h5>
+                <h5 className="card-title title_HP_HallAvailability">Physical EventBooking Payment Slip</h5>
                 <div className="straight-line"></div>
                 <div className='HP_HallAvailability_div'>
                   {PhysicalEvent ? (

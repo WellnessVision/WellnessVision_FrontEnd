@@ -19,7 +19,7 @@ interface Admin_Profile {
   }
 
 const Admin_Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
-    const notificationCount = 3;
+    const notificationCount = 0;
     const [error, setError] = useState<string | null>(null);
     const adminId = Number(localStorage.getItem('adminId'));
     const [profileDetails, setProfileDetails] = useState<Admin_Profile | null>(null);
@@ -332,8 +332,23 @@ const Admin_Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                 >
                   <i className="bi bi-calendar-range"></i>
                   <span className="ms-2 d-none d-sm-inline">
-                    My Appointments
+                    Appointments
                   </span>
+                </a>
+              </li>
+
+              <li
+                className={`nav-item my-1 py-2 py-sm-0 ${isActive("Payments")}`}
+              >
+                <a
+                  href="#"
+                  className={`nav-link text-white text-center text-sm-start ${isActive(
+                    "Payments"
+                  )}`}
+                  aria-current="page"
+                >
+                  <i className="bi bi-credit-card"></i>
+                  <span className="ms-2 d-none d-sm-inline">Articles</span>
                 </a>
               </li>
 

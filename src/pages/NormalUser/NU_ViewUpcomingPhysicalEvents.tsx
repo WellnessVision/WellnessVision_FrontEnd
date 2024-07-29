@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import NU_Sidebar from './NU_components/NU_Sidebar'
@@ -6,6 +6,7 @@ import '../HP/HP_ViewEvents.css';
 import yoga01 from '../../resources/yoga01.png';
 import AddEvent from '../HP/HP_AddPhysicalEvent';
 import { useToggle } from '../HP/useToggle';
+import './NU_ViewUpcomingPhysicalEvents.css'
 
 interface PhysicalEvent {
   event_id: number;
@@ -41,11 +42,12 @@ const NU_ViewUpcomingPhysicalEvents: React.FC = () => {
   const [events, setEvents] = useState<PhysicalEvent[]>([]);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [searchCode, setSearchCode] = useState('');
 
-  const fetchEvents = async () => {
+  const fetchEvents =  useCallback(async () => {
     try {
       const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/getUpcomingPhysicalEventsForUsers`, {
-        params: { eventState: "Upcoming" }
+        params: { eventState: "Upcoming", searchCode}
       });
       setEvents(response.data);
     } catch (err) {
@@ -55,11 +57,15 @@ const NU_ViewUpcomingPhysicalEvents: React.FC = () => {
         setError('An unknown error occurred');
       }
     }
-  };
+  }, [searchCode]);
 
   useEffect(() => {
     fetchEvents();
-  }, []);
+  }, [fetchEvents]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchCode(e.target.value);
+  };
 
   const handleViewDetails = (eventId: number, hpId: number) => {
     navigate(`/NU_ViewOneUpcomingPhysicalEvent/${eventId}/${hpId}`);
@@ -70,6 +76,16 @@ const NU_ViewUpcomingPhysicalEvents: React.FC = () => {
     <NU_Sidebar activeMenuItem={["PhysicalEvents", "UpcomingEvents", "Events"]}/>
       <div className={`blurBackground ${showPopup ? 'blur' : ''}`}>
         <h3 className="header">Upcoming Events</h3>
+        <form className="d-flex search NU_ViewUpcomingPhysicalEvents_search" role="search">
+             <input 
+                 className="form-control me-2" 
+                 type="search" 
+                 placeholder="Search By Event Name" 
+                 aria-label="Search"
+                 value={searchCode}
+                 onChange={handleSearchChange}/>
+              <button className="btn btn-outline-success" type="submit" disabled>Search</button>
+            </form>
         <div className="cardHang">
           {events.length > 0 ? (
             events.map(event => (

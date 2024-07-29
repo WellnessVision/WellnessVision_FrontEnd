@@ -91,6 +91,7 @@ interface PhysicalEvent {
   const [showLoadingPopup, toggleLoadingPopup] = useState(false);
   const userId = localStorage.getItem('userId');
   const [checkBookingStateValue, setCheckBookingStateValue] = useState('');
+  const [deleteState, setDeleteState] = useState(false);
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -130,6 +131,11 @@ interface PhysicalEvent {
   fetchHpDetails();
 }, [hpId]);
 
+const handleDeleteEventBooking = () => {
+  setDeleteState(true);
+  togglePopup_3();
+};
+
 
 useEffect(() => {
     const fetchParticipationDetails = async () => {
@@ -150,31 +156,7 @@ useEffect(() => {
     fetchParticipationDetails();
   }, [ userId, eventId, setCheckBookingStateValue, setError]);
 
-
-const handleUserPhysicalEventTemporaryBooking = useCallback(async (eventId: number) => {
-    try {
-        const response = await axios.put(`http://localhost:15000/userPhysicalEventTemporaryBooking`, null, {
-        params: { eventId }
-      });
-      if(response.data === "Booked"){
-        togglePopup();
-      }else{
-        navigate(`/HP_LodingPage`);
-        alert("Sorry, All Tickets are Sold Out");
-        setTimeout(() => {
-          navigate(`/NU_ViewOneUpcomingPhysicalEvent/${eventId}`);
-        }, 100);
-      }
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('An unknown error occurred');
-      }
-    }
-  }, [navigate, setError]);
-
-  if (error) {
+ if (error) {
     return <div style={{ color: 'red' }}>{error}</div>;
   }
 
@@ -223,13 +205,13 @@ const handleUserPhysicalEventTemporaryBooking = useCallback(async (eventId: numb
                         <img src ={ParticipationDetailsPic} className="NU_ViewOneUpcomingPhysicalEvent_hp_profile_pic NU_ViewOneBookedUpcomingPhysicalEvent_ParticipationDetailsPic" alt="Card image"/>
                         <h5 className="card-text detail NU_ViewOneBookedUpcomingPhysicalEvent_participantId"><i className="bi bi-award-fill"></i> {participants.participantId} (Your Participant Id)</h5>
                         <h5 className="card-text detail NU_ViewOneBookedUpcomingPhysicalEvent_participantState"><i className="bi bi-people-fill"></i> {participants.participantState} (Your Current participation State)</h5>
-                        <h5 className="card-text detail NU_ViewOneBookedUpcomingPhysicalEvent_eventState"><i className="bi bi-calendar-check"></i> {participants.eventState} (Event State)</h5>
+                        <h5 className="card-text detail NU_ViewOneBookedUpcomingPhysicalEvent_eventState"><i className="bi bi-award-fill"></i> Booking Id : {participants.bookingId}<span><i className="bi bi-calendar-check NU_ViewOneBookedUpcomingPhysicalEvent_EventState"></i> {participants.eventState} (Event State)</span></h5>
                     </div>
                     <div className='button_div'>
-                    <a href="/NU_ViewBookedUpcomingphysicalEvents" className="btn btn-primary back_button NU_ViewOneBookedUpcomingPhysicalEvent_back"><i className='bi bi-arrow-left-circle'></i> Back to Events</a>
+                    <a href="/NU_ViewBookedUpcomingphysicalEvents" className={`btn btn-primary back_button NU_ViewOneBookedUpcomingPhysicalEvent_back ${participants.participantState == 'NotParticipate' && event.event_state == 'Upcoming' ? '' : 'NU_ViewOneBookedUpcomingPhysicalEvent_back_hidden'}`}><i className='bi bi-arrow-left-circle'></i> Back to Events</a>
                     <a className="btn btn-warning back_button NU_ViewOneBookedUpcomingPhysicalEvent_receipts" onClick={togglePopup_2}><i className='bi bi-info-circle'></i> Money receipts details</a>
-                    <a className="btn btn-danger book_button NU_ViewOneBookedUpcomingPhysicalEvent_delete"
-                        onClick={togglePopup_3} >
+                    <a className={`btn btn-danger book_button ${participants.participantState == 'NotParticipate' && event.event_state == 'Upcoming' ? 'NU_ViewOneBookedUpcomingPhysicalEvent_delete' : 'NU_ViewOneBookedUpcomingPhysicalEvent_delete_hidden'}`}
+                        onClick={handleDeleteEventBooking} >
                         <i className='bi bi-trash3'></i> Delete Booking
                     </a>
                        
@@ -240,7 +222,7 @@ const handleUserPhysicalEventTemporaryBooking = useCallback(async (eventId: numb
         </div>
             <UserPhysicalEventBookingPaymentSlipProps show={showPopup} handleClose={togglePopup} PhysicalEvent={event}/>
             <NU_ViewModifyMoneyReceiptsDetails show_2={showPopup_2} handleClose_2={togglePopup_2} MoneyReceiptsDetails={participants} userId={userId} eventId={eventId} hpId={hpId}/>
-            <NU_DeletePhysicalEventBookingProps show_3={showPopup_3} handleClose_3={togglePopup_3} MoneyReceiptsDetails={participants} eventId={eventId}/>
+            {deleteState && <NU_DeletePhysicalEventBookingProps show_3={showPopup_3} handleClose_3={togglePopup_3} MoneyReceiptsDetails={participants} eventId={eventId} setDeleteStateFun={setDeleteState}/>}
         </div>
     );
 }

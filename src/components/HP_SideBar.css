@@ -26,6 +26,16 @@
     background-color: #007bff; 
 }
 
+#submenuEvents > li.nav-item > a.nav-link[data-menu="PreviousEvents"]:hover,
+#submenuEvents > li.nav-item > a.nav-link[data-menu="PreviousEvents"].active {
+    background-color: #696767;
+}
+
+#submenuPrevious > li.nav-item > a.nav-link[data-menu="PreviousPhysicalEvents"]:hover,
+#submenuPrevious > li.nav-item > a.nav-link[data-menu="PreviousPhysicalEvents"].active {
+    background-color: #007bff; 
+}
+
 #parentM > li.nav-item > a.nav-link[data-menu="Booked_Events"]:hover,
 #parentM > li.nav-item > a.nav-link[data-menu="Booked_Events"].active {
     background-color: #4d4949;
@@ -38,6 +48,16 @@
 
 #submenuUpcomingBooked_Events > li.nav-item > a.nav-link[data-menu="PhysicalBooked_Events"]:hover,
 #submenuUpcomingBooked_Events > li.nav-item > a.nav-link[data-menu="PhysicalBooked_Events"].active {
+    background-color: #007bff; 
+}
+
+#submenuBooked_Events > li.nav-item > a.nav-link[data-menu="PreviousBooked_Events"]:hover,
+#submenuBooked_Events > li.nav-item > a.nav-link[data-menu="PreviousBooked_Events"].active {
+    background-color: #696767; 
+}
+
+#submenuPreviousBooked_Events > li.nav-item > a.nav-link[data-menu="PreviousPhysicalBooked_Events"]:hover,
+#submenuPreviousBooked_Events > li.nav-item > a.nav-link[data-menu="PreviousPhysicalBooked_Events"].active {
     background-color: #007bff; 
 }
 

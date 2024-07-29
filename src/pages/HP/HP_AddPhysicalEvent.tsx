@@ -306,7 +306,9 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                                     <span className="clear_button_text_addEvent">Clear</span>
                                 </button>
                             </div>
+                            <div className='HP_AddPhysicalEventPaddingToExpectedCapacity'>
                             {message && !duration && <p className="time_wrong_addEvent">{message}</p>}
+                            </div>
                             <div className="name-group capasity_HP_addPhysicalEvent">
                                 <div className="form-group">
                                     <input

@@ -19,12 +19,13 @@ const HP_EventBookingClose: React.FC<HP_EventBookingCloseProps> = ({ show_3, han
 
   const handleCloseEventBooking = useCallback(async () => {
     try {
-      handleClose_3();
       setShowLoadingPopup(true);
       await axios.put(`http://localhost:15000/closeEventBookingForHp`, null, {
         params: { eventId }
       });
+      handleClose_3();
       setShowLoadingPopup(false);
+      navigate(`/HP_ViewOnePreviousPhysicalEvent/${eventId}`);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);

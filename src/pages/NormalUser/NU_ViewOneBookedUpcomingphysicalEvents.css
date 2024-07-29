@@ -17,7 +17,7 @@
 }
 .NU_ViewOneBookedUpcomingPhysicalEvent_back{
     margin-top: 50px;
-    margin-left: 270px;
+    margin-left: 260px;
 }
 .NU_ViewOneBookedUpcomingPhysicalEvent_receipts{
     margin-top: 50px;
@@ -26,9 +26,21 @@
 }
 .NU_ViewOneBookedUpcomingPhysicalEvent_delete{
     margin-top: 50px;
+    visibility: visible;
 }
 
 .NU_ViewOneBookedUpcomingphysicalEvents_loading_gif{
     margin-left: 600px;
     margin-top: 100px;
+}
+
+.NU_ViewOneBookedUpcomingPhysicalEvent_EventState{
+    margin-left: 20px;
+}
+
+.NU_ViewOneBookedUpcomingPhysicalEvent_delete_hidden{
+    visibility: hidden;
+}
+.NU_ViewOneBookedUpcomingPhysicalEvent_back_hidden{
+    margin-left: 550px;
 }

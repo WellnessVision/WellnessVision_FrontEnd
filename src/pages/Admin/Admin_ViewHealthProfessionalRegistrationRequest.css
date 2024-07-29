@@ -10,3 +10,6 @@
 .Admin_ViewHealthProfessionalRegistrationRequest_viewMore{
     width: 180px;
 }
+.Admin_ViewHealthProfessionalRegistrationRequestCardBody{ 
+    background-color: #f7fafd;
+}

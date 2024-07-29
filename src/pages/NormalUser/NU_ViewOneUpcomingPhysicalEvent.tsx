@@ -150,11 +150,17 @@ const handleUserPhysicalEventTemporaryBooking = useCallback(async (eventId: numb
       });
       if(response.data === "Booked"){
         togglePopup();
+      }else if(response.data === "CloseBooking"){
+        navigate(`/HP_LodingPage`);
+        setTimeout(() => {
+          navigate(`/NU_ViewOnePreviousPhysicalEvent/${eventId}`);
+          alert("Sorry, Ticket booking closed");
+        }, 100);
       }else{
         navigate(`/HP_LodingPage`);
-        alert("Sorry, All Tickets are Sold Out");
         setTimeout(() => {
           navigate(`/NU_ViewOneUpcomingPhysicalEvent/${eventId}`);
+          alert("Sorry, All Tickets are Sold Out");
         }, 100);
       }
     } catch (err) {
@@ -163,6 +169,11 @@ const handleUserPhysicalEventTemporaryBooking = useCallback(async (eventId: numb
       } else {
         setError('An unknown error occurred');
       }
+      navigate(`/HP_LodingPage`);
+        alert("Sorry, The event was deleted already");
+        setTimeout(() => {
+          navigate('/NU_ViewUpcomingPhysicalEvents');
+        }, 100);
     }
   }, [navigate, setError]);
 
@@ -173,13 +184,13 @@ const handleUserPhysicalEventTemporaryBooking = useCallback(async (eventId: numb
   if (!event) {
     return <div>
         <NU_Sidebar activeMenuItem={["PhysicalEvents", "UpcomingEvents", "Events"]}/>
-        <img src={loading_gif} alt="" /></div>;
+        <img className='NU_ViewOneUpcomingPhysicalEvent_logingImage' src={loading_gif} alt="" /></div>;
   }
 
   if (!oneHpDetails) {
     return <div>  
       <NU_Sidebar activeMenuItem={["PhysicalEvents", "UpcomingEvents", "Events"]}/>
-      <img src={loading_gif} alt="" /></div>;
+      <img className='NU_ViewOneUpcomingPhysicalEvent_logingImage' src={loading_gif} alt="" /></div>;
   }
 
   return (

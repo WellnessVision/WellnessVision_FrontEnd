@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../../components/Admin_Sidebar';
 import axios from 'axios';
+import CalendarComponent from '../NormalUser/NU_components/NU_Calender';
 
 interface HP_Profile {
   id: number;
@@ -35,6 +36,8 @@ const Admin_Dashboard: React.FC = () => {
   return (
     <div>
       <Sidebar activeMenuItem={["Dashboard"]}/>
+      <h3 className='HP_Dashboard_dashboard'>Admin Dashboard</h3>
+      <CalendarComponent/>
     </div>
   );
 };

@@ -213,7 +213,7 @@ interface PhysicalEvent {
                   <span> 
                   <a
             className={`btn participantDetailsParticipationMarkButton ${
-              participant.participantState === 'NotParticipate' ? 'btn-outline-success participantDetailsMarkasParticepateShow' : 'btn-success participantDetailsMarkasNotParticepateShow'
+              participant.participantState === 'NotParticipate' ? 'btn btn-outline-secondary participantDetailsMarkasParticepateShow' : 'btn-success participantDetailsMarkasNotParticepateShow'
             }`}
             onClick={() =>
               handleMarkAsParticipate(participant.bookingId, participant.participantState === 'NotParticipate' ? 'Participated' : 'NotParticipate')

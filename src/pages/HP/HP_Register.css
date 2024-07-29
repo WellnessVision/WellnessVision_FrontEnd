@@ -146,3 +146,10 @@ body {
 .phoneNumberError_HP_Resister{
     margin-top: -4px;
 }
+.HP_Register_loading_gif{
+    display: block;
+    margin-top: 450px;
+}
+.HP_Register_loading_gif_notShow{
+    display: none;
+}

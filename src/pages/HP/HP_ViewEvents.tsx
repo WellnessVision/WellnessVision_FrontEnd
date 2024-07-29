@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import HPSideBar from '../../components/HP_SideBar';
@@ -42,11 +42,12 @@ const HP_ViewEvents: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const hpId = Number(localStorage.getItem('hpId'));
   const navigate = useNavigate();
+  const [searchCode, setSearchCode] = useState('');
 
-  const fetchEvents = async () => {
+  const fetchEvents =  useCallback(async () => {
     try {
       const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/viewPhysicalEvent`, {
-        params: { hp_id: hpId, eventState: "Upcoming" }
+        params: { hp_id: hpId, eventState: "Upcoming", searchCode }
       });
       setEvents(response.data);
     } catch (err) {
@@ -56,14 +57,18 @@ const HP_ViewEvents: React.FC = () => {
         setError('An unknown error occurred');
       }
     }
-  };
+  }, [searchCode]);
 
   useEffect(() => {
     fetchEvents();
-  }, []);
+  }, [fetchEvents]);
 
   const handleViewDetails = (eventId: number) => {
     navigate(`/HP_OneEvents/${eventId}`);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchCode(e.target.value);
   };
 
   return (
@@ -71,6 +76,16 @@ const HP_ViewEvents: React.FC = () => {
       <HPSideBar activeMenuItem={["PhysicalEvents", "UpcomingEvents", "Events"]}/>
       <div className={`blurBackground ${showPopup ? 'blur' : ''}`}>
         <h3 className="header">All Events</h3>
+        <form className="d-flex search HP_ViewEvents_searchByEventName" role="search">
+             <input 
+                 className="form-control me-2" 
+                 type="search" 
+                 placeholder="Search By Event Name" 
+                 aria-label="Search"
+                 value={searchCode}
+                 onChange={handleSearchChange}/>
+              <button className="btn btn-outline-success" type="submit" disabled>Search</button>
+            </form>
         <a onClick={togglePopup} className="btn btn-success add_physical">
           <i className="bi bi-plus-lg"></i> New Physical Event
         </a>

@@ -108,7 +108,7 @@ interface participationUserDetails {
                   <span> 
                   <a
             className={`btn participantDetailsParticipationMarkButton ${
-              participantState === 'NotParticipate' ? 'btn-outline-success participantDetailsMarkasParticepateShow' : 'btn-success participantDetailsMarkasNotParticepateShow'
+              participantState === 'NotParticipate' ? 'btn btn-outline-secondary participantDetailsMarkasParticepateShow' : 'btn-success participantDetailsMarkasNotParticepateShow'
             }`}
             onClick={() =>
               handleMarkAsParticipate(Number(bookingId), participantState === 'NotParticipate' ? 'Participated' : 'NotParticipate')

@@ -97,7 +97,7 @@ const Admin_ViewOneHealthProfessionalRegistrationRequest: React.FC<Admin_ViewOne
                         <img src={event?.profilePicture} className="hpViewParticipantUserDetailsImage Admin_ViewOneHealthProfessionalRegistrationRequestImage" alt="Card image" />
                     </a>
                     <div className="card-body Admin_ViewOneHealthProfessionalRegistrationRequestdiv">
-                        <p className="card-text hpViewParticipantUserDetails_style Admin_ViewOneHealthProfessionalRegistrationRequestId"><i className='bi bi-award-fill'></i> {requestId} (participant ID)</p>
+                        <p className="card-text hpViewParticipantUserDetails_style Admin_ViewOneHealthProfessionalRegistrationRequestId"><i className='bi bi-award-fill'></i> {requestId} (Request ID)</p>
                         <p className="card-text hpViewParticipantUserDetails_style"><i className='bi bi-award-fill'></i>{event?.firstName} {event?.lastName} (Full Name)</p>
                         <p className="card-text hpViewParticipantUserDetails_style"><i className='bi bi-soundwave'></i> {event?.profession} (Profession)</p>
                         <p className="card-text hpViewParticipantUserDetails_style"><i className='bi bi-award-fill'></i> {event?.email} (Email)</p>

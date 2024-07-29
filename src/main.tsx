@@ -22,6 +22,18 @@ import NU_ViewBookedUpcomingphysicalEvents from './pages/NormalUser/NU_ViewBooke
 import NU_ViewOneUpcomingPhysicalEvent from './pages/NormalUser/NU_ViewOneUpcomingPhysicalEvent'
 import NU_ViewOneBookedUpcomingphysicalEvents from './pages/NormalUser/NU_ViewOneBookedUpcomingphysicalEvents'
 import Admin_Dashboard from './pages/Admin/Admin_Dashboard'
+import HP_Notification from './pages/HP/HP_Notification'
+import HP_ViewPhysicalEventPayment from './pages/HP/HP_ViewPhysicalEventPayment'
+import NU_Notification from './pages/NormalUser/NU_Notification'
+import NU_ViewPhysicalEventBookingPayment from './pages/NormalUser/NU_ViewPhysicalEventBookingPayment'
+import HP_ViewDeletedEvents from './pages/HP/HP_ViewDeletedEvents'
+import HP_ViewOneDeletedEvents from './pages/HP/HP_ViewOneDeletedEvents'
+import HP_ViewPreviousPhysicalEvents from './pages/HP/HP_ViewPreviousPhysicalEvents'
+import HP_ViewOnePreviousPhysicalEvent from './pages/HP/HP_ViewOnePreviousPhysicalEvent'
+import NU_ViewPreviousPhysicalEvents from './pages/NormalUser/NU_ViewPreviousPhysicalEvents'
+import NU_ViewOnePreviousPhysicalEvents from './pages/NormalUser/NU_ViewOnePreviousPhysicalEvents'
+import NU_ViewBookedPreviousphysicalEvents from './pages/NormalUser/NU_ViewBookedPreviousphysicalEvents'
+import NU_ViewOneBookedPreviousphysicalEvents from './pages/NormalUser/NU_ViewOneBookedPreviousphysicalEvents'
 
 
 import {
@@ -102,7 +114,55 @@ const router = createBrowserRouter([
   {
     path: "Admin_Dashboard",
     element: <Admin_Dashboard />,
-  }
+  },
+  {
+    path: "HP_Notification",
+    element: <HP_Notification />,
+  },
+  {
+    path: "HP_ViewPhysicalEventPayment",
+    element: <HP_ViewPhysicalEventPayment />,
+  },
+  {
+    path: "NU_Notification",
+    element: <NU_Notification />,
+  },
+  {
+    path: "NU_ViewPhysicalEventBookingPayment",
+    element: <NU_ViewPhysicalEventBookingPayment />,
+  },
+  {
+    path: "HP_ViewDeletedEvents",
+    element: <HP_ViewDeletedEvents />,
+  },
+  {
+    path: "HP_ViewOneDeletedEvents/:eventId",
+    element: <HP_ViewOneDeletedEvents/>,
+  },
+  {
+    path: "HP_ViewPreviousPhysicalEvents",
+    element: <HP_ViewPreviousPhysicalEvents/>,
+  },
+  {
+    path: "HP_ViewOnePreviousPhysicalEvent/:eventId",
+    element: <HP_ViewOnePreviousPhysicalEvent/>,
+  },
+  {
+    path: "NU_ViewPreviousPhysicalEvents",
+    element: <NU_ViewPreviousPhysicalEvents/>,
+  },
+  {
+    path: "NU_ViewOnePreviousPhysicalEvents/:eventId/:hpId",
+    element: <NU_ViewOnePreviousPhysicalEvents />,
+  },
+  {
+    path: "NU_ViewBookedPreviousphysicalEvents",
+    element: <NU_ViewBookedPreviousphysicalEvents/>,
+  },
+  {
+    path: "NU_ViewOneBookedPreviousphysicalEvents/:eventId/:hpId",
+    element: <NU_ViewOneBookedPreviousphysicalEvents />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

@@ -66,7 +66,7 @@ const Admin_ViewHealthProfessionalRegistrationRequest: React.FC = () => {
                 {events.length > 0 ? (
                     events.map(event => (
                         <div className="card mb-3 particepationMarkCards" style={{ width: '100%' }} key={event.requestId}>
-                            <div className="card-body card-body participantDetailsFlexContainer">
+                            <div className="card-body card-body participantDetailsFlexContainer Admin_ViewHealthProfessionalRegistrationRequestCardBody">
                             <img src={event.profilePicture} className="Admin_ViewHealthProfessionalRegistrationRequest_profilePic" alt="Event image" />
                             <h5 className="card-title Admin_ViewHealthProfessionalRegistrationRequest_name">RequestId: {event.requestId}</h5>
                                 <h5 className="card-title Admin_ViewHealthProfessionalRegistrationRequest_name">{event.firstName} {event.lastName}</h5>

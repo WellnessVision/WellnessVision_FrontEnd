@@ -3,6 +3,7 @@ import NotificationIcon from "../../../components/HP_NotificationIcon";
 import WellnessVision from "../../../resources/WellnessVision_new_icon.png";
 import axios from "axios";
 import "./NU_Sidebar.css"; // Import the CSS file where your styles are defined
+import NU_NotificationIcon from "../../../components/NU_NotificationIcon";
 
 interface NU_SidebarProps {
   activeMenuItem: string[];
@@ -15,9 +16,10 @@ interface UserDetailsProps {
 }
 
 const NU_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
-  const notificationCount = 2;
+  const [notificationCount, setNotificationCount] = useState<number>(0);
   const [error, setError] = useState("");
   const [userDetails, setUserDetails] = useState<UserDetailsProps | null>(null);
+  const userId = Number(localStorage.getItem('userId'));
 
   const fetchUserDetails = async () => {
     try {
@@ -37,6 +39,25 @@ const NU_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
   useEffect(() => {
     fetchUserDetails();
   }, []);
+
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const response = await axios.get<number>(`http://localhost:15000/getNotificationsCountForAnyUser`,{
+            params: { ownerId: userId }
+        });
+        setNotificationCount(response.data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
+      }
+    };
+
+    fetchEvent();
+  }, [userId]);
 
   const isActive = (item: string) => (activeMenuItem.includes(item) ? "active" : "");
   const isExpanded = (items: string[]) =>
@@ -59,7 +80,7 @@ const NU_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
             WellnessVision
           </a>
           <div className="ml-auto">
-            <NotificationIcon count={notificationCount} />
+            <NU_NotificationIcon count={notificationCount} />
           </div>
           <div className="name">
             {userDetails?.firstName} {userDetails?.lastName}
@@ -131,6 +152,8 @@ const NU_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                     "UpcomingEvents",
                     "PhysicalEvents",
                     "OnlineEvents",
+                    "PreviousEvents",
+                    "PreviousPhysicalEvents",
                   ])}`}
                   id="submenuEvents"
                   data-bs-parent="#parentM"
@@ -187,7 +210,12 @@ const NU_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                       </li>
                     </ul>
                   </li>
-                  <li className="nav-item">
+                  <li
+                    className={`nav-item ${isExpanded([
+                      "PreviousPhysicalEvents",
+                      "PreviousOnlineEvents",
+                    ])}`}
+                  >
                     <a
                       href="#submenuPrevious"
                       className={`nav-link text-white text-center text-sm-start ${isActive(
@@ -202,15 +230,21 @@ const NU_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                       <i className="bi bi-arrow-down-short text-end"></i>
                     </a>
                     <ul
-                      className="nav collapse ms-2 flex-column"
+                      className={`nav collapse ms-2 flex-column ${isExpanded([
+                        "PreviousPhysicalEvents",
+                        "PreviousOnlineEvents",
+                      ])}`}
                       id="submenuPrevious"
                       data-bs-parent="#submenuEvents"
                     >
                       <li className="nav-item">
                         <a
-                          className="nav-link text-white"
-                          href="#"
+                         className={`nav-link text-white ${isActive(
+                          "PreviousPhysicalEvents"
+                        )}`}
+                          href="/NU_ViewPreviousPhysicalEvents"
                           aria-current="page"
+                          data-menu="PreviousPhysicalEvents"
                         >
                           Physical Events
                         </a>
@@ -234,6 +268,8 @@ const NU_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                   "UpcomingBooked_Events",
                   "PhysicalBooked_Events",
                   "OnlineBooked_Events",
+                  "PreviousBooked_Events",
+                  "PreviousPhysicalBooked_Events",
                 ])}`}
               >
                 <a
@@ -254,6 +290,8 @@ const NU_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                     "UpcomingBooked_Events",
                     "PhysicalBooked_Events",
                     "OnlineBooked_Events",
+                    "PreviousBooked_Events",
+                    "PreviousPhysicalBooked_Events",
                   ])}`}
                   id="submenuBooked_Events"
                   data-bs-parent="#parentM"
@@ -310,7 +348,12 @@ const NU_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                       </li>
                     </ul>
                   </li>
-                  <li className="nav-item">
+                  <li
+                    className={`nav-item ${isExpanded([
+                      "PreviousPhysicalBooked_Events",
+                      "PreviousOnlineBooked_Events",
+                    ])}`}
+                  >
                     <a
                       href="#submenuPreviousBooked_Events"
                       className={`nav-link text-white text-center text-sm-start ${isActive(
@@ -325,22 +368,30 @@ const NU_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                       <i className="bi bi-arrow-down-short text-end"></i>
                     </a>
                     <ul
-                      className="nav collapse ms-2 flex-column"
+                      className={`nav collapse ms-2 flex-column ${isExpanded([
+                        "PreviousPhysicalBooked_Events",
+                        "PreviousOnlineBooked_Events",
+                      ])}`}
                       id="submenuPreviousBooked_Events"
                       data-bs-parent="#submenuBooked_Events"
                     >
                       <li className="nav-item">
                         <a
-                          className="nav-link text-white"
-                          href="#"
+                        className={`nav-link text-white ${isActive(
+                          "PreviousPhysicalBooked_Events"
+                        )}`}
+                          href="/NU_ViewBookedPreviousphysicalEvents"
                           aria-current="page"
+                          data-menu="PreviousPhysicalBooked_Events"
                         >
                           Physical Events
                         </a>
                       </li>
                       <li className="nav-item">
                         <a
-                          className="nav-link text-white"
+                         className={`nav-link text-white ${isActive(
+                          "PreviousOnlineBooked_Events"
+                        )}`}
                           href="#"
                           aria-current="page"
                         >
@@ -375,7 +426,7 @@ const NU_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                 className={`nav-item my-1 py-2 py-sm-0 ${isActive("Payments")}`}
               >
                 <a
-                  href="#"
+                  href="/NU_ViewPhysicalEventBookingPayment"
                   className={`nav-link text-white text-center text-sm-start ${isActive(
                     "Payments"
                   )}`}
