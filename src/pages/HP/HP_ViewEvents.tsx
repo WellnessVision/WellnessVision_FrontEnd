@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import HPSideBar from '../../components/HP_SideBar';
@@ -40,13 +40,14 @@ const HP_ViewEvents: React.FC = () => {
   const [showPopup, togglePopup] = useToggle();
   const [events, setEvents] = useState<PhysicalEvent[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const hpId = 1;
+  const hpId = Number(localStorage.getItem('hpId'));
   const navigate = useNavigate();
+  const [searchCode, setSearchCode] = useState('');
 
-  const fetchEvents = async () => {
+  const fetchEvents =  useCallback(async () => {
     try {
       const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/viewPhysicalEvent`, {
-        params: { hp_id: hpId }
+        params: { hp_id: hpId, eventState: "Upcoming", searchCode }
       });
       setEvents(response.data);
     } catch (err) {
@@ -56,26 +57,37 @@ const HP_ViewEvents: React.FC = () => {
         setError('An unknown error occurred');
       }
     }
-  };
+  }, [searchCode]);
 
   useEffect(() => {
     fetchEvents();
-  }, []);
+  }, [fetchEvents]);
 
   const handleViewDetails = (eventId: number) => {
     navigate(`/HP_OneEvents/${eventId}`);
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchCode(e.target.value);
+  };
+
   return (
     <div>
-      <HPSideBar activeMenuItem="Events" />
+      <HPSideBar activeMenuItem={["PhysicalEvents", "UpcomingEvents", "Events"]}/>
       <div className={`blurBackground ${showPopup ? 'blur' : ''}`}>
         <h3 className="header">All Events</h3>
+        <form className="d-flex search HP_ViewEvents_searchByEventName" role="search">
+             <input 
+                 className="form-control me-2" 
+                 type="search" 
+                 placeholder="Search By Event Name" 
+                 aria-label="Search"
+                 value={searchCode}
+                 onChange={handleSearchChange}/>
+              <button className="btn btn-outline-success" type="submit" disabled>Search</button>
+            </form>
         <a onClick={togglePopup} className="btn btn-success add_physical">
           <i className="bi bi-plus-lg"></i> New Physical Event
-        </a>
-        <a className="btn btn-success add_online">
-          <i className="bi bi-plus-lg"></i> New Online Event
         </a>
         <div className="cardHang">
           {events.length > 0 ? (
@@ -85,6 +97,9 @@ const HP_ViewEvents: React.FC = () => {
                 <div className="card-body">
                   <h5 className="card-title title">{event.eventTitle}</h5>
                   <div className="straight-line"></div>
+                  <p className="card-text detail">
+                    <i className="bi bi-award-fill"></i> {event.event_id} (Event ID)
+                  </p>
                   <p className="card-text detail">
                     <i className="bi bi-bookmark-star-fill"></i> {event.finalEventType}
                   </p>

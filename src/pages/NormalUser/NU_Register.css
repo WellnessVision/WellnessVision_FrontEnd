@@ -1,0 +1,34 @@
+.alertplacement_NU_Registration {
+    display: flex;
+    justify-content: left;
+    position: fixed;
+    right: 32px;
+    top: 22px;
+    max-width: 280px;
+}
+
+.Lable-on-left_NU_Registration {
+    display: flex;
+    justify-content: left;
+    left: 0px;
+    position: relative;
+    bottom: 7px;
+}
+
+.profile-pic-label_NU_Registration {
+    display: flex;
+    justify-content: left;
+    left: 0px;
+    position: relative;
+    bottom: 4px;
+    padding-top: 19px;
+}
+.user_form_div_NU_Registration{
+    margin-top: 10px;
+}
+.NU_Register_loading_image{
+    margin-top: 150px;
+}
+.NU_Register_loading_gif{
+    margin-top: 150px;
+}

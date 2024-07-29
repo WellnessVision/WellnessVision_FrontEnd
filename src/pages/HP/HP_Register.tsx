@@ -1,6 +1,9 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import "./HP_Register.css"
+import SuccessMessage from '../../components/SuccessMessage';
+import { useToggle } from '../../pages/HP/useToggle';
+import loading_gif from '../../resources/prosecing.gif';
 
 const HP_Register: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -29,6 +32,11 @@ const HP_Register: React.FC = () => {
     const [profilePicture, setProfilePicture] = useState<File | null>(null);
     const [phoneNumber, setPhoneNumber] = useState<string>('');
     const [phoneNumberError, setPhoneNumberError] = useState<JSX.Element | null>(null);
+    const [showPopup, togglePopup] = useToggle();
+    const [successState, setSuccessState] = useState<string>('');
+    const [successMessage, setSuccessMessage] = useState<string>('');
+    const [showLoadingPopup, toggleLoadingPopup] = useState(false);
+    const [successFlag, setSuccessFlag] = useState(false);
 
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -133,12 +141,18 @@ const HP_Register: React.FC = () => {
         if (otherVerificationPdf) formData.append('otherVerificationPdf', otherVerificationPdf);
     
         try {
+            toggleLoadingPopup(true);
           const response = await axios.post('http://localhost:15000/healthProfessionalRegistrationRequest', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
           });
-          setMessage(response.data.message || 'Registration successful');
+          setSuccessMessage('Your registration request has been successfully created. After verifying we will inform you about it via an email. Thank you!');
+          setSuccessState('Success');
+          toggleLoadingPopup(false);
+          setSuccessFlag(true);
+          togglePopup();
+
         } catch (error) {
           setMessage('Error registering user');
         }
@@ -270,7 +284,7 @@ const HP_Register: React.FC = () => {
                                 type="text" 
                                 className="form-control" 
                                 id="inputZip" 
-                                placeholder="Zip" 
+                                placeholder="Postal Code" 
                                 required
                                 value={zip}
                                 onChange={(e) => setZip(e.target.value)}
@@ -425,7 +439,7 @@ const HP_Register: React.FC = () => {
                        onChange={handleCertificateFileChange}/>
                      </div>
                      <div className="form-group">
-                       <label htmlFor="exampleFormControlFile1">Any Other Verification Details (PDF)</label>
+                       <label htmlFor="exampleFormControlFile1">Other Verification Details in PDF format (Hospital Selection Letters, Proving Letters, etc...)</label>
                        <input 
                        type="file" 
                        className="form-control-file" 
@@ -436,6 +450,8 @@ const HP_Register: React.FC = () => {
                     <button type="submit" className="btn btn-primary">Submit the Request</button>
                 </form>
             </div>
+            <img className={`${showLoadingPopup ? 'showLoading HP_Register_loading_gif' : 'HP_Register_loading_gif_notShow'}`} src={loading_gif}/>
+            {successFlag && <SuccessMessage  show={showPopup} handleClose={togglePopup} message={successMessage} successState={successState}/>}
         </div>
     );
 };

@@ -13,8 +13,9 @@
 }
 
 .time_wrong_addEvent{
+    z-index: 5;
     color: #ffff;
-    margin-top: -15px;
+    margin-top: -20px;
     font-size: 16px;
     font-weight: 590;
     width: 760px;
@@ -44,7 +45,6 @@
   }
 
   .popup.show {
-    border-radius: 5px;
     visibility: visible;
     opacity: 1;
   }
@@ -54,14 +54,14 @@
     position: relative;
   }
 
-  .popup-inner_HP_AddPhysicalEvent{
-    border-radius: 5px;
+  #popup-inner_HP_AddPhysicalEvent{
+    margin-top: 25px;
   }
   
   .close-btn {
     justify-content: center;
     position: absolute;
-    top: 10px;
+    top: -15px;
     right: 10px;
     cursor: pointer;
     height: 30px;
@@ -85,7 +85,7 @@
   }
   
   .image_language_div_HP_addPhysicalEvent{
-    margin-top: 25px;
+    margin-top: 20px;
   }
 
   .language_HP_addPhysicalEvent{
@@ -95,4 +95,30 @@
   .hp_header{
     margin-top: -65px;
   }
+
+ .EventDescription_add_physical_event_hp{
+       margin-top: -15px;
+  }
   
+.Money_receipts_details_HP_addPhysicalEvent{
+    margin-top: -8px;
+}
+
+.EventDate_HP_addPhysicalEvent_for_hp{
+  margin-top: -20px;
+}
+
+.submit_button_HP_addPhysicalEvent{
+  margin-top: -25px;
+}
+
+.capasity_HP_addPhysicalEvent{
+  margin-top: -20px;
+}
+
+.hp_form_padding_HP_addPhysicalEvent{
+  padding: 20px 15px 10px 15px;
+}
+.HP_AddPhysicalEventPaddingToExpectedCapacity{
+  padding: 0 0 10px 0;
+}

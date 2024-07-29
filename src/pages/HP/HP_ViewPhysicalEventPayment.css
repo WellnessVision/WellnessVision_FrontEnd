@@ -1,0 +1,15 @@
+.HP_ViewPhysicalEventPayment_payment{
+    color: red;
+}
+
+.HP_ViewPhysicalEventPayment_receipts{
+    color: green;
+}
+.HP_ViewPhysicalEventPayment_PaymentState{
+    color: #000;
+}
+.HP_ViewOnePhysicalEventPayment_cardBody{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}

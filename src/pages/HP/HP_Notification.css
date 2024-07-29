@@ -1,0 +1,9 @@
+.HP_Notification_cardBody{
+    background-color: #f7fafd;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+.HP_NotificationSubject{
+    margin-left: -8px;
+}

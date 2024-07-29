@@ -9,7 +9,9 @@ interface NotificationIconProps {
 const NotificationIcon: React.FC<NotificationIconProps> = ({ count }) => {
   return (
     <div style={{ position: 'relative', display: 'inline-block',  left: '300px', top: '5px'}}>
+      <a href='/HP_Notification'>
       <i className="bi bi-bell" style={{ fontSize: '24px' }}></i>
+      </a>
       {count > 0 && (
         <Badge
           pill

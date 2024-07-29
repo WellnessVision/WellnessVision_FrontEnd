@@ -1,0 +1,9 @@
+.HP_ViewOnePhysicalEventPayment_backButton{
+    margin-left: 20px;
+}
+.HP_ViewOnePhysicalEventPayment_eventStatus_Unavailable{
+    color: red;
+}
+.HP_ViewOnePhysicalEventPayment_eventStatus_Available{
+    color: green;
+}

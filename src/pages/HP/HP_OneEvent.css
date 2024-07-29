@@ -90,10 +90,114 @@
 
 .view_button{
     width: 250px;
-    margin-left: 325px;
+    margin-left: 50px;
 }
 
 .book_button{
     width: 250px;
+    margin-left: 46px;
+}
+
+.event_id_span_hp_one_event{
+    margin-left: 30px;
+}
+
+.View_Modify_Money_receipts_details_hp_one_physical_event{
     margin-left: 50px;
+}
+
+.participantDetailsFlexContainer {
+    display: flex;
+    gap: 50px; 
+    align-items: center;
+  }
+
+.participantDetailsviewMoreButton{
+    width: 200px;
+    position: relative;
+}
+
+.participantDetailsuserProfile{
+    width: 100px;
+    border-radius: 50%;
+}
+
+.participantDetailuserName{
+    position: relative;
+}
+
+.participantDetailuserName{
+    font-size: 18px;
+}
+
+.participantDetailsParticipationMarkButton{
+    width: 200px;
+    position: relative;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.participantDetailsMarkasParticepateShow{
+    visibility: visible;
+    opacity: 1;
+}
+
+.participantDetailsMarkasNotParticepateShow{
+    visibility: visible;
+    opacity: 1;
+}
+
+.particepationMarkListDiv{
+  width: 80.5%;
+  padding: 50px 5px 5px 5px;
+  border: 1px solid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.participationListHeading{
+    font-weight: 590;
+    font-size: 22px;
+    margin-top: -40px;
+
+}
+
+.particepationMarkCards{
+    margin-left: 20px;
+}
+.search{
+    z-index: 0;
+    margin-left: 880px;
+    margin-top: -40px;
+}
+
+.showLoadingMarkParticipent{
+    z-index: 10;
+}
+
+.noParticipentFoundParticipentSearchHpOneEventPara{
+    font-size: medium;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.noParticipentFoundParticipentSearchHpOneEventDiv{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.deleteUserHpParticipentMark{
+    font-size: 18px;
+    font-weight: 590;
+    color: red;
+    margin-top: 20px;
+}
+
+.closeEventBookingHPOneEvent{
+    z-index: 0;
+    margin-top: -40px;
+    margin-right: 975px;
 }
