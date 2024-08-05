@@ -1,0 +1,13 @@
+.HP_SelectOneHallForPhysicalEventPopup{
+    z-index: 10;
+}
+.HP_SelectOneHallForPhysicalEvent_BookingTime{
+    color: red;
+    font-weight: 590;
+}
+.HP_SelectOneHallForPhysicalEventBookingButton{
+    margin-left: 50px;
+}
+.HP_SelectOneHallForPhysicalEventPopupLayer{
+    z-index: 10;
+}

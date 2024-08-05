@@ -1,16 +1,21 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
-import './HP_AddPhysicalEvent.css';
-import { useToggle } from '../../pages/HP/useToggle';
-import HallAvailability from '../../components/HP_HallAvailability';
+import '../pages/HP/HP_AddPhysicalEvent.css';
+import { useToggle } from '../pages/HP/useToggle';
+import HallAvailability from '../components/HP_HallAvailability';
+import { useNavigate } from 'react-router-dom';
+import loading_gif from '../resources/prosecing.gif';
+import './HP_AddPhysicalEventOtherDetails.css'
 
-interface HP_AddPhysicalEventProps {
-    show: boolean;
-    handleClose: () => void;
-    children?: React.ReactNode;
+interface HP_AddPhysicalEventOtherDetailsProps {
+    show_4: boolean;
+    handleClose_4: () => void;
+    eventData: any;
+    advancePayment: number;
+    totalCharge: number;
 }
 
-const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleClose, children }) => {
+const HP_AddPhysicalEventOtherDetails: React.FC<HP_AddPhysicalEventOtherDetailsProps> = ({ show_4, handleClose_4, eventData, advancePayment, totalCharge }) => {
     const [showPopup_2, togglePopup_2] = useToggle();
     const [eventTitle, setEventTitle] = useState('');
     const [eventType, setEventType] = useState('');
@@ -34,70 +39,59 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
     const [finalDuration, setFinalDuration] = useState('');
     const [eventDescription, setEventDescription] = useState('');
     const [eventImage, setEventImage] = useState<File | null>(null);
-    const [eventData, setEventData] = useState<any>(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [showLoadingPopup, setShowLoadingPopup] = useState(false);
+    const hpId = String(localStorage.getItem('hpId'));
+    const hpEmail = String(localStorage.getItem('hpEmail'));
+    const [eventId, setEventId] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if (startTime && endTime) {
-            const start = parseInt(startTime);
-            const end = parseInt(endTime);
-            if (start < end) {
-                const durationHours = end - start;
-                setDuration(`${durationHours} hour(s)`);
-                setFinalDuration(`${durationHours}`);
-            } else {
-                setDuration('');
-            }
-        }
-    }, [startTime, endTime]);
+          setEventId(eventData.event_id);
+      }, [eventData]);
 
-    useEffect(() => {
-        const today = new Date();
-        today.setDate(today.getDate() + 1);
-        const formattedDate = today.toISOString().split('T')[0];
-        setMinDate(formattedDate);
-    }, []);
 
-    const handleAddPhysicalEvent = async (event: FormEvent<HTMLFormElement>) => {
+    const handleOrderPhysicalEvent = async (event: FormEvent) => {
         event.preventDefault();
-        setIsButtonDisabled(true);
-
-        if (!eventImage) {
-            setMessage('Please select an image file');
-            return;
-        }
-
-        try {
-            
-            const nullImage = "pending";
-            const hpId = Number(localStorage.getItem('hpId'));
-
-            const response = await axios.post('http://localhost:15000/physicalEvent', {
-                eventTitle,
-                finalEventType,
-                hallType,
-                date,
-                startTime,
-                endTime,
-                finalDuration,
-                expectedCapacity,
-                ticketPrice,
-                language,
-                eventDescription,
-                hpId,
-                nullImage,
-                accountNumber,
-                accountOwnerName,
-                branchName,
-                bankName
+        setShowLoadingPopup(true);
+        if (eventData.event_id) {
+          try {
+            if (!eventImage) {
+              setMessage('Please select an image file');
+              return;
+            }
+    
+            const formData = new FormData();
+            formData.append('file', eventImage);
+            formData.append('event_id', eventData.event_id);
+            formData.append('hall_capacity', eventData.capacity.toString());
+            formData.append('total_hall_charge', totalCharge.toString());
+            formData.append('advance_percentage', eventData.advance_percentage.toString());
+            formData.append('advance_payment', advancePayment.toString());
+            formData.append('userEmail', hpEmail);
+            formData.append('hpId', hpId);
+            formData.append('title', eventTitle);
+            formData.append('eventType', eventType);
+            formData.append('ticketPrice', ticketPrice);
+            formData.append('language', language);
+            formData.append('description', eventDescription);
+            formData.append('accountNumber', accountNumber);
+            formData.append('accountHolderName', accountOwnerName);
+            formData.append('branch', branchName);
+            formData.append('bank', bankName);
+    
+            await axios.post('http://localhost:15000/physicalEventImageUpload', formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
             });
-
-            setEventData(response.data);
-            togglePopup_2();
-        } catch (error) {
+            setShowLoadingPopup(false);
+            navigate(`/HP_OneEvents/${eventId}`);
+          } catch (error) {
             setMessage('Error registering event');
+          }
         }
-    };
+      };
 
     const handleEndTimeChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const end = e.target.value;
@@ -166,16 +160,27 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
         }
     };
 
+    const handleCancelPhysicalEvent = async (event: FormEvent) => {
+        event.preventDefault();
+        if (eventId) {
+          try {
+            await axios.put('http://localhost:15000/physicalEvent', {
+             eventId
+            });
+            handleClose_4();
+          } catch (error) {
+            setMessage('Error registering event');
+          }
+        }
+      };
+
     return (
-        <div className={`popup ${show ? 'show' : ''}`}>
-            <div className="popup-inner" id='popup-inner_HP_AddPhysicalEvent'>
-                <button className="btn btn-danger close-btn" onClick={() => { handleClose(); ClearAll(); }}>
-                    <i className="bi bi-x-lg closeAddEvent"></i>
-                </button>
-                <div className="hp_form">
-                    <div className="form_div hp_form_padding_HP_addPhysicalEvent">
+        <div className={`popup ${show_4 ? 'show HP_AddPhysicalEventOtherDetailsPopup' : ''}`}>
+            <div className="popup-inner HP_AddPhysicalEventOtherDetailspopup_inner" id='popup-inner_HP_AddPhysicalEvent'>
+                <div className="hp_form HP_AddPhysicalEventOtherDetailspopup_inner">
+                    <div className="form_div hp_form_padding_HP_addPhysicalEvent HP_AddPhysicalEventOtherDetailspopup_inner">
                         <h1 className="hp_header_HP_AddPhysicalEvent hp_header">Add New Physical Event</h1>
-                        <form onSubmit={handleAddPhysicalEvent}>
+                        <form onSubmit={handleOrderPhysicalEvent}>
                             <div className="form-group">
                                 <input
                                     type="text"
@@ -218,112 +223,6 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                                     </div>
                                 )}
                                 <div className="form-group">
-                                    <select
-                                        id="HallType"
-                                        className="form-control"
-                                        value={hallType}
-                                        required
-                                        onChange={(e) => { setHallType(e.target.value); setIsButtonDisabled(false); }}
-                                    >
-                                        <option value="" disabled>Hall Type</option>
-                                        <option value="Lecture">Lecture Hall (Tables and Chairs)</option>
-                                        <option value="Therapy">Therapy Hall (Therapy Beds)</option>
-                                        <option value="Free Space">Free Space Hall (Yoga Mats)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="form-group EventDate_HP_addPhysicalEvent_for_hp">
-                                <label htmlFor="exampleInputPassword1" className="form-label event_date_HP_AddPhysicalEvent">Event Date (The date should be tomorrow or later)</label>
-                                <input
-                                    type="date"
-                                    className="form-control"
-                                    id="EventDate"
-                                    placeholder="Event Date (The date should be tomorrow or later)"
-                                    required
-                                    value={date}
-                                    min={minDate}
-                                    onChange={(e) => { setDate(e.target.value); setIsButtonDisabled(false); }}
-                                />
-                            </div>
-                            <div className="name-group">
-                                <div className="form-group">
-                                    <select
-                                        id="StartTime"
-                                        className="form-control"
-                                        value={startTime}
-                                        required
-                                        onChange={(e) => setStartTime(e.target.value)}
-                                        disabled={!!endTime}
-                                    >
-                                        <option value="" disabled>Start time</option>
-                                        <option value="8">8:00 AM</option>
-                                        <option value="9">9:00 AM</option>
-                                        <option value="10">10:00 AM</option>
-                                        <option value="11">11:00 AM</option>
-                                        <option value="12">12:00 PM</option>
-                                        <option value="13">1:00 PM</option>
-                                        <option value="14">2:00 PM</option>
-                                        <option value="15">3:00 PM</option>
-                                        <option value="16">4:00 PM</option>
-                                        <option value="17">5:00 PM</option>
-                                    </select>
-                                </div>
-                                <div className="form-group">
-                                    <select
-                                        id="EndTime"
-                                        className="form-control"
-                                        value={endTime}
-                                        required
-                                        onChange={handleEndTimeChange}
-                                        disabled={!startTime || !!duration}
-                                    >
-                                        <option value="" disabled>End time</option>
-                                        <option value="9">9:00 AM</option>
-                                        <option value="10">10:00 AM</option>
-                                        <option value="11">11:00 AM</option>
-                                        <option value="12">12:00 PM</option>
-                                        <option value="13">1:00 PM</option>
-                                        <option value="14">2:00 PM</option>
-                                        <option value="15">3:00 PM</option>
-                                        <option value="16">4:00 PM</option>
-                                        <option value="17">5:00 PM</option>
-                                        <option value="18">6:00 PM</option>
-                                    </select>
-                                </div>
-                                <div className="form-group">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="Duration"
-                                        placeholder="Duration"
-                                        readOnly
-                                        disabled
-                                        required
-                                        value={duration}
-                                    />
-                                </div>
-                                <button type="button" className="btn btn-primary clear_button_addEvent" onClick={handleClear}>
-                                    <span className="clear_button_text_addEvent">Clear</span>
-                                </button>
-                            </div>
-                            <div className='HP_AddPhysicalEventPaddingToExpectedCapacity'>
-                            {message && !duration && <p className="time_wrong_addEvent">{message}</p>}
-                            </div>
-                            <div className="name-group capasity_HP_addPhysicalEvent">
-                                <div className="form-group">
-                                    <input
-                                        type="number"
-                                        max={1000}
-                                        min={1}
-                                        className="form-control"
-                                        id="ExpectedCapacity"
-                                        placeholder="Expected participant Count (Max = 1000)"
-                                        required
-                                        value={expectedCapacity}
-                                        onChange={(e) => { setExpectedCapacity(e.target.value); setIsButtonDisabled(false); }}
-                                    />
-                                </div>
-                                <div className="form-group">
                                     <div className="input-group">
                                         <div className="input-group-prepend">
                                             <div className="input-group-text RsTag_addEvent">Rs.</div>
@@ -339,8 +238,8 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                                             onChange={(e) => setTicketPrice(e.target.value)}
                                         />
                                     </div>
-                                </div>
-                            </div>
+                               </div>
+                        </div>
                             <div className="name-group image_language_div_HP_addPhysicalEvent">
                             <div className="form-group">
                             <label htmlFor="exampleInputPassword1" className="form-label cover_image_HP_addPhysicalEvent">Cover Image</label>
@@ -422,14 +321,15 @@ const HP_AddPhysicalEvent: React.FC<HP_AddPhysicalEventProps> = ({ show, handleC
                                 />
                             </div>
                                 </div>
-                            <button type="submit" className="btn btn-primary submit_button_HP_addPhysicalEvent" disabled={isButtonDisabled}>Check Hall Availability</button>
+                             <button className="btn btn-primary HP_HallAvailability_cancel_button HP_AddPhysicalEventOtherDetails_cancel_button" onClick={handleCancelPhysicalEvent}>Cancel</button>
+                            <button type="submit"className="btn btn-warning HP_HallAvailability_hallBook HP_AddPhysicalEventOtherDetails_hallBook" disabled={isButtonDisabled}>Continue</button>
                         </form>
-                        {/* <HallAvailability show_2={showPopup_2} handleClose_2={togglePopup_2} handleClose={handleClose} eventData={eventData} finalDuration={parseInt(finalDuration)}  eventImage={eventImage}/> */}
                     </div>
                 </div>
             </div>
+            {showLoadingPopup && <img className="loading eventBookingCloseForHPLoadingGif" src={loading_gif} alt="Loading..." />}
         </div>
     );
 };
 
-export default HP_AddPhysicalEvent;
+export default HP_AddPhysicalEventOtherDetails;

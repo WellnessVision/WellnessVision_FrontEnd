@@ -6,17 +6,16 @@ import '../pages/HP/HP_OneEvent.css';
 import { useNavigate } from 'react-router-dom';
 import { useToggle } from '../pages/HP/useToggle';
 import loading_gif from '../resources/prosecing.gif'
+import HP_AddPhysicalEventOtherDetails from './HP_AddPhysicalEventOtherDetails';
 
 interface HP_HallAvailabilityProps {
-  show_2: boolean;
-  handleClose: () => void;
-  handleClose_2: () => void;
+  show_3: boolean;
+  handleClose_3: () => void;
   eventData: any;
   finalDuration: number;
-  eventImage: File | null; 
 }
 
-const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handleClose_2, handleClose, eventData, finalDuration, eventImage }) => {
+const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_3, handleClose_3, eventData, finalDuration }) => {
   const [message, setMessage] = useState('');
   const [event_id, setEventId] = useState('');
   const [totalCharge, setTotalCharge] = useState(0);
@@ -24,6 +23,8 @@ const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handl
   const navigate = useNavigate();
   const [showLoadingPopup, toggleLoadingPopup] = useState(false);
   const hpId = String(localStorage.getItem('hpId'));
+  const hpEmail = String(localStorage.getItem('hpEmail'));
+  const [showPopup_4, togglePopup_4] = useToggle();
 
   useEffect(() => {
     if (eventData && eventData.event_id) {
@@ -38,41 +39,6 @@ const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handl
     }
   }, [eventData, finalDuration]);
 
-  const handleOrderPhysicalEvent = async (event: FormEvent) => {
-    event.preventDefault();
-    handleClose_2();
-    handleClose();
-    toggleLoadingPopup(true);
-    if (event_id) {
-      try {
-        if (!eventImage) {
-          setMessage('Please select an image file');
-          return;
-        }
-
-        const formData = new FormData();
-        formData.append('file', eventImage);
-        formData.append('event_id', event_id);
-        formData.append('hall_capacity', eventData.capacity.toString());
-        formData.append('total_hall_charge', totalCharge.toString());
-        formData.append('advance_percentage', eventData.advance_percentage.toString());
-        formData.append('advance_payment', advancePayment.toString());
-        formData.append('userEmail', 'ruchithsathnidu123@gmail.com');
-        formData.append('hpId', hpId);
-
-        await axios.post('http://localhost:15000/physicalEventImageUpload', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        toggleLoadingPopup(false);
-        navigate('/HP_ViewEvents');
-      } catch (error) {
-        setMessage('Error registering event');
-      }
-    }
-  };
-
   const handleCancelPhysicalEvent = async (event: FormEvent) => {
     event.preventDefault();
     if (event_id) {
@@ -80,7 +46,7 @@ const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handl
         await axios.put('http://localhost:15000/physicalEvent', {
           event_id
         });
-        handleClose_2();
+        handleClose_3();
       } catch (error) {
         setMessage('Error registering event');
       }
@@ -88,10 +54,10 @@ const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handl
   };
 
   return (
-    <div className={`popup ${show_2 ? 'show' : ''} popup_HP_HallAvailability_popup`}>
+    <div className={`popup ${show_3 ? 'show HP_HallAvailabilityPopupForIt' : ''} `}>
       <div className="popup-inner popup-inner_HP_HallAvailability">
         <div className="card HP_HallAvailability_fontSize" style={{ width: '100%' }}>
-          <div className="card-body">
+          <div className="card-body HP_HallAvailabilityMainDivCard">
             <h5 className="card-title title_HP_HallAvailability">Hall Availability (In WellnessVision Premises)</h5>
             <div className="straight-line"></div>
             <div className='HP_HallAvailability_div'>
@@ -122,7 +88,7 @@ const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handl
                     <button className="btn btn-primary HP_HallAvailability_cancel_button" onClick={handleCancelPhysicalEvent}>
                       <i className="bi bi-arrow-left-circle"></i> Cancel
                     </button>
-                    <button className="btn btn-warning HP_HallAvailability_hallBook" onClick={handleOrderPhysicalEvent}>
+                    <button className="btn btn-warning HP_HallAvailability_hallBook" onClick={togglePopup_4}>
                       <i className="bi bi-bag-plus-fill"></i><span className='HP_HallAvailability_hallBook_text'> Book Now</span>
                     </button>
                   </div>
@@ -132,7 +98,7 @@ const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handl
                   <p className='Unfortunately_header_HP_HallAvailability'>Unfortunately, Not Available</p>
                   <p className='Unfortunately_text_HP_HallAvailability'>All halls that meet your specifications are already booked for that date.</p>
                   <div className='HP_HallAvailability_button_div'>
-                    <button className="btn btn-primary HP_HallAvailability_cancel_button" onClick={handleClose_2}>
+                    <button className="btn btn-primary HP_HallAvailability_cancel_button" onClick={handleClose_3}>
                       <i className="bi bi-arrow-left-circle"></i> Go Back
                     </button>
                   </div>
@@ -142,6 +108,14 @@ const HP_HallAvailability: React.FC<HP_HallAvailabilityProps> = ({ show_2, handl
           </div>
         </div>
       </div>
+      {showPopup_4 && 
+                        <HP_AddPhysicalEventOtherDetails 
+                        show_4={showPopup_4} 
+                        handleClose_4={togglePopup_4} 
+                        eventData={eventData}
+                        advancePayment={advancePayment}
+                        totalCharge={totalCharge}
+                        />}
       <img className={`${showLoadingPopup ? 'showLoading' : 'showLoading_2'}`} src={loading_gif}/>
     </div>
   );

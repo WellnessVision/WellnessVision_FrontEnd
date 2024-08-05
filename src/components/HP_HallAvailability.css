@@ -91,4 +91,13 @@
     position: absolute;
     visibility: unset;
     opacity: 0;
+}
+
+.HP_HallAvailabilityMainDivCard{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
   }
+.HP_HallAvailabilityPopupForIt{
+    z-index: 3;
+}

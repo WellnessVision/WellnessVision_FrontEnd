@@ -7,6 +7,7 @@ import './HP_ViewEvents.css';
 import AddEvent from '../HP/HP_AddPhysicalEvent';
 import HallAvailability from '../../components/HP_HallAvailability';
 import { useToggle } from './useToggle';
+import HP_AddPhysicalEventDateSelection from './HP_AddPhysicalEventDateSelection';
 
 interface PhysicalEvent {
   event_id: number;
@@ -123,7 +124,7 @@ const HP_ViewEvents: React.FC = () => {
           )}
         </div>
       </div>
-      <AddEvent show={showPopup} handleClose={togglePopup} />
+      <HP_AddPhysicalEventDateSelection show={showPopup} handleClose={togglePopup} />
       {error && <div style={{ color: 'red' }}>{error}</div>}
     </div>
   );

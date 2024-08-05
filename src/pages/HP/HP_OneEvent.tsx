@@ -186,7 +186,7 @@ interface PhysicalEvent {
             </div>
             <div className="cardHang particepationMarkListDiv">
           <a className={"btn btn-danger closeEventBookingHPOneEvent"} 
-          onClick={togglePopup_3}> <i className={'bi bi-power'}></i> Cloce Event Bookings</a>
+          onClick={togglePopup_3}> <i className={'bi bi-power'}></i> Close Event Bookings</a>
             <form className="d-flex search" role="search">
              <input 
                  className="form-control me-2" 
