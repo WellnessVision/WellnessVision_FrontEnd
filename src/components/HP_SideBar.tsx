@@ -16,6 +16,7 @@ interface HP_Profile {
     firstName: string;
     lastName: string;
     profilePicture: string;
+    email: string;
   }
 
 const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
@@ -65,6 +66,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
     const isActive = (item: string) => (activeMenuItem.includes(item) ? "active" : "");
     const isExpanded = (items: string[]) =>
     items.includes(activeMenuItem[0]) ? "show" : "";
+    localStorage.setItem('hpEmail', String(profileDetails?.email));
 
     return (
         <div>

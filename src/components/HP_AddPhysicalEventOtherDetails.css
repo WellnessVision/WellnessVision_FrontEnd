@@ -1,0 +1,12 @@
+.HP_AddPhysicalEventOtherDetailsPopup{
+    z-index: 15;
+}
+.HP_AddPhysicalEventOtherDetailspopup_inner{
+    border-radius: 15px;
+}
+.HP_AddPhysicalEventOtherDetails_hallBook{
+    width: 250px;
+}
+.HP_AddPhysicalEventOtherDetails_cancel_button{
+    width: 250px;
+}

@@ -1,0 +1,40 @@
+.HP_AddPhysicalEventDateSelectionCardHang{
+    margin-top: 50px;
+    margin-left: 0;
+    padding: 25px;
+}
+.HP_AddPhysicalEventDateSelectionPopup{
+    width: 1100px;
+    border-radius: 15px;
+}
+
+.HP_AddPhysicalEventDateSelectionCard{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.HP_AddPhysicalEventDateSelectionCardBody{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color:#deeaf7;
+    width: 100%;
+    border-radius: 5px;
+}
+.HP_AddPhysicalEventDateSelectionPopupSection{
+    z-index: 5;
+}
+.HP_AddPhysicalEventDateSelectionlink{
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    background-color:#deeaf7;
+}
+
+.HP_AddPhysicalEventDateSelectionBookButton{
+    width: 100px;
+    font-weight: 590;
+}
+.HP_AddPhysicalEventDateSelectionSorryMessage{
+    color: red;
+}
