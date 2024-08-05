@@ -67,10 +67,10 @@ const Volunteer_OneEventPrevious : React.FC = () => {
                         <p>{event.event_description3}</p>
                     </div>
                     <div>
-                        <h5 className='memories'>Memories</h5>
-                        <img src ={wellnessFull} className="memory_image" alt="Card image 1" />
-                        <img src ={podda} className="memory_image" alt="Card image 2" />
-                        <img src ={wellness} className="memory_image" alt="Card image 3" />
+                        <h5 className='Volunteer_OneEventPrevious_memories'>Memories</h5>
+                        <img src ={wellnessFull} className="Volunteer_OneEventPrevious_memory_image" alt="Card image 1" />
+                        <img src ={podda} className="Volunteer_OneEventPrevious_memory_image" alt="Card image 2" />
+                        <img src ={wellness} className="Volunteer_OneEventPrevious_memory_image" alt="Card image 3" />
                     </div>
                     <div className='button_div' style={{marginTop: "70px", marginBottom: "10px"}}>
                     <a href="/Volunteer_MyEvents_Previous" className="btn btn-primary volunteer_back_button"><i className='bi bi-arrow-left-circle'></i> Back to Previous Events</a>

@@ -1,4 +1,4 @@
-.cardHang {
+.Volunteer_MyEvents_Previous_cardHang {
     z-index: 1;
     display: flex;
     flex-wrap: wrap;
@@ -6,12 +6,12 @@
     margin-top: 140px;
 }
 
-.cardHang .card {
+.Volunteer_MyEvents_Previous_cardHang .card {
     margin-right: 21px;
     margin-bottom: 21px;
 }
 
-.cardHang a:hover{
+.Volunteer_MyEvents_Previous_cardHang a:hover{
     cursor: pointer;
     transform: translateY(-3px);
 }

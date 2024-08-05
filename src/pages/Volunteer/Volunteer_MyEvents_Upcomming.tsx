@@ -55,7 +55,7 @@ const Volunteer_MyEvents_Upcomming: React.FC = () => {
             <Volunteer_Sidebar activeMenuItem="Upcomming" />
             <div>
                 <h3 className="header">My Upcomming Events</h3>
-                <div className="cardHang">
+                <div className="cardHang Volunteer_MyEvents_Previous_cardHang">
                     {/* {events.length > 0 ? ( */}
                         {events.map(event => (
                             <div className="card" style={{ width: '18rem' }} >
