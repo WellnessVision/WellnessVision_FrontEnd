@@ -1,0 +1,46 @@
+.HP_AddAppointmentSchedulesDateSelection_form-group {
+    margin-bottom: 1.5rem;
+}
+
+.HP_AddAppointmentSchedulesDateSelection_form-label {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.HP_AddAppointmentSchedulesDateSelection_form-check-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping if needed */
+    gap: 1rem; /* Space between checkboxes */
+    margin-top: 15px;
+}
+
+.HP_AddAppointmentSchedulesDateSelection_form-check {
+    display: flex;
+    align-items: center;
+}
+
+.HP_AddAppointmentSchedulesDateSelection_form-check-input {
+    width: 20px; /* Set the width of the checkbox */
+    height: 20px; /* Set the height of the checkbox */
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+.HP_AddAppointmentSchedulesDateSelection_form-check-label {
+    font-size: 18px; /* Keep the font size the same for the label */
+    cursor: pointer;
+}
+
+.HP_AddAppointmentSchedulesDateSelection_form-check-input:checked + .HP_AddAppointmentSchedulesDateSelection_form-check-label {
+    color: #007bff; /* Change this to the color you want for checked state */
+}
+
+.HP_AddAppointmentSchedulesDateSelection_form-check-input:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.HP_AddAppointmentSchedulesDateSelection_form-check-input:disabled + .HP_AddAppointmentSchedulesDateSelection_form-check-label {
+    color: #6c757d; /* Color for disabled state */
+}

@@ -15,7 +15,7 @@ interface HP_AddPhysicalEventOtherDetailsProps {
     totalCharge: number;
 }
 
-const HP_AddPhysicalEventOtherDetails: React.FC<HP_AddPhysicalEventOtherDetailsProps> = ({ show_4, handleClose_4, eventData, advancePayment, totalCharge }) => {
+const HP_AddAppointmentScheduleOtherDetails: React.FC<HP_AddPhysicalEventOtherDetailsProps> = ({ show_4, handleClose_4, eventData, advancePayment, totalCharge }) => {
     const [showPopup_2, togglePopup_2] = useToggle();
     const [eventTitle, setEventTitle] = useState('');
     const [eventType, setEventType] = useState('');
@@ -44,6 +44,7 @@ const HP_AddPhysicalEventOtherDetails: React.FC<HP_AddPhysicalEventOtherDetailsP
     const hpId = String(localStorage.getItem('hpId'));
     const hpEmail = String(localStorage.getItem('hpEmail'));
     const [eventId, setEventId] = useState('');
+    const [maxPatientCount, setMaxPatientCount] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -56,37 +57,29 @@ const HP_AddPhysicalEventOtherDetails: React.FC<HP_AddPhysicalEventOtherDetailsP
         setShowLoadingPopup(true);
         if (eventData.event_id) {
           try {
-            if (!eventImage) {
-              setMessage('Please select an image file');
-              return;
-            }
-    
+  
             const formData = new FormData();
-            formData.append('file', eventImage);
-            formData.append('event_id', eventData.event_id);
-            formData.append('hall_capacity', eventData.capacity.toString());
-            formData.append('total_hall_charge', totalCharge.toString());
+       
+            formData.append('appointmentId', eventData.event_id);
+            formData.append('totalRoomCharge', totalCharge.toString());
             formData.append('advance_percentage', eventData.advance_percentage.toString());
             formData.append('advance_payment', advancePayment.toString());
-            formData.append('userEmail', hpEmail);
             formData.append('hpId', hpId);
             formData.append('title', eventTitle);
-            formData.append('eventType', eventType);
+            formData.append('maxPatientCount', maxPatientCount);
             formData.append('ticketPrice', ticketPrice);
-            formData.append('language', language);
-            formData.append('description', eventDescription);
             formData.append('accountNumber', accountNumber);
             formData.append('accountHolderName', accountOwnerName);
             formData.append('branch', branchName);
             formData.append('bank', bankName);
     
-            await axios.post('http://localhost:15000/physicalEventImageUpload', formData, {
+            await axios.post('http://localhost:15000/updateAppointmentScheduleOtherDetailsForHp', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
             });
             setShowLoadingPopup(false);
-            navigate(`/HP_OneEvents/${eventId}`);
+            navigate(`/HP_ViewOneAppointmentScheduleDetails/${eventId}`);
           } catch (error) {
             setMessage('Error registering event');
           }
@@ -181,47 +174,32 @@ const HP_AddPhysicalEventOtherDetails: React.FC<HP_AddPhysicalEventOtherDetailsP
                     <div className="form_div hp_form_padding_HP_addPhysicalEvent HP_AddPhysicalEventOtherDetailspopup_inner">
                         <h1 className="hp_header_HP_AddPhysicalEvent hp_header">Add New Physical Event</h1>
                         <form onSubmit={handleOrderPhysicalEvent}>
-                            <div className="form-group">
+                        <div className="form-group">
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="EventTitle"
-                                    placeholder="Event Title"
+                                    placeholder="Appointment Title"
                                     required
                                     value={eventTitle}
                                     onChange={(e) => setEventTitle(e.target.value)}
                                 />
                             </div>
                             <div className="name-group">
-                                <div className="form-group">
-                                    <select
-                                        id="EventType"
-                                        className="form-control"
-                                        value={eventType}
-                                        required
-                                        onChange={handleEventTypeChange}
-                                    >
-                                        <option value="" disabled>Event Type</option>
-                                        <option value="Awareness Lecture">Awareness Lecture</option>
-                                        <option value="Yoga Event">Yoga Event</option>
-                                        <option value="Therapy Event">Therapy Event</option>
-                                        <option value="Exercise Event">Exercise Event</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-                                {eventType === 'Other' && (
-                                    <div className="form-group">
+                            <div className="form-group">
+                                    <div className="input-group">
                                         <input
-                                            type="text"
+                                            type="number"
+                                            min={1}
                                             className="form-control"
-                                            id="OtherEventType"
+                                            id="TicketPrice"
+                                            placeholder="Max Patient Count (Pre Day)"
                                             required
-                                            placeholder="Please specify the event type"
-                                            value={otherEventType}
-                                            onChange={handleEventTypeChange_2}
+                                            value={maxPatientCount}
+                                            onChange={(e) => setMaxPatientCount(e.target.value)}
                                         />
                                     </div>
-                                )}
+                               </div>
                                 <div className="form-group">
                                     <div className="input-group">
                                         <div className="input-group-prepend">
@@ -232,7 +210,7 @@ const HP_AddPhysicalEventOtherDetails: React.FC<HP_AddPhysicalEventOtherDetailsP
                                             min={1}
                                             className="form-control"
                                             id="TicketPrice"
-                                            placeholder="Ticket Price"
+                                            placeholder="Booking Price (Pre Patient)"
                                             required
                                             value={ticketPrice}
                                             onChange={(e) => setTicketPrice(e.target.value)}
@@ -240,40 +218,6 @@ const HP_AddPhysicalEventOtherDetails: React.FC<HP_AddPhysicalEventOtherDetailsP
                                     </div>
                                </div>
                         </div>
-                            <div className="name-group image_language_div_HP_addPhysicalEvent">
-                            <div className="form-group">
-                            <label htmlFor="exampleInputPassword1" className="form-label cover_image_HP_addPhysicalEvent">Cover Image</label>
-                                <input
-                                    type="file"
-                                    className="form-control-file"
-                                    required
-                                    id="exampleFormControlFile1"
-                                    onChange={handleFileChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <input
-                                    type="text"
-                                    className="form-control language_HP_addPhysicalEvent"
-                                    id="EventLanguage"
-                                    placeholder="Language"
-                                    required
-                                    value={language}
-                                    onChange={(e) => setLanguage(e.target.value)}
-                                />
-                            </div>
-                            </div>
-                            <div className="form-group EventDescription_add_physical_event_hp">
-                                <textarea
-                                    className="form-control"
-                                    id="EventDescription"
-                                    placeholder="Event Description"
-                                    maxLength={1000}
-                                    required
-                                    value={eventDescription}
-                                    onChange={(e) => setEventDescription(e.target.value)}
-                                />
-                            </div>
                             <p className='Money_receipts_details_HP_addPhysicalEvent'>Money receipts details</p>
                             <div className="name-group Money_receipts_details_HP_addPhysicalEvent">
                             <div className="form-group">
@@ -321,8 +265,8 @@ const HP_AddPhysicalEventOtherDetails: React.FC<HP_AddPhysicalEventOtherDetailsP
                                 />
                             </div>
                                 </div>
-                             <button className="btn btn-primary HP_HallAvailability_cancel_button HP_AddPhysicalEventOtherDetails_cancel_button" onClick={handleClose_4}>Cancel</button>
-                            <button type="submit"className="btn btn-warning HP_HallAvailability_hallBook HP_AddPhysicalEventOtherDetails_hallBook" disabled={isButtonDisabled}>Continue</button>
+                             <button className="btn btn-primary HP_HallAvailability_cancel_button HP_AddPhysicalEventOtherDetails_cancel_button" onClick={handleClose_4}><i className="bi bi-arrow-left-circle"></i> Cancel</button>
+                            <button type="submit"className="btn btn-warning HP_HallAvailability_hallBook HP_AddPhysicalEventOtherDetails_hallBook" disabled={isButtonDisabled}><i className="bi bi-bag-plus-fill"></i> Continue</button>
                         </form>
                     </div>
                 </div>
@@ -332,4 +276,4 @@ const HP_AddPhysicalEventOtherDetails: React.FC<HP_AddPhysicalEventOtherDetailsP
     );
 };
 
-export default HP_AddPhysicalEventOtherDetails;
+export default HP_AddAppointmentScheduleOtherDetails;

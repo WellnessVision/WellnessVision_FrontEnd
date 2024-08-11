@@ -38,6 +38,8 @@ import NU_ViewOneBookedPreviousphysicalEvents from './pages/NormalUser/NU_ViewOn
 import Volunteer_MyEvents_Previous from './pages/Volunteer/Volunteer_MyEvents_Previous'
 import Volunteer_OneEventPrevious from './pages/Volunteer/Volunteer_OneEventPrevious'
 import Volunteer_MyEvents_Upcomming from './pages/Volunteer/Volunteer_MyEvents_Upcomming'
+import HP_ViewAllAppointmentSchedule from './pages/HP/HP_ViewAllAppointmentSchedule'
+import HP_ViewOneAppointmentScheduleDetails from './pages/HP/HP_ViewOneAppointmentScheduleDetails'
 
 import {
   createBrowserRouter,
@@ -184,6 +186,14 @@ const router = createBrowserRouter([
   {
     path: "NU_ViewOneBookedPreviousphysicalEvents/:eventId/:hpId",
     element: <NU_ViewOneBookedPreviousphysicalEvents />,
+  },
+  {
+    path: "HP_ViewAllAppointmentSchedule",
+    element: <HP_ViewAllAppointmentSchedule/>,
+  },
+  {
+    path: "HP_ViewOneAppointmentScheduleDetails/:appointmentId",
+    element: <HP_ViewOneAppointmentScheduleDetails/>,
   },
 ]);
 

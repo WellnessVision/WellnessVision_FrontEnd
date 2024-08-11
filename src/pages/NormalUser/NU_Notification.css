@@ -1,9 +1,15 @@
-.NU_NotificationMarkAsReadButton{
-    margin-left: -20px;
-}
-.NU_NotificationViewMoreButton{
-    margin-left: -20px;
-}
 .NU_NotificationSubject{
-    margin-left: -15px;
+    position: absolute;
+    margin-left: 80px;
+}
+.NU_Notification_viewMore{
+    position: absolute;
+    margin-left: 990px;
+}
+.NU_Notification_notificationTime{
+    position: absolute;
+    margin-left: 490px;
+}
+.NU_Notification_markButton{
+    margin-left: 660px;
 }

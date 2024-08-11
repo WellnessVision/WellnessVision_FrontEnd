@@ -7,13 +7,19 @@ import '../components/Hp_DeletePhysicalEventFineDetails.css';
 import '../components/HP_EventBookingClose.css';
 import './HP_SelectOneHallForPhysicalEvent.css'
 import { useToggle } from '../pages/HP/useToggle';
-import HallAvailability from '../components/HP_HallAvailability';
+import HP_RoomAvailability from './HP_RoomAvailability';
 
 interface HP_EventBookingCloseProps {
   show_2: boolean;
   handleClose_2: () => void;
-  HallId: any;
-  EventDate: any;
+  RoomId: any;
+  sun: any;
+  mon: any;
+  tues: any;
+  wed: any;
+  thurs: any;
+  fri: any;
+  sat: any;
   showLoadingPopupflag: any;
 }
 
@@ -31,7 +37,7 @@ interface HallBookings {
     advance_percentage: number;
   }
 
-const HP_SelectOneHallForPhysicalEvent: React.FC<HP_EventBookingCloseProps> = ({ show_2, handleClose_2, HallId, EventDate, showLoadingPopupflag }) => {
+const HP_SelectOneRoomForAppointmentSchedules: React.FC<HP_EventBookingCloseProps> = ({ show_2, handleClose_2, RoomId, sun, mon, tues, wed, thurs, fri, sat, showLoadingPopupflag }) => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const [showLoadingPopup, setShowLoadingPopup] = useState(false);
@@ -66,8 +72,17 @@ const HP_SelectOneHallForPhysicalEvent: React.FC<HP_EventBookingCloseProps> = ({
 
   const fetchEvents =  useCallback(async () => {
     try {
-      const response = await axios.get<HallBookings[]>(`http://localhost:15000/getHallBookingAvailableSlotsForGivenHallAndDate`, {
-        params: { hallId: HallId, date: EventDate }
+      const response = await axios.get<HallBookings[]>(`http://localhost:15000/checkAvailableRoomsForAppointmentForHp`, {
+        params: { 
+            roomId: RoomId, 
+            mon_day: mon,
+            tue_day: tues,
+            wed_day: wed,
+            thu_day: thurs,
+            fri_day: fri,
+            sat_day: sat,
+            sun_day: sun
+         }
       });
       setHallBookings(response.data);
     } catch (err) {
@@ -87,8 +102,21 @@ const HP_SelectOneHallForPhysicalEvent: React.FC<HP_EventBookingCloseProps> = ({
     event.preventDefault();
     setShowLoadingPopup(true);
     try {
-        const response = await axios.get<Event>(`http://localhost:15000/checkAndTemporarilyBookingEventHall`, {
-            params: { hpId, hallId: HallId, date: EventDate, startTime : Number(startTime), endTime : Number(endTime), duration: Number(finalDuration)}
+        const response = await axios.get<Event>(`http://localhost:15000/temporarilyBookingRoomForAppointmentForHp`, {
+            params: { 
+                roomId: RoomId, 
+                mon_day: mon,
+                tue_day: tues,
+                wed_day: wed,
+                thu_day: thurs,
+                fri_day: fri,
+                sat_day: sat,
+                sun_day: sun,
+                startTime : Number(startTime), 
+                endTime : Number(endTime), 
+                duration: Number(finalDuration),
+                hpId
+            }
         });
         setEventData(response.data);
         togglePopup_3();
@@ -299,10 +327,10 @@ const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
           </div>
         </div>
       </div>
-      {showPopup_3 && <HallAvailability show_3={showPopup_3} handleClose_3={togglePopup_3} eventData={eventData} finalDuration={parseInt(finalDuration)}/>}
+      {showPopup_3 && <HP_RoomAvailability show_3={showPopup_3} handleClose_3={togglePopup_3} eventData={eventData} finalDuration={parseInt(finalDuration)}/>}
       {showLoadingPopup && <img className="loading eventBookingCloseForHPLoadingGif" src={loading_gif} alt="Loading..." />}
     </div>
   );
 }
 
-export default HP_SelectOneHallForPhysicalEvent;
+export default HP_SelectOneRoomForAppointmentSchedules;

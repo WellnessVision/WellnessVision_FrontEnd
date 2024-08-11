@@ -82,10 +82,10 @@ const HP_Notification: React.FC = () => {
                                 <div className="card-body card-body participantDetailsFlexContainer">
                                 <h5 className="card-title Admin_ViewHealthProfessionalRegistrationRequest_name">Id: {event.notification_id}</h5>
                                     <h5 className="card-title Admin_ViewHealthProfessionalRegistrationRequest_name HP_NotificationSubject">Subject: {event.subject}</h5>
-                                    <h5 className="card-title Admin_ViewHealthProfessionalRegistrationRequest_name">{formatRequestTime(event.notification_time)}</h5>
+                                    <h5 className="card-title Admin_ViewHealthProfessionalRegistrationRequest_name HP_Notification_notificationTime">{formatRequestTime(event.notification_time)}</h5>
                                     <span> 
                                     <a
-                                className={`btn participantDetailsParticipationMarkButton ${
+                                className={`btn participantDetailsParticipationMarkButton HP_Notification_markButton ${
                                     event.read_state === 'Unread' ? 'btn btn-outline-secondary participantDetailsMarkasParticepateShow' : 'btn-success participantDetailsMarkasNotParticepateShow'
                                 }`}
                                 onClick={() =>
@@ -96,7 +96,7 @@ const HP_Notification: React.FC = () => {
                                 {event.read_state === 'Read' ? 'Read' : 'Mark as Read'}
                             </a>
                                     </span>
-                                    <a onClick={() => handleViewDetails(event.notification_id)} className="btn btn-primary Admin_ViewHealthProfessionalRegistrationRequest_viewMore">
+                                    <a onClick={() => handleViewDetails(event.notification_id)} className="btn btn-primary Admin_ViewHealthProfessionalRegistrationRequest_viewMore HP_Notification_viewMore">
                                         <i className="bi bi-eye"></i> View Details
                                     </a>
                                 </div>
