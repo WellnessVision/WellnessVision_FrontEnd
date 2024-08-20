@@ -1,0 +1,129 @@
+.EM_ViewHpButton{
+    right: 22px;
+    position: absolute;
+}
+
+.EM_alignment_profession{
+    right: 240px;
+    position: absolute;
+}
+
+.EM_viewOneHealthProfessionalImg {
+    left: 115%;
+    border-radius: 80px;
+    position: fixed;
+    top: 106px;
+}
+
+
+.EM_ViewOneHpCard {
+    width: 73%;
+    height: 90%;
+    margin-top: 30%;
+    margin-left: 28%;
+    align-items: end;
+    top: 5px;
+}
+
+
+.EM_ViewsEventsinoneHPcardbody {
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 0px;
+    margin-top: 102px;
+    width: 100%;
+    /* position: sticky; */
+}
+
+.smallNavInEM_Fixed {
+    position: fixed;
+    width: 83%;
+    background-color: #ffffff;
+    z-index: 20;
+    padding-top: 45px;
+    margin-top: -42px;
+    padding-bottom: 20px;
+}
+
+.EM_SearchEvent{
+    left: -393px;
+    width: 25%;
+}
+
+.EM_EditModeButton {
+    top: 43px;
+    position: fixed;
+    left: 20%;
+    width: 78%;
+    background-color: white;
+    padding-top: 14px;
+    padding-bottom: 16px;
+    z-index: 10;
+    margin-right: 74px;
+    align-items: end;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.EM_EditModeButtonBackground{
+    width: 200px;
+}
+
+.EM_readonly-input{
+    border-width: 0px;
+}
+
+.EM_readonly-textarea {
+    width: 90%;
+    height: 165px;
+    border-width: 0px;
+}
+
+.EM_EditActivebutton{
+    background-color: #2d27a4;
+}
+
+.AlertSaveSuccesspopup {
+    width: 362px;
+    top: 4%;
+    position: fixed;
+    left: 44%;
+    z-index: 20;
+    color: #1d1d17;
+}
+
+.closePopup_EM_contactHP{
+    opacity: 0;
+}
+
+.showPopup_EM_contactHP {
+    position: fixed;
+    top: 78px;
+    right: 19px;
+    background-color: #75ffff;
+    width: 506px;
+}
+
+.showPopupcard-header_EM_contactHP{  
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sentbyYou {
+    margin-left: 166px;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 470px;
+}
+
+.sentbyOther {
+    right: 5px;
+    position: relative;
+    max-width: 372px;
+}
+
+.previousChats_EM {
+    color: #706f6d;
+}

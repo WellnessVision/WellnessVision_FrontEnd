@@ -43,6 +43,11 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import EM_Dashboard from './pages/EventManager/EM_Dashboard'
+import EM_ViewAllHealthProfessionals from './pages/EventManager/EM_ViewAllHealthProfessionals'
+import EM_ViewOneHealthProfessional from './pages/EventManager/EM_ViewOneHealthProfessional'
+import EM_ViewOneHPEvents from './pages/EventManager/EM_ViewOneHPEvents'
+import EM_ViewOneEvent from './pages/EventManager/EM_ViewOneEvent'
 
 const router = createBrowserRouter([
   {
@@ -184,6 +189,26 @@ const router = createBrowserRouter([
   {
     path: "NU_ViewOneBookedPreviousphysicalEvents/:eventId/:hpId",
     element: <NU_ViewOneBookedPreviousphysicalEvents />,
+  },
+  {
+    path: "EM_Dashboard",
+    element: <EM_Dashboard/>
+  },
+  {
+    path: "EM_ViewAllHealthProfessionals",
+    element: <EM_ViewAllHealthProfessionals/>
+  },
+  {
+    path: "EM_ViewOneHealthProfessional/:hpId",
+    element: <EM_ViewOneHealthProfessional/>
+  },
+  {
+    path: "EM_ViewOneHPEvents",
+    element: <EM_ViewOneHPEvents/>
+  },
+  {
+    path: "EM_OneEvent/:eventId",
+    element: <EM_ViewOneEvent/>,
   },
 ]);
 

@@ -1,17 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import HPSideBar from '../../components/HP_SideBar';
-import './HP_OneEvent.css';
-import yoga01 from '../../resources/yoga01.png'
+import EM_Sidebar from './EM_components/EM_Sidebar';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Hp_DeletePhysicalEventFineDetailsProps from '../../components/Hp_DeletePhysicalEventFineDetails';
 import { useToggle } from '../../pages/HP/useToggle';
 import Hp_ViewModifyMoneyReceiptsDetails from '../../components/Hp_ViewModifyMoneyReceiptsDetails'
 import { useNavigate } from 'react-router-dom';
-import loading_gif from '../../resources/prosecing.gif'
 import HP_EventBookingCloseProps from '../../components/HP_EventBookingClose';
 import HP_ViewBookingParticipationDetailsProps from '../../components/HP_ViewBookingParticipationDetails';
-import ChatComponent from '../EventManager/EM_components/ChatComponent';
 
 interface PhysicalEvent {
     event_id: number;
@@ -58,15 +53,23 @@ interface PhysicalEvent {
     return `${formattedHour}:00 ${period}`;
   };
 
-  const HP_OneEvent: React.FC = () => {
-  sessionStorage.setItem('roll', 'HP');
-  const [contactPopup, setContactPopup] = useState<boolean>(false);
+  const EM_ViewOneEvent: React.FC = () => {
+  const [alertSaveSuccess, setAlertSaveSuccess] = useState<boolean>(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [titleReadOnly, setTitleReadOnly] = useState<boolean>(true);
+  const [descriptionReadOnly, setDescriptionReadOnly] = useState<boolean>(true);
+
+  const [edit_mode, setEdit_mode] = useState<boolean>(false);
+  const [save_changes, setSave_changes] = useState<boolean>(false);
+  const hp_name = localStorage.getItem("hp_name");
   const [showPopup, togglePopup] = useToggle();
   const [showPopup_2, togglePopup_2] = useToggle();
   const [showPopup_3, togglePopup_3] = useToggle();
   const [showPopup_4, togglePopup_4] = useToggle();
   const { eventId } = useParams<{ eventId: string }>();
   localStorage.setItem('eventId', String(eventId));
+  
   const [event, setEvent] = useState<PhysicalEvent | null>(null);
   const [participants, setParticipants] = useState<ParticipationDetails[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -90,9 +93,18 @@ interface PhysicalEvent {
         }
       }
     };
-
+    
+    
     fetchEvent();
   }, [eventId]);
+
+  useEffect(()=>{
+    if (event && !edit_mode){
+        setTitle(event?.eventTitle);
+        setDescription(event?.event_description);
+    }
+  }, );
+
 
   const fetchParticipants = useCallback(async () => {
     try {
@@ -122,14 +134,6 @@ interface PhysicalEvent {
     fetchParticipants();
   };
 
-  const handleContact = () => {
-    setContactPopup(true);
-  }
-
-  const handleCloseContact = () => {
-    setContactPopup(false);
-  }
-
   const handleMarkAsParticipate = useCallback(async (bookingId: number, participantState: string) => {
     try {
       toggleLoadingPopup(true);
@@ -153,6 +157,50 @@ interface PhysicalEvent {
     togglePopup_4();
   };
 
+  const handleEditMode = (checked: boolean) =>{
+    if (checked){
+        setEdit_mode(true);
+    }
+    else{
+        setEdit_mode(false);
+    }
+  }
+
+  const handleTitleEdit = () => {
+    setTitleReadOnly(!titleReadOnly);
+    setSave_changes(true);
+  }
+
+  const handleDescriptionEdit = () => {
+    setDescriptionReadOnly(!descriptionReadOnly);
+    setSave_changes(true);
+  }
+
+  const saveEdits = async () => {
+    try {
+        const response = await axios.put(`http://localhost:15000/EMeditOnePhysicalEventDetail`, null, {
+          params: {
+            eventId: 10,
+            eventTitle: title,
+            event_description: description
+          }
+        });
+        if (response.data == 0){
+            
+            setAlertSaveSuccess(true);
+        }
+      
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
+    }
+  };
+
+
+
   if (error) {
     return <div style={{ color: 'red' }}>{error}</div>;
   }
@@ -164,13 +212,21 @@ interface PhysicalEvent {
 
     return (
         <div>
-             <HPSideBar activeMenuItem={["PhysicalEvents", "UpcomingEvents", "Events"]}/>
+             <EM_Sidebar activeMenuItem={["HealthProfessionals"]}/>
+             <div className='EM_EditModeButtonBackground'>
+             <div className="form-check form-switch EM_EditModeButton">
+                <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={(e) =>{handleEditMode(e.target.checked)}}/>
+                <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Edit Mode</label>
+            </div>
+            </div>
+
             <div className="cardHang_2">
             <div className="card" style={{ width: '95%' }}>
                 <img src ={event.eventImage} className="image" alt="Card image" />
                 <div className="card-body">
                 <div className='base_details'>
-                    <h5 className="card-title title">{event.eventTitle}</h5>
+                
+                    <h5 className="card-title title"> <input type="text" id="EM_viewOnlyInput" className="EM_readonly-input" value={title} readOnly = {titleReadOnly} onChange={(event) =>setTitle(event.target.value)}/> <button type="button" className={`btn btn-info ${edit_mode? '' : 'disabled'} ${titleReadOnly? '' : 'EM_EditActivebutton'}`} onClick={() => handleTitleEdit()}><i className="bi bi-pencil"></i></button> </h5>
                     <div className="straight-line"></div>
                     <p className="card-text detail"><i className='bi bi-award-fill'></i> {event.event_id} (Event ID)<span className='event_id_span_hp_one_event'><i className='bi bi-bookmark-star-fill'></i> {event.finalEventType}</span></p>
                     <p className="card-text detail physical"><i className='bi bi-soundwave'></i> {event.hall_id} (WellnessVision Hall)</p>
@@ -183,41 +239,23 @@ interface PhysicalEvent {
                     <p className="card-text detail language"><i className='bi bi-volume-up-fill'></i> {event.language} Language</p> 
                     </div>
                     <div>
-                        <h5 className='description'>Description</h5>
-                        <p>{event.event_description}</p>
+                        <h5 className='description'>Description  <button type="button" className={`btn btn-info ${edit_mode? '' : 'disabled'} ${descriptionReadOnly? '' : 'EM_EditActivebutton'}`} onClick={() => handleDescriptionEdit()}><i className="bi bi-pencil"></i></button> </h5>
+                        
+                        <textarea id="EM_viewOnlyTextarea" className="EM_readonly-textarea" readOnly = {descriptionReadOnly} value={description} onChange={(event) =>setDescription(event.target.value)}></textarea>
+                        
                     </div>
                     <div className='button_div'>
-                    <a href="/HP_ViewEvents" className="btn btn-primary back_button"><i className='bi bi-arrow-left-circle'></i> Back to Events</a>
-                    <a className="btn btn-warning View_Modify_Money_receipts_details_hp_one_physical_event" onClick={togglePopup_2}><i className='bi bi-info-circle'></i> Money receipts details</a>
-                    <button className="btn btn-success" onClick={handleContact}><i className='bi bi-chat-left-dots'></i> Contact Event Manager </button>
+                    <a href="/EM_ViewOneHPEvents" className="btn btn-primary back_button"><i className='bi bi-arrow-left-circle'></i> Back</a>
+                    {/* <a href="#" className="btn btn-success view_button"><i className='bi bi-chat-left-dots'></i> Contact Dr.{hp_name}</a> */}
                     <a className="btn btn-danger book_button" onClick={togglePopup}><i className='bi bi-trash3'></i> Delete Event</a>
+                    <a className={`btn btn-success view_button ${save_changes? '' : 'disabled'}`} onClick={()=> {saveEdits()}}><i className='bi bi-chat-left-dots'></i> Save Changes </a>
                     </div>
-                </div>
-
-                    {contactPopup &&
-          
-                      <div>
-                        <div className={`card ${contactPopup ? 'showPopup_EM_contactHP' : 'closePopup_EM_contactHP'}`}>
-                          <div className="card-header showPopupcard-header_EM_contactHP">
-                          <h6>Contact Event Manager </h6>
-                          <button type="button" className="btn-close" onClick={handleCloseContact}></button>
-                    
-                          </div>
-                          <div className="card-body">
-                
-                            <ChatComponent /> 
-                          </div>
-                        </div>
-                      </div>
-                      }
-                    
-             
- 
+                </div> 
                 </div>
             </div>
             <div className="cardHang particepationMarkListDiv">
           <a className={"btn btn-danger closeEventBookingHPOneEvent"} 
-          onClick={togglePopup_3}> <i className={'bi bi-power'}></i> Cloce Event Bookings</a>
+          onClick={togglePopup_3}> <i className={'bi bi-power'}></i> Close Event Bookings</a>
             <form className="d-flex search" role="search">
              <input 
                  className="form-control me-2" 
@@ -277,15 +315,22 @@ interface PhysicalEvent {
           handleClose_4={togglePopup_4} 
           ParticipationDetails={selectedParticipantId} 
         />}
-            <Hp_DeletePhysicalEventFineDetailsProps show={showPopup} handleClose={togglePopup}/>
+            
             <Hp_ViewModifyMoneyReceiptsDetails show_2={showPopup_2} handleClose_2={togglePopup_2} MoneyReceiptsDetails={event}/>
             <HP_EventBookingCloseProps show_3={showPopup_3} handleClose_3={togglePopup_3} eventId={eventId}/>
+
+
+            {alertSaveSuccess &&
+            (<div className="alert alert-success d-flex align-items-center alert-dismissible fade show AlertSaveSuccesspopup" role="alert">
+                <strong> Saved changes successfullly!</strong>
+                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() =>setAlertSaveSuccess(false)}></button>
+                </div>)
+
+                        
+        }
         </div>
-
-
-
         
     );
 }
 
-export default HP_OneEvent;
+export default EM_ViewOneEvent;
