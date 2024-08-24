@@ -1,0 +1,15 @@
+.NU_ViewHealthProfessionals_viewMore{
+    position: absolute;
+    margin-left: 980px;
+}
+.NU_ViewHealthProfessionals_SearchByProffetion{
+    margin-left: -400px;
+    position: absolute;
+}
+.NU_ViewHealthProfessionals_SearchButton{
+    margin-left: -175px;
+    position: absolute;
+}
+.NU_ViewHealthProfessionals_suggestion{
+    z-index: 1;
+}

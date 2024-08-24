@@ -47,6 +47,23 @@ const HP_ViewAllAppointmentSchedule: React.FC = () => {
     const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
     const hpId = Number(localStorage.getItem('hpId'));
 
+    useEffect(() => {
+        const automaticallyUpdateTheAppointmentDalyState = async () => {
+          try {
+            await axios.put('http://localhost:15000/automaticallyUpdateTheAppointmentDalyState');
+          } 
+          catch (err) {
+            if (err instanceof Error) {
+              setError(err.message);
+            } else {
+              setError('An unknown error occurred');
+            }
+          }
+        };
+      
+        automaticallyUpdateTheAppointmentDalyState();
+      }, []);
+
     const fetchEvents = async () => {
         try {
             const response = await axios.get<AppointmentSchedule[]>(`http://localhost:15000/viewAllAppointmentScheduleForHp`, {

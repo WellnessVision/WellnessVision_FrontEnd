@@ -1,6 +1,6 @@
 .HP_ViewOneAppointmentScheduleDetailsCard{
     width: 100%;
-    height: 250px;
+    height: 290px;
     margin-left: -20px;
     padding: 0 20px 20px 20px;
 }
@@ -61,4 +61,15 @@
 .HP_ViewOneAppointmentScheduleDetailsParticepationMarkList{
     margin-top: 50px;
     border-radius: 5px;
+}
+.HP_ViewOneAppointmentScheduleDetails_dailyStateUnavailable{
+    margin-left: 900px;
+}
+.HP_ViewOneAppointmentScheduleDetails_unavailableDates{
+    margin-top: 20px;
+}
+.HP_ViewOneAppointmentScheduleDetails_clearRemeiningPayment{
+    margin-top: -38px;
+    margin-left: 888px;
+    position: absolute;
 }

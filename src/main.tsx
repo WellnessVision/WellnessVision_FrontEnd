@@ -40,6 +40,10 @@ import Volunteer_OneEventPrevious from './pages/Volunteer/Volunteer_OneEventPrev
 import Volunteer_MyEvents_Upcomming from './pages/Volunteer/Volunteer_MyEvents_Upcomming'
 import HP_ViewAllAppointmentSchedule from './pages/HP/HP_ViewAllAppointmentSchedule'
 import HP_ViewOneAppointmentScheduleDetails from './pages/HP/HP_ViewOneAppointmentScheduleDetails'
+import NU_ViewHealthProfessionals from './pages/NormalUser/NU_ViewHealthProfessionals'
+import NU_ViewOneHealthProfessional from './pages/NormalUser/NU_ViewOneHealthProfessional'
+import NU_ViewAllBookedUpcomingAppointments from './pages/NormalUser/NU_ViewAllBookedUpcomingAppointments'
+import NU_ViewOneAppointmentBookingDetails from './pages/NormalUser/NU_ViewOneAppointmentBookingDetails'
 
 import {
   createBrowserRouter,
@@ -195,6 +199,22 @@ const router = createBrowserRouter([
     path: "HP_ViewOneAppointmentScheduleDetails/:appointmentId",
     element: <HP_ViewOneAppointmentScheduleDetails/>,
   },
+  {
+    path: "NU_ViewHealthProfessionals",
+    element: <NU_ViewHealthProfessionals/>,
+  },
+  {
+    path: "NU_ViewOneHealthProfessional/:hpId",
+    element: <NU_ViewOneHealthProfessional/>,
+  },
+  {
+    path: "NU_ViewAllBookedUpcomingAppointments",
+    element: <NU_ViewAllBookedUpcomingAppointments/>,
+  },
+  {
+    path: "NU_ViewOneAppointmentBookingDetails/:bookingId/:appointmentId",
+    element: <NU_ViewOneAppointmentBookingDetails/>,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
