@@ -85,7 +85,8 @@ const NU_ViewPhysicalEvents: React.FC<NU_PhysicalEventCategoryProps> = ({categor
 
   return (
     <div>
-       <NU_Sidebar activeMenuItem="PhysicalEvents" />
+       <NU_Sidebar activeMenuItem={["PhysicalEvents"]} />
+       {/* <NU_Sidebar activeMenuItem="PhysicalEvents" /> */}
 
       <div className={`blurBackground ${ oneEventDetails?.length ? 'blur' : ''}`} id='physicalEventBackground_NU'>
         <h3 className="header">Physical Events</h3>

@@ -9,7 +9,8 @@ const HP_LodingPage: React.FC = () => {
   return (
     <div>
         <img src={lodingGif} alt="lodingGif" className='lodingGif_hp_HP_LodingPage'/>
-      <Sidebar activeMenuItem="" />
+      {/* <Sidebar activeMenuItem="" /> */}
+      <Sidebar activeMenuItem={[""]} />
     </div>
   );
 };

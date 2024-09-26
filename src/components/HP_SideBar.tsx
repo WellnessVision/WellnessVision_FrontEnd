@@ -311,7 +311,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                 )}`}
               >
                 <a
-                  href="#"
+                  href="/HP_MyAppointments"
                   className={`nav-link text-white text-center text-sm-start ${isActive(
                     "My Appointments"
                   )}`}

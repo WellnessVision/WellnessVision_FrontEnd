@@ -6,7 +6,8 @@ import yoga01 from '../../resources/yoga01.png'
 const NU_OneEvent: React.FC = () => {
     return (
         <div>
-            <HPSideBar activeMenuItem="Events" />
+            {/* <HPSideBar activeMenuItem="Events" /> */}
+            <HPSideBar activeMenuItem={["Events"]} />
             <div className='cardHang'>
             <div className="card" style={{ width: '95%' }}>
                 <img src ={yoga01} className="image" alt="Card image" />

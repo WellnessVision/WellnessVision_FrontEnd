@@ -31,6 +31,7 @@ import HP_ViewDeletedEvents from './pages/HP/HP_ViewDeletedEvents'
 import HP_ViewOneDeletedEvents from './pages/HP/HP_ViewOneDeletedEvents'
 import HP_ViewPreviousPhysicalEvents from './pages/HP/HP_ViewPreviousPhysicalEvents'
 import HP_ViewOnePreviousPhysicalEvent from './pages/HP/HP_ViewOnePreviousPhysicalEvent'
+import HP_MyAppointments from './pages/HP/HP_MyAppointments'
 import NU_ViewPreviousPhysicalEvents from './pages/NormalUser/NU_ViewPreviousPhysicalEvents'
 import NU_ViewOnePreviousPhysicalEvents from './pages/NormalUser/NU_ViewOnePreviousPhysicalEvents'
 import NU_ViewBookedPreviousphysicalEvents from './pages/NormalUser/NU_ViewBookedPreviousphysicalEvents'
@@ -169,6 +170,10 @@ const router = createBrowserRouter([
     path: "HP_ViewOnePreviousPhysicalEvent/:eventId",
     element: <HP_ViewOnePreviousPhysicalEvent/>,
   },
+  {
+    path: "HP_MyAppointments",
+    element: <HP_MyAppointments />,
+  },  
   {
     path: "NU_ViewPreviousPhysicalEvents",
     element: <NU_ViewPreviousPhysicalEvents/>,
