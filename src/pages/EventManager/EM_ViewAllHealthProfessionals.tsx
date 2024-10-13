@@ -63,8 +63,12 @@ const EM_ViewAllHealthProfessionals: React.FC = () => {
                             <div className="card-body card-body participantDetailsFlexContainer Admin_ViewHealthProfessionalRegistrationRequestCardBody">
                             <img src={hp.profilePicture} className="Admin_ViewHealthProfessionalRegistrationRequest_profilePic" alt="event image" />
                             
-                                <h5 className="card-title Admin_ViewHealthProfessionalRegistrationRequest_name">{hp.firstName} {hp.lastName}</h5>
-                                <h5 className="card-title Admin_ViewHealthProfessionalRegistrationRequest_name EM_alignment_profession">{hp.profession}</h5>
+                                <h5 className="card-title Admin_ViewHealthProfessionalRegistrationRequest_name"><span style={{color: '#848884'}}>HpId: </span>{hp.healthProfessionalId}</h5>
+                                <h5 className="card-title Admin_ViewHealthProfessionalRegistrationRequest_name"><span style={{color: '#848884'}}>Name: </span>{hp.firstName} {hp.lastName}</h5>
+                                <h5 className="card-title Admin_ViewHealthProfessionalRegistrationRequest_name"><span style={{color: '#848884'}}>Profession: </span>
+                                {hp.profession.length > 30
+                                    ? `${hp.profession.substring(0, 20)}...`
+                                    : hp.profession}</h5>
                                 <a className="btn btn-primary Admin_ViewHealthProfessionalRegistrationRequest_viewMore EM_ViewHpButton" onClick={() =>{handleClick(hp.healthProfessionalId)}}>
                                 <i className="bi bi-eye"></i> View Details</a>
                             </div>

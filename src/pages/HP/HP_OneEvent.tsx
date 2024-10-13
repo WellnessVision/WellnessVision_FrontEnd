@@ -229,8 +229,8 @@ interface PhysicalEvent {
                   </button> </div>}
                     <div className='button_div'>
                     <a href="/HP_ViewEvents" className="btn btn-primary back_button"><i className='bi bi-arrow-left-circle'></i> Back to Events</a>
-                    <a className="btn btn-warning View_Modify_Money_receipts_details_hp_one_physical_event" onClick={togglePopup_2}><i className='bi bi-info-circle'></i> Money receipts details</a>
-                    <button className="btn btn-success" onClick={handleContact}><i className='bi bi-chat-left-dots'></i> Contact Event Manager </button>
+                    <a className="btn btn-warning View_Modify_Money_receipts_details_hp_one_physical_event" style={{marginLeft :'70px'}} onClick={togglePopup_2}><i className='bi bi-info-circle'></i> Money receipts details</a>
+                    <a className="btn btn-success" style={{marginLeft :'70px'}} onClick={handleContact}><i className='bi bi-chat-left-dots'></i> Contact Event Manager </a>
                     <a className="btn btn-danger book_button" onClick={togglePopup}><i className='bi bi-trash3'></i> Delete Event</a>
                     </div>
                 </div>
@@ -251,10 +251,7 @@ interface PhysicalEvent {
                         </div>
                       </div>
                       }
-                    
-             
- 
-                </div>
+                    </div>
             </div>
             <div className="cardHang particepationMarkListDiv">
           <a className={"btn btn-danger closeEventBookingHPOneEvent"} 

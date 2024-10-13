@@ -82,11 +82,11 @@ const EM_ViewOneHealthProfessional: React.FC = () => {
     return (
         <div>
             <EM_Sidebar activeMenuItem={["HealthProfessionals"]} />
-            <div className="card mb-3" style={{ maxWidth: '1000px', top: '102px', left: '320px' }}>
+            <div className="card mb-3" style={{ maxWidth: '1000px', top: '102px', left: '380px' }}>
                 <div className="row g-0">
                     <div className="col-md-4">
                         <a href={hpDetails?.profilePicture}>
-                            <img src={hpDetails?.profilePicture} className="img-fluid rounded-start" alt="Card image" />
+                            <img src={hpDetails?.profilePicture} className="img-fluid"  style={{borderRadius: '50%', width: '300px', marginLeft: '20px', marginTop: '50px'}} alt="Card image" />
                         </a>
                     </div>
                     <div className="col-md-8">

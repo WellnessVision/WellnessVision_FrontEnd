@@ -72,12 +72,12 @@ const EM_ViewOneHPEvents: React.FC = () => {
         });
         setEvents(response.data);
       }
-      if (eventType == "Online"){
-        const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/getAllPhysicalEventsForEM?`, {
-          params: { hpId: 19, searchCode: searchCode}
-        });
-        setEvents(response.data);
-      }
+      // if (eventType == "Online"){
+      //   const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/getAllPhysicalEventsForEM?`, {
+      //     params: { hpId: hpId, searchCode: searchCode}
+      //   });
+      //   setEvents(response.data);
+      // }
       
     } catch (err) {
       if (err instanceof Error) {
@@ -123,9 +123,9 @@ const EM_ViewOneHPEvents: React.FC = () => {
 
       <div className='smallNavInEM' style={{top:'100px', left:'300px', position:'absolute'}}>
       <div className='smallNavInEM_Fixed' style={{position:'fixed'}}>
-      <h5>All Events from Dr.{hp_name} </h5>
+      <h5>All Events from {hp_name} </h5>
 
-      <form className="d-flex search HP_ViewEvents_searchByEventName EM_SearchEvent" role="search">
+      <form className="d-flex search HP_ViewEvents_searchByEventName EM_SearchEvent" role="search" style={{marginLeft: '1280px', marginTop: '-40px'}}>
              <input 
                  className="form-control me-2" 
                  type="search" 
@@ -146,7 +146,7 @@ const EM_ViewOneHPEvents: React.FC = () => {
             <li className="nav-item">
               <a className={`nav-link ${eventType == "Online" ? 'active' : ''}`} aria-current="page" onClick={() => openOnlineTab()}>Online Events</a>
             </li>
-            <li className="nav-item dropdown">
+            {/* <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
               <ul className="dropdown-menu">
                 <li><a className="dropdown-item" href="#">Action</a></li>
@@ -158,13 +158,20 @@ const EM_ViewOneHPEvents: React.FC = () => {
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">Contact Dr.{hp_name}</a>
-            </li>
+            </li> */}
             
           </ul>
           </div>
 
           <div className='EM_ViewsEventsinoneHP'>
-          <div className="cardHang EM_ViewsEventsinoneHPcardbody">
+            {eventType === "Physical" ? 
+            <a className="btn btn-success" style={{height: '40px', position: 'absolute', marginTop: '-57px', marginLeft: '1015px', width: '200px'}}>
+            <i className="bi bi-plus-lg"></i> New Physical Event
+          </a> : 
+          <a className="btn btn-success" style={{height: '40px', position: 'absolute', marginTop: '-57px', marginLeft: '1015px', width: '200px'}}>
+          <i className="bi bi-plus-lg"></i> New Online Event
+        </a>}
+          <div className="cardHang EM_ViewsEventsinoneHPcardbody" style={{marginTop: '155px'}}>
           {events.length > 0 ? (
             events.map(event => (
               <div className="card" style={{ width: '18rem' }} key={event.event_id}>

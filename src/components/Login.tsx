@@ -45,6 +45,10 @@ const Login: React.FC<LoginProps> = ({ show, handleClose }) => {
                 localStorage.setItem('volunteerId', String(loginData.id));
                 navigate('/volunteer_Dashboard');
             }
+            else if(loginData.user_type === "EM"){
+                localStorage.setItem('eventManagerId', String(loginData.id));
+                navigate('/EM_Dashboard');
+            }
             else {
                 alert(loginData.user_type);
             }
