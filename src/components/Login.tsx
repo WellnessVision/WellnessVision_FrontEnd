@@ -20,7 +20,7 @@ const Login: React.FC<LoginProps> = ({ show, handleClose }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const [errorState, setErrorState] = useState<Boolean>(false);;
+    const [errorState, setErrorState] = useState<Boolean>(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -40,6 +40,10 @@ const Login: React.FC<LoginProps> = ({ show, handleClose }) => {
             else if(loginData.user_type === "SA"){
                 localStorage.setItem('adminId', String(loginData.id));
                 navigate('/Admin_Dashboard');
+            }
+            else if(loginData.user_type === "V"){
+                localStorage.setItem('volunteerId', String(loginData.id));
+                navigate('/volunteer_Dashboard');
             }
             else {
                 alert(loginData.user_type);

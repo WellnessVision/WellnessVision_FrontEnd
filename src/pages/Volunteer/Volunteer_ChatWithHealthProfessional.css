@@ -1,0 +1,237 @@
+.Volunteer_ChatWithHealthProfessional_textInput{
+    width: 850px;
+    border-radius: 15px 0 0 15px;
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+.Volunteer_ChatWithHealthProfessional_textInput:focus{
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+.Volunteer_ChatWithHealthProfessional_attachment{
+    border-radius: 0;
+    border: none;
+    margin-left: 15px;
+}
+.Volunteer_ChatWithHealthProfessional_back{
+    position: absolute;
+    border-radius: 15px;
+    width: 1100px;
+    height: 50px;
+    border: solid green;
+    margin-left: -10px;
+
+}
+.Volunteer_ChatWithHealthProfessional_sendButton{
+    position: absolute;
+    margin-top: 3px;
+    margin-left: -80px;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    transform: rotate(45deg);
+}
+.Volunteer_ChatWithHealthProfessional_sendButtonIconSettings{
+   margin-left: -5px;
+}
+.Volunteer_ChatWithHealthProfessional_messageDiv{
+    min-height: 450px;
+    width: 800px;
+    margin-left: 250px;
+    margin-top: 60px;
+}
+.Volunteer_ChatWithHealthProfessional_chatFild{
+    margin-left: 320px;
+    margin-top:  50px;
+}
+.Volunteer_ChatWithHealthProfessional_messageWithAttachmentDiv{
+  background-color: rgb(200, 240, 227);
+  width: 500px;
+  padding: 15px;
+  border-radius: 15px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  margin-left: 50px;
+}
+.Volunteer_ChatWithHealthProfessional_messageAttachment{
+   width: 400px;
+   border-radius: 15px;
+}
+.Volunteer_ChatWithHealthProfessional_messageContent{
+    margin-top: 10px;
+}
+.Volunteer_ChatWithHealthProfessional_messageWithAttachmentDivOnlyImage{
+    width: 430px;
+}
+.Volunteer_ChatWithHealthProfessional_replyMessageDiv{
+    background-color: aliceblue;
+    border-radius: 15px;
+    padding: 1px;
+}
+.Volunteer_ChatWithHealthProfessional_replymessageAttachment{
+    margin-top: 10px;
+}
+.Volunteer_ChatWithHealthProfessional_messageAttachment_replayOnlyImage{
+    margin-top: 10px;
+}
+.Volunteer_ChatWithHealthProfessional_replymessageAttachment_replyToImage{
+    margin-top: -10px;
+}
+.Volunteer_ChatWithHealthProfessional_replymessageAttachment_replyToImageDiv{
+    height: 240px;
+}
+.Volunteer_ChatWithHealthProfessional_replymessageAttachment_replyToImageDivOnlyImage{
+    width: 370px;
+}
+.Volunteer_ChatWithHealthProfessional_replymessageAttachment_replyToImageDivOnlyImageDiv{
+    width: 400px;
+    height: 220px;
+}
+.Volunteer_ChatWithHealthProfessional_replymessageAttachment_replyToImageImageHeightSet{
+    height: 188px;
+}
+.Volunteer_ChatWithHealthProfessional_replymessageAttachment_replyToImageImageHeightSet2{
+    height: 180px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Volunteer{
+    height: 40px;
+    position: absolute;
+    margin-top: -15px;
+    margin-left: -50px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDeleteButton_Volunteer{
+    border-radius: 15px 0 5px 0;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Hp{
+    height: 40px;
+    position: absolute;
+    margin-top: -15px;
+    margin-left: 415px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDeleteButton_Hp{
+    border-radius: 0 15px 0 5px;
+}
+.Volunteer_ChatWithHealthProfessional_sepatateBySender_Volunteer{
+    margin-top: -25px;
+    margin-left: 920px;
+}
+.Volunteer_ChatWithHealthProfessional_sepatateBySender_Hp{
+    margin-top: -25px;
+    margin-left: 250px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Volunteer_2{
+    margin-left: -250px;
+}
+.Volunteer_ChatWithHealthProfessional_messageContent_2{
+    margin-top: 28px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Hp_2{
+    margin-left: 215px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Volunteer_3{
+    margin-left: -15px;
+}
+.Volunteer_ChatWithHealthProfessional_messageAttachment_3{
+    margin-top: 35px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Hp_3{
+    margin-left: 380px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Volunteer_4{
+   margin-left: -250px;
+}
+.Volunteer_ChatWithHealthProfessional_replyMessageDiv_4{
+    margin-top: 30px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Hp_4{
+    margin-left: 215px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Volunteer_5{
+    margin-left: -250px;
+}
+.Volunteer_ChatWithHealthProfessional_replyMessageDiv_5{
+    margin-top: 30px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Hp_5{
+    margin-left: 215px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Volunteer_6{
+    margin-left: -215px;
+}
+.Volunteer_ChatWithHealthProfessional_replyMessageDiv_6{
+    margin-top: 30px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Hp_6{
+    margin-left: 180px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Volunteer_7{
+    margin-left: -250px;
+}
+.Volunteer_ChatWithHealthProfessional_replymessageAttachment_replyToImageDiv_7{
+    margin-top: 30px; 
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Hp_7{
+    margin-left: 215PX;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Volunteer_8{
+    margin-left: -250px;
+}
+.Volunteer_ChatWithHealthProfessional_replymessageAttachment_replyToImageDiv_8{
+    margin-top: 30px; 
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Hp_8{
+    margin-left: 215px;
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Volunteer_9{
+    margin-left: -215px;
+}
+.Volunteer_ChatWithHealthProfessional_replymessageAttachment_replyToImageDivOnlyImageDiv_9{
+    margin-top: 30px; 
+}
+.Volunteer_ChatWithHealthProfessional_replyEditAndDelete_Hp_9{
+    margin-left: 180px;
+}
+.Volunteer_ChatWithHealthProfessional_closeImage{
+    display: block;
+    visibility: visible;
+    position: absolute;
+    margin-left: 860px;
+    margin-top: -43px;
+}
+
+.Volunteer_ChatWithHealthProfessional_selectImage{
+    display: block;
+    visibility: visible;
+    position: absolute;
+    margin-left: 975px;
+    margin-top: -43px;
+}
+.Volunteer_ChatWithHealthProfessional_messageDateAndTime{
+    margin-left: 240px;
+}
+.Volunteer_ChatWithHealthProfessional_messageDateAndTime_2{
+    margin-left: 160px;
+}
+.Volunteer_ChatWithHealthProfessional_messageDateAndTime_forVolunteer{
+    margin-left: 180px;
+}
+.Volunteer_ChatWithHealthProfessional_messageDateAndTime_2_forVolunteer{
+    margin-left: 100px;
+}
+.Volunteer_ChatWithHealthProfessional_seenMessageTick_seen {
+    color:  #4FB6EC; 
+    font-size: 24px; 
+}
+.Volunteer_ChatWithHealthProfessional_seenMessageTick_unseen {
+    color: #616161;
+    font-size: 24px; 
+}
+.Volunteer_ChatWithHealthProfessional_seenMessageTick{
+    position: absolute;
+    margin-top: -5px;
+    margin-left: 5px;
+}

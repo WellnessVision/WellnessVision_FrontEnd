@@ -1,0 +1,55 @@
+.HP_ViewAllAppointmentSchedule_appointmentId{
+    position: absolute;
+    margin-left: -580px;
+    margin-top: -40px;
+}
+.HP_ViewAllAppointmentSchedule_Title{
+    position: absolute;
+    margin-left: -365px;
+    margin-top: -40px;
+}
+.HP_ViewAllAppointmentSchedule_Time{
+    position: absolute;
+    margin-left: -130px;
+    margin-top: 40px;
+}
+.HP_ViewAllAppointmentSchedule_Schedual{
+    position: absolute;
+    margin-left: -580px;
+    margin-top: 40px;
+}
+.HP_ViewAllAppointmentSchedule_viewMore{
+    position: absolute;
+    margin-left: 410px;
+    margin-top: 40px;
+}
+.HP_ViewAllAppointmentSchedule_roomId{
+    position: absolute;
+    margin-left: 240px;
+    margin-top: 40px;
+}
+.HP_ViewAllAppointmentSchedule_roomType{
+    position: absolute;
+    margin-left: -20px;
+    margin-top: -40px;
+}
+.HP_ViewAllAppointmentSchedule_todayState{
+    position: absolute;
+    margin-left: 370px;
+    margin-top: -40px;
+}
+.HP_ViewAllAppointmentSchedule_todayStateColour{
+    color: red;
+}
+.HP_ViewAllAppointmentSchedule_cardBody{
+    height: 100px;
+}
+.HP_ViewAllAppointmentSchedule_addNewAppointmentScheduleButton{
+    position: absolute;
+    margin-top: -60px;
+    margin-left: 980px;
+    width: 250px;
+}
+.HP_ViewAllAppointmentSchedule_mainHeader{
+    margin-top: -60px;
+}

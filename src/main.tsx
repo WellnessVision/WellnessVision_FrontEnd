@@ -14,7 +14,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
 import Volunteer_Dashboard from './pages/Volunteer/Volunteer_Dashboard'
-import Volunteer_Sidebar from './pages/Volunteer/Volunteer_Sidebar'
 import NU_Register from './pages/NormalUser/NU_Register'
 import HP_LodingPage from './pages/HP/HP_LodingPage'
 import NU_Dashboard from './pages/NormalUser/NU_Dashboard'
@@ -35,19 +34,38 @@ import NU_ViewPreviousPhysicalEvents from './pages/NormalUser/NU_ViewPreviousPhy
 import NU_ViewOnePreviousPhysicalEvents from './pages/NormalUser/NU_ViewOnePreviousPhysicalEvents'
 import NU_ViewBookedPreviousphysicalEvents from './pages/NormalUser/NU_ViewBookedPreviousphysicalEvents'
 import NU_ViewOneBookedPreviousphysicalEvents from './pages/NormalUser/NU_ViewOneBookedPreviousphysicalEvents'
-import Volunteer_MyEvents_Previous from './pages/Volunteer/Volunteer_MyEvents_Previous'
-import Volunteer_OneEventPrevious from './pages/Volunteer/Volunteer_OneEventPrevious'
-import Volunteer_MyEvents_Upcomming from './pages/Volunteer/Volunteer_MyEvents_Upcomming'
-
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import HP_ViewAllAppointmentSchedule from './pages/HP/HP_ViewAllAppointmentSchedule'
+import HP_ViewOneAppointmentScheduleDetails from './pages/HP/HP_ViewOneAppointmentScheduleDetails'
+import NU_ViewHealthProfessionals from './pages/NormalUser/NU_ViewHealthProfessionals'
+import NU_ViewOneHealthProfessional from './pages/NormalUser/NU_ViewOneHealthProfessional'
+import NU_ViewAllBookedUpcomingAppointments from './pages/NormalUser/NU_ViewAllBookedUpcomingAppointments'
+import NU_ViewOneAppointmentBookingDetails from './pages/NormalUser/NU_ViewOneAppointmentBookingDetails'
+import Volunteer_UpcomingVolunteerEvents from './pages/Volunteer/Volunteer_UpcomingVolunteerEvents'
+import Volunteer_ViewOneUpcomingVolunteerEvents from './pages/Volunteer/Volunteer_ViewOneUpcomingVolunteerEvents'
+import Volunteer_ChatWithHealthProfessional from './pages/Volunteer/Volunteer_ChatWithHealthProfessional'
+import Volunteer_ChatWithHealthProfessionalReplyPopup from './pages/Volunteer/Volunteer_components/Volunteer_ChatWithHealthProfessionalReplyPopup'
+import Volunteer_ChatWithHealthProfessionalEditMessagePopup from './pages/Volunteer/Volunteer_components/Volunteer_ChatWithHealthProfessionalEditMessagePopup'
+import Volunteer_UpcomingPhysicalEventsForVolunteering from './pages/Volunteer/Volunteer_UpcomingPhysicalEventsForVolunteering'
+import Volunteer_ViewOneUpcomingVolunteeringEvent from './pages/Volunteer/Volunteer_ViewOneUpcomingVolunteeringEvent'
+import HP_ViewVolunteerRequestForPhysicalEvents from './pages/HP/HP_ViewVolunteerRequestForPhysicalEvents'
+import Volunteer_MyCollection from './pages/Volunteer/Volunteer_MyCollection'
+import HP_ViewVolunteerPreviousWorks from './pages/HP/HP_ViewVolunteerPreviousWorks'
+import Volunteer_Notification from './pages/Volunteer/Volunteer_Notification'
+import HP_ViewVolunteersForPhysicalEvent from './pages/HP/HP_ViewVolunteersForPhysicalEvent'
+import HP_ViewAcceptedVolunteerPreviousWorks from './pages/HP/HP_ViewAcceptedVolunteerPreviousWorks'
+import HP_ChatWithVolunteer from './pages/HP/HP_ChatWithVolunteer'
+import HP_ChatWithVolunteerReplyPopup from './components/HP_ChatWithVolunteerReplyPopup'
+import HP_ChatWithVolunteerEditMessagePopup from './components/HP_ChatWithVolunteerEditMessagePopup'
 import EM_Dashboard from './pages/EventManager/EM_Dashboard'
 import EM_ViewAllHealthProfessionals from './pages/EventManager/EM_ViewAllHealthProfessionals'
 import EM_ViewOneHealthProfessional from './pages/EventManager/EM_ViewOneHealthProfessional'
 import EM_ViewOneHPEvents from './pages/EventManager/EM_ViewOneHPEvents'
 import EM_ViewOneEvent from './pages/EventManager/EM_ViewOneEvent'
+
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -93,26 +111,6 @@ const router = createBrowserRouter([
   {
     path: "Volunteer_Dashboard",
     element: <Volunteer_Dashboard/>
-  },
-  {
-    path: "Volunteer_MyEvents_Previous",
-    element: <Volunteer_MyEvents_Previous/>
-  },
-  {
-    path: "Volunteer_OneEventPrevious/:eventId",
-    element: <Volunteer_OneEventPrevious/>,
-  },
-  {
-    path: "Volunteer_MyEvents_Upcomming",
-    element: <Volunteer_MyEvents_Upcomming/>,
-  },
-  {
-    path: "Volunteer_MyEvents_Upcomming",
-    element: <Volunteer_MyEvents_Upcomming/>
-  },
-  {
-    path: "Volunteer_Sidebar",
-    element: <Volunteer_Sidebar activeMenuItem={''}/>
   },
   {
     path: "HP_LodingPage",
@@ -191,6 +189,93 @@ const router = createBrowserRouter([
     element: <NU_ViewOneBookedPreviousphysicalEvents />,
   },
   {
+    path: "HP_ViewAllAppointmentSchedule",
+    element: <HP_ViewAllAppointmentSchedule/>,
+  },
+  {
+    path: "HP_ViewOneAppointmentScheduleDetails/:appointmentId",
+    element: <HP_ViewOneAppointmentScheduleDetails/>,
+  },
+  {
+    path: "NU_ViewHealthProfessionals",
+    element: <NU_ViewHealthProfessionals/>,
+  },
+  {
+    path: "NU_ViewOneHealthProfessional/:hpId",
+    element: <NU_ViewOneHealthProfessional/>,
+  },
+  {
+    path: "NU_ViewAllBookedUpcomingAppointments",
+    element: <NU_ViewAllBookedUpcomingAppointments/>,
+  },
+  {
+    path: "NU_ViewOneAppointmentBookingDetails/:bookingId/:appointmentId",
+    element: <NU_ViewOneAppointmentBookingDetails/>,
+  },
+  {
+    path: "Volunteer_UpcomingVolunteerEvents",
+    element: <Volunteer_UpcomingVolunteerEvents/>,
+  },
+  {
+    path: "Volunteer_ViewOneUpcomingVolunteerEvents/:eventId/:hpId",
+    element: <Volunteer_ViewOneUpcomingVolunteerEvents />,
+  },
+  {
+    path: "Volunteer_ChatWithHealthProfessional/:eventId",
+    element: <Volunteer_ChatWithHealthProfessional/>,
+  },
+  {
+    path: "Volunteer_ChatWithHealthProfessionalReplyPopup/:replyMessageId/:eventId",
+    element: <Volunteer_ChatWithHealthProfessionalReplyPopup/>,
+  },
+  {
+    path: "Volunteer_ChatWithHealthProfessionalEditMessagePopup/:replyMessageId/:eventId",
+    element: <Volunteer_ChatWithHealthProfessionalEditMessagePopup/>,
+  },
+  {
+    path: "Volunteer_UpcomingPhysicalEventsForVolunteering",
+    element: <Volunteer_UpcomingPhysicalEventsForVolunteering/>,
+  },
+  {
+    path: "Volunteer_ViewOneUpcomingVolunteeringEvent/:eventId/:hpId",
+    element: <Volunteer_ViewOneUpcomingVolunteeringEvent />,
+  },
+  {
+    path: "HP_ViewVolunteerRequestForPhysicalEvents/:eventId",
+    element: <HP_ViewVolunteerRequestForPhysicalEvents/>,
+  },
+  {
+    path: "Volunteer_MyCollection",
+    element: <Volunteer_MyCollection/>,
+  },
+  {
+    path: "HP_ViewVolunteerPreviousWorks/:volunteerId/:eventId",
+    element: <HP_ViewVolunteerPreviousWorks/>,
+  },
+  {
+    path: "Volunteer_Notification",
+    element: <Volunteer_Notification/>,
+  },
+  {
+    path: "HP_ViewVolunteersForPhysicalEvent/:eventId",
+    element: <HP_ViewVolunteersForPhysicalEvent/>,
+  },
+  {
+    path: "HP_ViewAcceptedVolunteerPreviousWorks/:volunteerId/:eventId",
+    element: <HP_ViewAcceptedVolunteerPreviousWorks/>,
+  },
+  {
+    path: "HP_ChatWithVolunteer/:eventId/:VolunteerId",
+    element: <HP_ChatWithVolunteer/>,
+  },
+  {
+    path: "HP_ChatWithVolunteerReplyPopup/:eventId/:VolunteerId/:replyMessageId",
+    element: <HP_ChatWithVolunteerReplyPopup/>,
+  },
+  {
+    path: "HP_ChatWithVolunteerEditMessagePopup/:eventId/:VolunteerId/:replyMessageId",
+    element: <HP_ChatWithVolunteerEditMessagePopup/>,
+  }
     path: "EM_Dashboard",
     element: <EM_Dashboard/>
   },
@@ -209,7 +294,7 @@ const router = createBrowserRouter([
   {
     path: "EM_OneEvent/:eventId",
     element: <EM_ViewOneEvent/>,
-  },
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

@@ -210,16 +210,16 @@ const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
       <div className="popup-inner popup-inner_HP_HallAvailability">
         <div className="card HP_HallAvailability_fontSize" style={{ width: '100%' }}>
           <div className="card-body fine_details_card__Hp_DeletePhysicalEventFineDetails">
-            <p>Those times are already Booked</p>
+            <p className='HP_SelectOneHallForPhysicalEvent_AvailableTimeHeading'>Available Time Slots</p>
             <div className='HP_HallAvailability_div'>
             { hallBookings.length > 0 ? (
             hallBookings.map(hallBooking => (
                 <div>
                     <p className='HP_SelectOneHallForPhysicalEvent_BookingTime'>{formatTime(hallBooking.startTime)} - {formatTime(hallBooking.endTime)}</p>
                 </div>
-            ))) : (<div><p className='HP_SelectOneHallForPhysicalEvent_BookingTime'>No Alrady Bookings for that day</p></div>)}
+            ))) : ('')}
             <div className="straight-line"></div>
-            <p>Set Your Event Time</p>
+            <p className='HP_SelectOneHallForPhysicalEvent_SettheEventTime'>Set Your Event Time</p>
             <form onSubmit={checkHallAvailability}>
              <div className="name-group">
                                 <div className="form-group">

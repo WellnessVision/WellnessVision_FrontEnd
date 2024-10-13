@@ -1,1 +1,29 @@
+#parentM > li.nav-item > a.nav-link[data-menu="MyAppointment"]:hover,
+#parentM > li.nav-item > a.nav-link[data-menu="MyAppointment"].active {
+    background-color: #696767; 
+}
 
+#submenuMyAppointment > li.nav-item > a.nav-link[data-menu="MyAppointment"]:hover,
+#submenuMyAppointment > li.nav-item > a.nav-link[data-menu="MyAppointment"].active {
+    background-color: #007bff; 
+}
+
+#parentM > li.nav-item > a.nav-link[data-menu="VolunteerEvent"]:hover,
+#parentM > li.nav-item > a.nav-link[data-menu="VolunteerEvent"].active {
+    background-color: #696767; 
+}
+
+#submenuMyAppointment > li.nav-item > a.nav-link[data-menu="VolunteerEvent"]:hover,
+#submenuMyAppointment > li.nav-item > a.nav-link[data-menu="VolunteerEvent"].active {
+    background-color: #007bff; 
+}
+
+#parentM > li.nav-item > a.nav-link[data-menu="EventsForVolunteering"]:hover,
+#parentM > li.nav-item > a.nav-link[data-menu="EventsForVolunteering"].active {
+    background-color: #696767; 
+}
+
+#submenuEventsForVolunteering > li.nav-item > a.nav-link[data-menu="EventsForVolunteering"]:hover,
+#submenuEventsForVolunteering > li.nav-item > a.nav-link[data-menu="EventsForVolunteering"].active {
+    background-color: #007bff; 
+}

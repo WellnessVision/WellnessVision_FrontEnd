@@ -1,0 +1,75 @@
+.HP_ViewOneAppointmentScheduleDetailsCard{
+    width: 100%;
+    height: 290px;
+    margin-left: -20px;
+    padding: 0 20px 20px 20px;
+}
+.HP_ViewOneAppointmentScheduleDetails_title{
+    margin-top: -33px;
+    margin-left: 250px;
+}
+.HP_ViewOneAppointmentScheduleDetails_roomId{
+    margin-top: 20px;
+}
+.HP_ViewOneAppointmentScheduleDetails_roomType{
+    margin-top: -33px;
+    margin-left: 200px;
+}
+.HP_ViewOneAppointmentScheduleDetails_FormColour{
+    color: rgb(135, 133, 133);
+    font-size: large;
+}
+.HP_ViewOneAppointmentScheduleDetails_dailyState{
+    position: absolute;
+    margin-top: -80px;
+    margin-left: 730px;
+}
+.HP_ViewOneAppointmentScheduleDetails_time{
+    position: absolute;
+    margin-top: -30px;
+    margin-left: 500px;
+}
+.HP_ViewOneAppointmentScheduleDetails_duration{
+    position: absolute;
+    margin-left: 900px;
+    margin-top: -30px;
+}
+.HP_ViewOneAppointmentScheduleDetails_maxP{
+    margin-top: 20px;
+}
+.HP_ViewOneAppointmentScheduleDetails_todayP{
+    margin-left: 260px;
+    margin-top: -33px;
+}
+.HP_ViewOneAppointmentScheduleDetails_price{
+    margin-left: 530px;
+    margin-top: -33px;
+}
+.HP_ViewOneAppointmentScheduleDetails_Date{
+    margin-top: 20px;
+}
+.HP_ViewOneAppointmentScheduleDetails_totalroomCharge{
+    margin-top: -32px;
+    margin-left: 550px;
+}
+.HP_ViewOneAppointmentScheduleDetails_updateDalyState{
+    margin-left: 20px;
+}
+.HP_ViewOneAppointmentScheduleDetailsBackButton{
+    margin-left: 40px;
+}
+.HP_ViewOneAppointmentScheduleDetailsParticepationMarkList{
+    margin-top: 50px;
+    border-radius: 5px;
+}
+.HP_ViewOneAppointmentScheduleDetails_dailyStateUnavailable{
+    margin-left: 900px;
+}
+.HP_ViewOneAppointmentScheduleDetails_unavailableDates{
+    margin-top: 20px;
+}
+.HP_ViewOneAppointmentScheduleDetails_clearRemeiningPayment{
+    margin-top: -38px;
+    margin-left: 888px;
+    position: absolute;
+}

@@ -402,25 +402,74 @@ const NU_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                   </li>
                 </ul>
               </li>
-              
-              <li
-                className={`nav-item my-1 py-2 py-sm-0 ${isActive(
-                  "My Appointments"
-                )}`}
+             <li
+                className={`nav-item my-1 py-2 py-sm-0 ${isExpanded([
+                  "MyAppointment",
+                  "MakeAnAppointment",
+                  "UpcomingAppointment",
+                  "PreviousAppointment",
+                ])}`}
               >
                 <a
-                  href="#"
+                  href="#submenuMyAppointment"
                   className={`nav-link text-white text-center text-sm-start ${isActive(
-                    "My Appointments"
+                    "MyAppointment"
                   )}`}
+                  data-bs-toggle="collapse"
                   aria-current="page"
+                  data-menu="MyAppointment"
                 >
-                  <i className="bi bi-calendar-range"></i>
-                  <span className="ms-2 d-none d-sm-inline">
-                    My Appointments
-                  </span>
+                  <i className="bi bi-calendar2-week"></i>
+                  <span className="ms-2 d-none d-sm-inline">My Appointment</span>
+                  <i className="bi bi-arrow-down-short text-end"></i>
                 </a>
-              </li>
+                <ul
+                  className={`nav collapse ms-2 flex-column ${isExpanded([
+                      "MakeAnAppointment",
+                      "UpcomingAppointment",
+                      "PreviousAppointment",
+                  ])}`}
+                  id="submenuMyAppointment"
+                  data-bs-parent="#parentM"
+                >
+                      <li className="nav-item">
+                        <a
+                          className={`nav-link text-white ${isActive(
+                            "MakeAnAppointment"
+                          )}`}
+                          href="/NU_ViewHealthProfessionals"
+                          aria-current="page"
+                          data-menu="MyAppointment"
+                        >
+                           Make an Appointment
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a
+                          className={`nav-link text-white ${isActive(
+                            "UpcomingAppointment"
+                          )}`}
+                          href="/NU_ViewAllBookedUpcomingAppointments"
+                          aria-current="page"
+                          data-menu="MyAppointment"
+                        >
+                          Upcoming Appointment
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a
+                          className={`nav-link text-white ${isActive(
+                            "PreviousAppointment"
+                          )}`}
+                          href="#"
+                          aria-current="page"
+                          data-menu="MyAppointment"
+                        >
+                            Previous Appointment
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
 
               <li
                 className={`nav-item my-1 py-2 py-sm-0 ${isActive("Payments")}`}

@@ -1,9 +1,18 @@
 .HP_Notification_cardBody{
     background-color: #f7fafd;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
 }
 .HP_NotificationSubject{
-    margin-left: -15px;
+    position: absolute;
+    margin-left: 80px;
+}
+.HP_Notification_viewMore{
+    position: absolute;
+    margin-left: 980px;
+}
+.HP_Notification_notificationTime{
+    position: absolute;
+    margin-left: 450px;
+}
+.HP_Notification_markButton{
+    margin-left: 650px;
 }

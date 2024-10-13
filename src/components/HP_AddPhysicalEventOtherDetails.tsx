@@ -321,7 +321,7 @@ const HP_AddPhysicalEventOtherDetails: React.FC<HP_AddPhysicalEventOtherDetailsP
                                 />
                             </div>
                                 </div>
-                             <button className="btn btn-primary HP_HallAvailability_cancel_button HP_AddPhysicalEventOtherDetails_cancel_button" onClick={handleCancelPhysicalEvent}>Cancel</button>
+                             <button className="btn btn-primary HP_HallAvailability_cancel_button HP_AddPhysicalEventOtherDetails_cancel_button" onClick={handleClose_4}>Cancel</button>
                             <button type="submit"className="btn btn-warning HP_HallAvailability_hallBook HP_AddPhysicalEventOtherDetails_hallBook" disabled={isButtonDisabled}>Continue</button>
                         </form>
                     </div>

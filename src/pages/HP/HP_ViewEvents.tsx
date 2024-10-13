@@ -28,6 +28,8 @@ interface PhysicalEvent {
   payment_id: number;
   language: string;
   event_description: string;
+  volunteerNeedState: string;
+  volunteerType: string
 }
 
 const formatTime = (hour: number): string => {
@@ -114,6 +116,14 @@ const HP_ViewEvents: React.FC = () => {
                   <p className="card-text detail date">
                     <i className="bi bi-alarm-fill"></i> {formatTime(event.startTime)}
                   </p>
+                  {event.volunteerNeedState === 'NoNeed' ? 
+                  <p className="card-text detail" style={{color: 'red'}}>
+                  <i className="bi bi-person-raised-hand" style={{color: 'black'}}></i> No Need</p> : 
+                      <p className="card-text detail">
+                    <i className="bi bi-person-raised-hand"></i> {event.volunteerType.length > 30
+                      ? `${event.volunteerType.substring(0, 27)}...`
+                      : event.volunteerType}
+                  </p>}
                   <a onClick={() => handleViewDetails(event.event_id)} className="btn btn-primary">
                     <i className="bi bi-eye"></i> View Details
                   </a>

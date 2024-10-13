@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Volunteer_Sidebar from "./Volunteer_Sidebar";
+import Volunteer_Sidebar from "./Volunteer_components/Volunteer_Sidebar";
 import { useNavigate } from "react-router-dom";
 import { useToggle } from "../HP/useToggle";
 import yoga01 from "../../resources/yoga01.png";

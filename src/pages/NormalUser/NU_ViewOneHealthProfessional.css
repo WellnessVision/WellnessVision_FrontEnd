@@ -1,0 +1,39 @@
+.NU_ViewOneHealthProfessional_AppoinmentCard{
+    width: 99%;
+    margin-left: 5px;
+    margin-top: 15px;
+    height: 200px;
+}
+.NU_ViewOneHealthProfessional_AppoinmentHeading{
+    margin-top: 40px;
+    margin-left: 20px;
+}
+.NU_ViewOneAppointmentScheduleDetails_dailyState{
+    margin-left: 890px;
+}
+.NU_ViewOneAppointmentScheduleDetails_duration{
+    margin-left: 890px;
+}
+.NU_ViewOneAppointmentScheduleDetails_backButton{
+    margin-left: 8px;
+    margin-top: 20px;
+}
+.NU_ViewOneAppointmentScheduleDetails_mainCard{
+    padding: 0 0 15px 0;
+}
+.NU_ViewOneAppointmentScheduleDetails_appoinmentBotton{
+    margin-left: 840px;
+    margin-top: -50px;
+}
+.NU_ViewOneAppointmentScheduleDetails_NoAppointmentSchedule{
+    margin-left: 150px;
+    margin-top: 20px;
+}
+.NU_ViewOneAppointmentScheduleDetails_unavailableTimePeriod{
+    margin-left: 450px;
+    margin-top: -165px;
+}
+.NU_ViewOneAppointmentScheduleDetails_unavailableTimePeriod_withStartTime{
+    margin-left: 502px;
+    margin-top: -165px;
+}

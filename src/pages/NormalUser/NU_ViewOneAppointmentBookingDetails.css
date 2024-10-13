@@ -1,0 +1,40 @@
+.NU_ViewOneAppointmentBookingDetails_cardHang{
+    height: auto;
+}
+.NU_ViewOneAppointmentBookingDetails_bookingDate{
+    margin-top: -32px;
+    margin-left: 180px;
+}
+.NU_ViewOneAppointmentBookingDetails_date{
+    margin-top: -32px;
+    margin-left: 400px;
+}
+.NU_ViewOneAppointmentBookingDetails_duration{
+    margin-top: -32px;
+    margin-left: 690px;
+}
+.NU_ViewOneAppointmentBookingDetails_price{
+    margin-top: -32px;
+    margin-left: 900px;
+}
+.NU_ViewOneAppointmentBookingDetails_participantDetails{
+    margin-top: 20px;
+}
+.NU_ViewOneAppointmentBookingDetails_participantId{
+    margin-left: 300px;
+}
+.NU_ViewOneAppointmentBookingDetails_participantSate{
+    margin-top: -32px;
+    margin-left: 600px;
+}
+.NU_ViewOneAppointmentBookingDetails_appointmentNumber{
+    margin-top: 10px;
+}
+.NU_ViewOneAppointmentBookingDetails_buttonHang{
+    margin-top: 10px;
+    margin-left: -24px;
+
+}
+.NU_ViewOneAppointmentBookingDetails_moneyReceptsButton{
+    margin-left: 410px;
+}
