@@ -56,6 +56,11 @@ import HP_ViewAcceptedVolunteerPreviousWorks from './pages/HP/HP_ViewAcceptedVol
 import HP_ChatWithVolunteer from './pages/HP/HP_ChatWithVolunteer'
 import HP_ChatWithVolunteerReplyPopup from './components/HP_ChatWithVolunteerReplyPopup'
 import HP_ChatWithVolunteerEditMessagePopup from './components/HP_ChatWithVolunteerEditMessagePopup'
+import EM_Dashboard from './pages/EventManager/EM_Dashboard'
+import EM_ViewAllHealthProfessionals from './pages/EventManager/EM_ViewAllHealthProfessionals'
+import EM_ViewOneHealthProfessional from './pages/EventManager/EM_ViewOneHealthProfessional'
+import EM_ViewOneHPEvents from './pages/EventManager/EM_ViewOneHPEvents'
+import EM_ViewOneEvent from './pages/EventManager/EM_ViewOneEvent'
 
 import {
   createBrowserRouter,
@@ -270,6 +275,25 @@ const router = createBrowserRouter([
   {
     path: "HP_ChatWithVolunteerEditMessagePopup/:eventId/:VolunteerId/:replyMessageId",
     element: <HP_ChatWithVolunteerEditMessagePopup/>,
+  }
+    path: "EM_Dashboard",
+    element: <EM_Dashboard/>
+  },
+  {
+    path: "EM_ViewAllHealthProfessionals",
+    element: <EM_ViewAllHealthProfessionals/>
+  },
+  {
+    path: "EM_ViewOneHealthProfessional/:hpId",
+    element: <EM_ViewOneHealthProfessional/>
+  },
+  {
+    path: "EM_ViewOneHPEvents",
+    element: <EM_ViewOneHPEvents/>
+  },
+  {
+    path: "EM_OneEvent/:eventId",
+    element: <EM_ViewOneEvent/>,
   }
 ]);
 

@@ -44,6 +44,7 @@ const HP_ViewEvents: React.FC = () => {
   const [events, setEvents] = useState<PhysicalEvent[]>([]);
   const [error, setError] = useState<string | null>(null);
   const hpId = Number(localStorage.getItem('hpId'));
+  sessionStorage.setItem('hpid', localStorage.getItem('hpId') || "0" );
   const navigate = useNavigate();
   const [searchCode, setSearchCode] = useState('');
 
