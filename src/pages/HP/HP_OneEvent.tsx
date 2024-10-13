@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import loading_gif from '../../resources/prosecing.gif'
 import HP_EventBookingCloseProps from '../../components/HP_EventBookingClose';
 import HP_ViewBookingParticipationDetailsProps from '../../components/HP_ViewBookingParticipationDetails';
+import HP_AddVolunteerRequestForPhysicalEvent from '../../components/HP_AddVolunteerRequestForPhysicalEvent';
 
 interface PhysicalEvent {
     event_id: number;
@@ -38,6 +39,9 @@ interface PhysicalEvent {
     branchName: string,
     bankName: string
     ticketBookingCount: number
+    volunteerNeedState: string;
+    volunteerType: string
+    volunteerDescription: string
   }
 
   interface ParticipationDetails {
@@ -62,6 +66,7 @@ interface PhysicalEvent {
   const [showPopup_2, togglePopup_2] = useToggle();
   const [showPopup_3, togglePopup_3] = useToggle();
   const [showPopup_4, togglePopup_4] = useToggle();
+  const [showPopup_5, togglePopup_5] = useToggle();
   const { eventId } = useParams<{ eventId: string }>();
   localStorage.setItem('eventId', String(eventId));
   const [event, setEvent] = useState<PhysicalEvent | null>(null);
@@ -119,6 +124,14 @@ interface PhysicalEvent {
     fetchParticipants();
   };
 
+  const handleViewVolunteerRequestForPhysicalEvents = () => {
+    navigate(`/HP_ViewVolunteerRequestForPhysicalEvents/${eventId}`);
+  };
+
+  const handleViewAllVolunteerDewtailsForPhysicalEvents = () => {
+    navigate(`/HP_ViewVolunteersForPhysicalEvent/${eventId}`);
+  };
+
   const handleMarkAsParticipate = useCallback(async (bookingId: number, participantState: string) => {
     try {
       toggleLoadingPopup(true);
@@ -140,6 +153,10 @@ interface PhysicalEvent {
   const handleViewDetailsClick = (participant: ParticipationDetails) => {
     setSelectedParticipantId(participant);
     togglePopup_4();
+  };
+
+  const handleAddVolunteerNeed = () => {
+    togglePopup_5();
   };
 
   if (error) {
@@ -171,10 +188,34 @@ interface PhysicalEvent {
                     <p className="card-text detail booked"><i className='bi bi-bag-check-fill'></i> {event.ticketBookingCount} Bookings</p> 
                     <p className="card-text detail language"><i className='bi bi-volume-up-fill'></i> {event.language} Language</p> 
                     </div>
+                    {event.volunteerNeedState === 'Need' ? 
+                     <div><div>
+                     <h5 className='description'>Looking for Volunteers</h5>
+                     <p>{event.volunteerType}</p>
+                 </div>
+                 <div>
+                     <h5 className='description'>Volunteer Description</h5>
+                     <p>{event.volunteerDescription}</p>
+                 </div></div> : ''}
                     <div>
                         <h5 className='description'>Description</h5>
                         <p>{event.event_description}</p>
                     </div>
+                    {event.volunteerNeedState === 'Need' ? 
+                    <div className="btn-group HP_OneEvent_VolunteerDropDownMenuForHpChatAndRequest">
+                    <button type="button" className="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Volunteer
+                    </button>
+                    <ul className="dropdown-menu">
+                      <li><a className="dropdown-item" onClick={handleViewVolunteerRequestForPhysicalEvents}>Volunteer Requests</a></li>
+                      <li><a className="dropdown-item" onClick={handleViewAllVolunteerDewtailsForPhysicalEvents}>Event Volunteers</a></li>
+                    </ul>
+                  </div> : 
+                  <div className="btn-group HP_OneEvent_VolunteerDropDownMenuForHpChatAndRequest">
+                  <button type="button" className="btn btn-success" style={{width: '250px', marginLeft: '-145px'}}
+                  onClick={handleAddVolunteerNeed}>
+                  Request for Volunteers
+                  </button> </div>}
                     <div className='button_div'>
                     <a href="/HP_ViewEvents" className="btn btn-primary back_button"><i className='bi bi-arrow-left-circle'></i> Back to Events</a>
                     <a className="btn btn-warning View_Modify_Money_receipts_details_hp_one_physical_event" onClick={togglePopup_2}><i className='bi bi-info-circle'></i> Money receipts details</a>
@@ -249,6 +290,7 @@ interface PhysicalEvent {
             <Hp_DeletePhysicalEventFineDetailsProps show={showPopup} handleClose={togglePopup}/>
             <Hp_ViewModifyMoneyReceiptsDetails show_2={showPopup_2} handleClose_2={togglePopup_2} MoneyReceiptsDetails={event}/>
             <HP_EventBookingCloseProps show_3={showPopup_3} handleClose_3={togglePopup_3} eventId={eventId}/>
+            <HP_AddVolunteerRequestForPhysicalEvent show_5={showPopup_5} handleClose_5={togglePopup_5} eventId={eventId}/>
         </div>
     );
 }

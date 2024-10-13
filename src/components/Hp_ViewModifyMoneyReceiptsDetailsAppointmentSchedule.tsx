@@ -37,7 +37,7 @@ const Hp_ViewModifyMoneyReceiptsDetailsAppointmentSchedule: React.FC<Hp_ViewModi
         e.preventDefault();
         try {
           navigate('/HP_LodingPage');
-          await axios.put(`http://localhost:15000/updateAppointmentScheduleMoneyReceiptsDetailsForHP`, null, {
+          await axios.post(`http://localhost:15000/updateAppointmentScheduleMoneyReceiptsDetailsForHP`, null, {
             params: {
               appointmentId: MoneyReceiptsDetails.appointmentId,
               accountNumber,

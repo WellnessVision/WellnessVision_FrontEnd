@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Volunteer_Sidebar from './Volunteer_Sidebar';
+import Volunteer_Sidebar from './Volunteer_components/Volunteer_Sidebar';
 
 
 const Volunteer_Dashboard = () => {
     
     return(
         <div>
-            <Volunteer_Sidebar activeMenuItem="Dashboard" />
+            <Volunteer_Sidebar activeMenuItem={["Dashboard"]}/>
 
         </div>       
 
