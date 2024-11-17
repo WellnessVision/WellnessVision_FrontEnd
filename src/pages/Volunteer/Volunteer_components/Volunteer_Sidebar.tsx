@@ -118,7 +118,7 @@ const Volunteer_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                 )}`}
               >
                 <a
-                  href="/NU_Dashboard"
+                  href="/volunteer_Dashboard"
                   className={`nav-link text-white text-center text-sm-start ${isActive(
                     "Dashboard"
                   )}`}
@@ -192,7 +192,8 @@ const Volunteer_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                           className={`nav-link text-white ${isActive(
                             "PhysicalEvents"
                           )}`}
-                          href="/NU_ViewUpcomingPhysicalEvents"
+                          // href="/NU_ViewUpcomingPhysicalEvents"
+                           href="#"
                           aria-current="page"
                           data-menu="PhysicalEvents"
                         >
@@ -244,7 +245,8 @@ const Volunteer_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                          className={`nav-link text-white ${isActive(
                           "PreviousPhysicalEvents"
                         )}`}
-                          href="/NU_ViewPreviousPhysicalEvents"
+                          // href="/NU_ViewPreviousPhysicalEvents"
+                          href="#"
                           aria-current="page"
                           data-menu="PreviousPhysicalEvents"
                         >
@@ -330,7 +332,8 @@ const Volunteer_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                           className={`nav-link text-white ${isActive(
                             "PhysicalBooked_Events"
                           )}`}
-                          href="/NU_ViewBookedUpcomingphysicalEvents"
+                          // href="/NU_ViewBookedUpcomingphysicalEvents"
+                          href="#"
                           aria-current="page"
                           data-menu="PhysicalBooked_Events"
                         >
@@ -382,7 +385,8 @@ const Volunteer_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                         className={`nav-link text-white ${isActive(
                           "PreviousPhysicalBooked_Events"
                         )}`}
-                          href="/NU_ViewBookedPreviousphysicalEvents"
+                          // href="/NU_ViewBookedPreviousphysicalEvents"
+                          href="#"
                           aria-current="page"
                           data-menu="PreviousPhysicalBooked_Events"
                         >

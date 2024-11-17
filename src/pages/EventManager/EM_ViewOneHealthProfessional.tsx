@@ -105,14 +105,14 @@ const EM_ViewOneHealthProfessional: React.FC = () => {
                                 <p className="card-text detail"><i className='bi bi-calendar2-week-fill'></i> {hpDetails?.address}, {hpDetails?.address2}, {hpDetails?.city}, {hpDetails?.district}, {hpDetails?.province} (Address)</p>
                             )}
                             <p className="card-text detail"><small className="text-body-secondary">Health Professional in WellnessVision</small></p>
-                            <button className="btn btn-success" onClick={handleContact}><i className='bi bi-chat-left-dots'></i> Contact {hpDetails?.firstName} {hpDetails?.lastName}</button>
+                            <button className="btn btn-success" onClick={handleContact}><i className='bi bi-chat-left-dots'></i> Chat {hpDetails?.firstName} {hpDetails?.lastName}</button>
                             <a onClick={() => { handleClick() }} className="btn btn-warning book_button EM_openDropDownManageEvents">Manage Events</a>
 
                             {contactPopup &&
                                 <div>
                                     <div className={`card ${contactPopup ? 'showPopup_EM_contactHP' : 'closePopup_EM_contactHP'}`}>
                                         <div className="card-header showPopupcard-header_EM_contactHP">
-                                            <h6>Contact {hpDetails?.firstName} {hpDetails?.lastName}</h6>
+                                            <h6>Chat box of {hpDetails?.firstName} {hpDetails?.lastName}</h6>
                                             <button type="button" className="btn-close" onClick={handleCloseContact}></button>
                                         </div>
                                         <div className="card-body">

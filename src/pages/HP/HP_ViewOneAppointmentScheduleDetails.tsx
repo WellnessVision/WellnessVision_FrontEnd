@@ -239,7 +239,7 @@ interface AppointmentSchedule {
 
     return (
         <div>
-             <HPSideBar activeMenuItem={["PhysicalEvents", "UpcomingEvents", "Events"]}/>
+            <HPSideBar activeMenuItem={["My Appointments"]} />
             <div className="cardHang_2">
             <div className="card HP_ViewOneAppointmentScheduleDetailsCard">
            <div className="card-body">
@@ -296,8 +296,8 @@ interface AppointmentSchedule {
           {appointmentSchedule.dailyState == "Available" ?   
             <div className="cardHang particepationMarkListDiv HP_ViewOneAppointmentScheduleDetailsParticepationMarkList">
           {appointmentSchedule.appointmentBookingCloseState === 'No' ?
-          <a className={"btn btn-danger closeEventBookingHPOneEvent"} 
-          onClick={handleAppointmentCloseFlag}> <i className={'bi bi-power'}></i> Close Event Bookings</a> : ""}
+          <a className={"btn btn-danger closeEventBookingHPOneEvent"} style={{width: '500', marginLeft: '-20px', marginRight:'910px'}}
+          onClick={handleAppointmentCloseFlag}> <i className={'bi bi-power'}></i> Close Appointment Bookings</a> : ""}
             <form className="d-flex search" role="search">
              <input 
                  className="form-control me-2" 

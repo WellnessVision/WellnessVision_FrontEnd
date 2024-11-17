@@ -54,8 +54,8 @@ const EM_ViewAllHealthProfessionals: React.FC = () => {
   return (
     <div>
         <EM_Sidebar activeMenuItem={["HealthProfessionals"]}/>
-        <div className="cardHang">
-            <h4>Health Professionals</h4>
+        <h4 style={{marginTop: '80px', marginLeft: '280px'}}>Health Professionals</h4>
+        <div className="cardHang" style={{marginTop: '25px'}}>
             {HP_list.length > 0 ? (
                 HP_list.map((hp) => {
                     return(

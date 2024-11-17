@@ -48,6 +48,23 @@ const HP_ViewEvents: React.FC = () => {
   const navigate = useNavigate();
   const [searchCode, setSearchCode] = useState('');
 
+  useEffect(() => {
+    const autoUpdateThePhysicalEventStateToPrevious = async () => {
+      try {
+        await axios.put('http://localhost:15000/autoUpdateThePhysicalEventStateToPrevious');
+      } 
+      catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
+      }
+    };
+  
+    autoUpdateThePhysicalEventStateToPrevious();
+  }, []);
+
   const fetchEvents =  useCallback(async () => {
     try {
       const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/viewPhysicalEvent`, {

@@ -136,7 +136,7 @@ const LandingPage: React.FC = () => {
                         <p className="hero__info-description">
                         Here the volunteer can request health professionals by saying they would like to volunteer for health professional's physical events.
                         </p>
-                        <a href='/HP_Register' className="btn-primary landing_signUpBotton">Be a Volunteer !</a>
+                        <a href='/Volunteer_Register' className="btn-primary landing_signUpBotton">Be a Volunteer !</a>
                     </div>
                 </section>
 

@@ -5,8 +5,8 @@ import axios from 'axios';
 import { useToggle } from '../../pages/HP/useToggle';
 import Hp_ViewModifyMoneyReceiptsDetails from '../../components/Hp_ViewModifyMoneyReceiptsDetails'
 import { useNavigate } from 'react-router-dom';
-import HP_EventBookingCloseProps from '../../components/HP_EventBookingClose';
-import HP_ViewBookingParticipationDetailsProps from '../../components/HP_ViewBookingParticipationDetails';
+import EM_EventBookingCloseForEventManager from './EM_components/EM_EventBookingCloseForEventManager';
+import EM_ViewBookingParticipationDetails from './EM_components/EM_ViewBookingParticipationDetails';
 
 interface PhysicalEvent {
     event_id: number;
@@ -180,7 +180,7 @@ interface PhysicalEvent {
     try {
         const response = await axios.put(`http://localhost:15000/EMeditOnePhysicalEventDetail`, null, {
           params: {
-            eventId: 10,
+            eventId: eventId,
             eventTitle: title,
             event_description: description
           }
@@ -199,7 +199,11 @@ interface PhysicalEvent {
     }
   };
 
-
+  const handleBackToUpcomingEvents = (hpId: number) => {
+    localStorage.setItem("eventtype", "Upcoming");
+    localStorage.setItem("hpid", String(hpId));
+    navigate('/EM_ViewOneHPEvents');
+  };
 
   if (error) {
     return <div style={{ color: 'red' }}>{error}</div>;
@@ -213,13 +217,13 @@ interface PhysicalEvent {
     return (
         <div>
              <EM_Sidebar activeMenuItem={["HealthProfessionals"]}/>
+             {event.event_state === "Upcoming" ? <div>
              <div className='EM_EditModeButtonBackground'>
-             <div className="form-check form-switch EM_EditModeButton">
+             <div className="form-check form-switch EM_EditModeButton" style={{zIndex: 0, position: 'absolute'}}>
                 <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={(e) =>{handleEditMode(e.target.checked)}}/>
                 <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Edit Mode</label>
             </div>
             </div>
-
             <div className="cardHang_2">
             <div className="card" style={{ width: '95%' }}>
                 <img src ={event.eventImage} className="image" alt="Card image" />
@@ -245,10 +249,12 @@ interface PhysicalEvent {
                         
                     </div>
                     <div className='button_div'>
-                    <a href="/EM_ViewOneHPEvents" className="btn btn-primary back_button"><i className='bi bi-arrow-left-circle'></i> Back</a>
+                    <a onClick={() => handleBackToUpcomingEvents(event.hp_id)} className="btn btn-primary back_button"><i className='bi bi-arrow-left-circle'></i> Back</a>
                     {/* <a href="#" className="btn btn-success view_button"><i className='bi bi-chat-left-dots'></i> Contact Dr.{hp_name}</a> */}
-                    <a className="btn btn-danger book_button" onClick={togglePopup}><i className='bi bi-trash3'></i> Delete Event</a>
                     <a className={`btn btn-success view_button ${save_changes? '' : 'disabled'}`} onClick={()=> {saveEdits()}}><i className='bi bi-chat-left-dots'></i> Save Changes </a>
+                    <a className="btn btn-warning View_Modify_Money_receipts_details_hp_one_physical_event" style={{marginLeft :'45px'}} onClick={togglePopup_2}><i className='bi bi-info-circle'></i> Money receipts details</a>
+                    <a className="btn btn-danger book_button" onClick={togglePopup}><i className='bi bi-trash3'></i> Delete Event</a>
+
                     </div>
                 </div> 
                 </div>
@@ -310,14 +316,14 @@ interface PhysicalEvent {
           )}
         </div>
         {selectedParticipantId && 
-        <HP_ViewBookingParticipationDetailsProps 
+        <EM_ViewBookingParticipationDetails 
           show_4={showPopup_4} 
           handleClose_4={togglePopup_4} 
           ParticipationDetails={selectedParticipantId} 
         />}
             
             <Hp_ViewModifyMoneyReceiptsDetails show_2={showPopup_2} handleClose_2={togglePopup_2} MoneyReceiptsDetails={event}/>
-            <HP_EventBookingCloseProps show_3={showPopup_3} handleClose_3={togglePopup_3} eventId={eventId}/>
+            <EM_EventBookingCloseForEventManager show_3={showPopup_3} handleClose_3={togglePopup_3} eventId={eventId}/>
 
 
             {alertSaveSuccess &&
@@ -328,6 +334,7 @@ interface PhysicalEvent {
 
                         
         }
+        </div> : <p style={{marginLeft: '350px', marginTop: '100px', color: 'red', fontWeight: '590', fontSize: '19px'}}>This event state was updated as Previous</p>}
         </div>
         
     );

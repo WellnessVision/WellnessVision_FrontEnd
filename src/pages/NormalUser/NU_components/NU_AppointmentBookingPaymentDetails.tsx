@@ -59,7 +59,7 @@ const NU_AppointmentBookingPaymentDetails: React.FC<NU_AppointmentBookingPayment
       <div className="popup-inner popup-inner_HP_HallAvailability">
         <div className="card HP_HallAvailability_fontSize" style={{ width: '100%' }}>
           <div className="card-body HP_HallAvailabilityMainDivCard">
-            <h5 className="card-title title_HP_HallAvailability">Hall Availability (In WellnessVision Premises)</h5>
+            <h5 className="card-title title_HP_HallAvailability">Your Appointment Booking Summary</h5>
             <div className="straight-line"></div>
             <div className='HP_HallAvailability_div'>
               {appointmentSchedule && appointmentDetails && appointmentDetails.bookingSate == "Booked" ? (

@@ -12,7 +12,7 @@ import AdminViewHealthProfessionalRegistrationRequest from './pages/Admin/Admin_
 import AdminViewOneHealthProfessionalRegistrationRequest from './pages/Admin/Admin_ViewOneHealthProfessionalRegistrationRequest'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import TM_Sidebar from './pages/TreatmentManager/TM_Sidebar';
+import TM_Sidebar from './pages/AppointmentManager/AM_components/AM_Sidebar';
 import Volunteer_Dashboard from './pages/Volunteer/Volunteer_Dashboard'
 import NU_Register from './pages/NormalUser/NU_Register'
 import HP_LodingPage from './pages/HP/HP_LodingPage'
@@ -61,6 +61,27 @@ import EM_ViewAllHealthProfessionals from './pages/EventManager/EM_ViewAllHealth
 import EM_ViewOneHealthProfessional from './pages/EventManager/EM_ViewOneHealthProfessional'
 import EM_ViewOneHPEvents from './pages/EventManager/EM_ViewOneHPEvents'
 import EM_ViewOneEvent from './pages/EventManager/EM_ViewOneEvent'
+import AM_Dashboard from './pages/AppointmentManager/AM_Dashboard'
+import AM_ViewAllHealthProfessionals from './pages/AppointmentManager/AM_ViewAllHealthProfessionals'
+import AM_ViewOneHealthProfessional from './pages/AppointmentManager/AM_ViewOneHealthProfessional'
+import AM_ViewAllAppointmentScheduleOfHP from './pages/AppointmentManager/AM_ViewAllAppointmentScheduleOfHP'
+import AM_ViewOneAppointmentScheduleDetailsOfHP from './pages/AppointmentManager/AM_ViewOneAppointmentScheduleDetailsOfHP'
+import AM_ViewAllAppointmentRooms from './pages/AppointmentManager/AM_ViewAllAppointmentRooms'
+import AM_ViewAllAppointmentScheduleOfRoom from './pages/AppointmentManager/AM_ViewAllAppointmentScheduleOfRoom'
+import EM_ViewAllPhysicalEventHalls from './pages/EventManager/EM_ViewAllPhysicalEventHalls'
+import EM_ViewAllPhysicalEventsOfHall from './pages/EventManager/EM_ViewAllPhysicalEventsOfHall'
+import Admin_ViewAllHealthProfessionals from './pages/Admin/Admin_ViewAllHealthProfessionals'
+import Admin_ViewOneHealthProfessional from './pages/Admin/Admin_ViewOneHealthProfessional'
+import Admin_ViewAllUsers from './pages/Admin/Admin_ViewAllUsers'
+import Admin_ViewOneNormalUser from './pages/Admin/Admin_ViewOneNormalUser'
+import Admin_ViewAllVolunteers from './pages/Admin/Admin_ViewAllVolunteers'
+import Admin_ViewOneVolunteer from './pages/Admin/Admin_ViewOneVolunteer'
+import Admin_ViewAllSystemPrivilegeUser from './pages/Admin/Admin_ViewAllSystemPrivilegeUser'
+import Admin_ViewOneSystemPrivilegeUser from './pages/Admin/Admin_ViewOneSystemPrivilegeUser'
+import Admin_AddNewAdminPrivilegeUser from './pages/Admin/Admin_AddNewAdminPrivilegeUser'
+import Volunteer_Register from './pages/Volunteer/Volunteer_Register'
+import Admin_ViewVolunteerRegistrationRequest from './pages/Admin/Admin_ViewVolunteerRegistrationRequest'
+import EM_ViewOnePreviousPhysicalEvent from './pages/EventManager/EM_ViewOnePreviousPhysicalEvent'
 
 import {
   createBrowserRouter,
@@ -103,10 +124,6 @@ const router = createBrowserRouter([
   {
     path: "AdminViewHealthProfessionalRegistrationRequest",
     element: <AdminViewHealthProfessionalRegistrationRequest/>,
-  },
-  {
-    path: "TM_Sidebar",
-    element: <TM_Sidebar activeMenuItem={''}/>
   },
   {
     path: "Volunteer_Dashboard",
@@ -295,6 +312,90 @@ const router = createBrowserRouter([
   {
     path: "EM_OneEvent/:eventId",
     element: <EM_ViewOneEvent/>,
+  },
+  {
+    path: "AM_Dashboard",
+    element: <AM_Dashboard/>
+  },
+  {
+    path: "AM_ViewAllHealthProfessionals",
+    element: <AM_ViewAllHealthProfessionals/>
+  },
+  {
+    path: "AM_ViewOneHealthProfessional/:hpId",
+    element: <AM_ViewOneHealthProfessional/>
+  },
+  {
+    path: "AM_ViewAllAppointmentScheduleOfHP/:hpId",
+    element: <AM_ViewAllAppointmentScheduleOfHP/>
+  },
+  {
+    path: "AM_ViewOneAppointmentScheduleDetailsOfHP/:appointmentId/:hpId",
+    element: <AM_ViewOneAppointmentScheduleDetailsOfHP/>
+  },
+  {
+    path: "AM_ViewAllAppointmentRooms",
+    element: <AM_ViewAllAppointmentRooms/>,
+  },
+  {
+    path: "AM_ViewAllAppointmentScheduleOfRoom/:roomId",
+    element: <AM_ViewAllAppointmentScheduleOfRoom/>
+  },
+  {
+    path: "EM_ViewAllPhysicalEventHalls",
+    element: <EM_ViewAllPhysicalEventHalls/>,
+  },
+  {
+    path: "EM_ViewAllPhysicalEventsOfHall/:hallId",
+    element: <EM_ViewAllPhysicalEventsOfHall/>
+  },
+  {
+    path: "Admin_ViewAllHealthProfessionals",
+    element: <Admin_ViewAllHealthProfessionals/>,
+  },
+  {
+    path: "Admin_ViewOneHealthProfessional/:hpId",
+    element: <Admin_ViewOneHealthProfessional/>
+  },
+  {
+    path: "Admin_ViewAllUsers",
+    element: <Admin_ViewAllUsers/>,
+  },
+  {
+    path: "Admin_ViewOneNormalUser/:userId",
+    element: <Admin_ViewOneNormalUser/>
+  },
+  {
+    path: "Admin_ViewAllVolunteers",
+    element: <Admin_ViewAllVolunteers/>,
+  },
+  {
+    path: "Admin_ViewOneVolunteer/:volunteerId",
+    element: <Admin_ViewOneVolunteer/>
+  },
+  {
+    path: "Admin_ViewAllSystemPrivilegeUser",
+    element: <Admin_ViewAllSystemPrivilegeUser/>,
+  },
+  {
+    path: "Admin_ViewOneSystemPrivilegeUser/:systemPrivilegeUserId",
+    element: <Admin_ViewOneSystemPrivilegeUser/>
+  },
+  {
+    path: "Admin_AddNewAdminPrivilegeUser",
+    element: <Admin_AddNewAdminPrivilegeUser/>,
+  },
+  {
+    path: "Volunteer_Register",
+    element: <Volunteer_Register/>,
+  },
+  {
+    path: "Admin_ViewVolunteerRegistrationRequest",
+    element: <Admin_ViewVolunteerRegistrationRequest/>,
+  },
+  {
+    path: "EM_ViewOnePreviousPhysicalEvent/:eventId",
+    element: <EM_ViewOnePreviousPhysicalEvent/>
   }
 ]);
 

@@ -204,13 +204,13 @@ const handleUserPhysicalEventTemporaryBooking = useCallback(async (eventId: numb
 
   if (!oneHpDetails) {
     return <div>  
-      <NU_Sidebar activeMenuItem={["PhysicalEvents", "UpcomingEvents", "Events"]}/>
+      <NU_Sidebar activeMenuItem={["MakeAnAppointment", "MyAppointment"]}/>
       <img className='NU_ViewOneUpcomingPhysicalEvent_logingImage' src={loading_gif} alt="" /></div>;
   }
 
   return (
         <div>
-          <NU_Sidebar activeMenuItem={["PhysicalEvents", "UpcomingEvents", "Events"]}/>
+            <NU_Sidebar activeMenuItem={["MakeAnAppointment", "MyAppointment"]}/>
             <div className="cardHang_2">
             <div className="card NU_ViewOneAppointmentScheduleDetails_mainCard" style={{ width: '95%' }}>
                 <div className="card-body">
