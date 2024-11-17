@@ -10,7 +10,7 @@ import Hp_ViewModifyMoneyReceiptsDetails from '../../components/Hp_ViewModifyMon
 import { useNavigate } from 'react-router-dom';
 import loading_gif from '../../resources/prosecing.gif'
 import HP_EventBookingCloseProps from '../../components/HP_EventBookingClose';
-import HP_ViewBookingParticipationDetailsProps from '../../components/HP_ViewBookingParticipationDetails';
+import HP_ViewBookingParticipationDetailsForPreviousPhysicalEvents from '../../components/HP_ViewBookingParticipationDetailsForPreviousPhysicalEvents';
 import './HP_ViewOnePreviousPhysicalEvent.css'
 import Hp_ViewMoneyReceiptsDetailsForDeletedEvent from '../../components/Hp_ViewMoneyReceiptsDetailsForDeletedEvent';
 
@@ -178,9 +178,9 @@ interface PhysicalEvent {
                         <p>{event.event_description}</p>
                     </div>
                     <div className='button_div'>
-                    <a href="/HP_ViewPreviousPhysicalEvents" className="btn btn-primary back_button HP_ViewOnePreviousPhysicalEvent_backButton"><i className='bi bi-arrow-left-circle'></i> Back to Events</a>
+                    <a href="/HP_ViewPreviousPhysicalEvents" className="btn btn-primary back_button HP_ViewOnePreviousPhysicalEvent_backButton" style={{marginLeft: '600px'}}><i className='bi bi-arrow-left-circle'></i> Back to Events</a>
                     <a className="btn btn-warning View_Modify_Money_receipts_details_hp_one_physical_event" onClick={togglePopup_2}><i className='bi bi-info-circle'></i> Money receipts details</a>
-                    <a href="HP_OneEvents" className="btn btn-success view_button"><i className='bi bi-chat-left-dots'></i> Contact Event Manager</a>
+                    {/* <a href="HP_OneEvents" className="btn btn-success view_button"><i className='bi bi-chat-left-dots'></i> Contact Event Manager</a> */}
                     </div>
                 </div> 
                 </div>
@@ -240,7 +240,7 @@ interface PhysicalEvent {
           )}
         </div>
         {selectedParticipantId && 
-        <HP_ViewBookingParticipationDetailsProps 
+        <HP_ViewBookingParticipationDetailsForPreviousPhysicalEvents 
           show_4={showPopup_4} 
           handleClose_4={togglePopup_4} 
           ParticipationDetails={selectedParticipantId} 

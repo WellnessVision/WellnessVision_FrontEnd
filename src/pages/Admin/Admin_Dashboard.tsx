@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../../components/Admin_Sidebar';
+import Sidebar from './Admin_components/Admin_Sidebar';
 import axios from 'axios';
 import CalendarComponent from '../NormalUser/NU_components/NU_Calender';
 

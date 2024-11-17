@@ -3,7 +3,7 @@ import NotificationIcon from "../../../components/HP_NotificationIcon";
 import WellnessVision from "../../../resources/WellnessVision_new_icon.png";
 import axios from "axios";
 import "../../NormalUser/NU_components/NU_Sidebar.css"; 
-import NU_NotificationIcon from "../../../components/NU_NotificationIcon";
+import EM_NotificationIcon from "../../../components/EM_NotificationIcon";
 
 interface NU_SidebarProps {
   activeMenuItem: string[];
@@ -19,45 +19,44 @@ const EM_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
   const [notificationCount, setNotificationCount] = useState<number>(0);
   const [error, setError] = useState("");
   const [userDetails, setUserDetails] = useState<UserDetailsProps | null>(null);
-  const userId = Number(localStorage.getItem('userId'));
+  const eventManagerId = Number(localStorage.getItem('eventManagerId'));
 
-//   const fetchUserDetails = async () => {
-//     try {
-//       const userId = localStorage.getItem("userId");
-//       const response = await axios.get<UserDetailsProps>(
-//         `http://localhost:15000/getNormalUserDetails`,
-//         {
-//           params: { userId: userId },
-//         }
-//       );
-//       setUserDetails(response.data);
-//     } catch (err) {
-//       setError("An unknown error occurred");
-//     }
-//   };
+  const fetchUserDetails = async () => {
+    try {
+      const response = await axios.get<UserDetailsProps>(
+        `http://localhost:15000/getEventManagerDetailsForEventManager`,
+        {
+          params: { eventManagerId },
+        }
+      );
+      setUserDetails(response.data);
+    } catch (err) {
+      setError("An unknown error occurred");
+    }
+  };
 
-//   useEffect(() => {
-//     fetchUserDetails();
-//   }, []);
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
 
-//   useEffect(() => {
-//     const fetchEvent = async () => {
-//       try {
-//         const response = await axios.get<number>(`http://localhost:15000/getNotificationsCountForAnyUser`,{
-//             params: { ownerId: userId }
-//         });
-//         setNotificationCount(response.data);
-//       } catch (err) {
-//         if (err instanceof Error) {
-//           setError(err.message);
-//         } else {
-//           setError('An unknown error occurred');
-//         }
-//       }
-//     };
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const response = await axios.get<number>(`http://localhost:15000/getNotificationsCountForAnyUser`,{
+            params: { ownerId: eventManagerId }
+        });
+        setNotificationCount(response.data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
+      }
+    };
 
-//     fetchEvent();
-//   }, [userId]);
+    fetchEvent();
+  }, [eventManagerId]);
 
   const isActive = (item: string) => (activeMenuItem.includes(item) ? "active" : "");
   const isExpanded = (items: string[]) =>
@@ -80,11 +79,10 @@ const EM_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
             WellnessVision
           </a>
           <div className="ml-auto">
-            <NU_NotificationIcon count={notificationCount} />
+            <EM_NotificationIcon count={notificationCount} />
           </div>
           <div className="name">
-            {/* {userDetails?.firstName} {userDetails?.lastName} */}
-            Event Manager
+            {userDetails?.firstName} {userDetails?.lastName}
           </div>
           <img
             src={userDetails?.profilePic}
@@ -117,7 +115,7 @@ const EM_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                 )}`}
               >
                 <a
-                  href="/NU_Dashboard"
+                  href="#"
                   className={`nav-link text-white text-center text-sm-start ${isActive(
                     "Dashboard"
                   )}`}
@@ -146,25 +144,25 @@ const EM_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
 
               <li
                 className={`nav-item my-1 py-2 py-sm-0 ${isActive(
-                  "Feedback"
+                  "EventHalls"
                 )}`}
               >
                 <a
-                  href="#"
+                  href="/EM_ViewAllPhysicalEventHalls"
                   className={`nav-link text-white text-center text-sm-start ${isActive(
-                    "Feedback"
+                    "EventHalls"
                   )}`}
                   aria-current="page"
                 >
                   <i className="bi bi-chat-left"></i>
-                  <span className="ms-2 d-none d-sm-inline">Feedback</span>
+                  <span className="ms-2 d-none d-sm-inline">Event Halls</span>
                 </a>
               </li>
               <li>
                 <a
                   href="/"
                   className={`nav-link text-white text-center text-sm-start ${isActive(
-                    "Feedback"
+                    "Logout"
                   )}`}
                   aria-current="page">
                   <i className="bi bi-box-arrow-right"></i>

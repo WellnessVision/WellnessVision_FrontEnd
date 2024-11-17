@@ -165,7 +165,7 @@ const NU_SelectAppoinmentDateForAppoinment: React.FC<HP_EventBookingCloseProps> 
 useEffect(() => {
     const today = new Date();
     {(appointmentSchedule.dailyState === "Available") && (appointmentSchedule.appointmentBookingCloseState === 'No') ? 
-    today.setDate(today.getDate()) : today.setDate(today.getDate()+1)}
+    today.setDate(today.getDate()+1) : today.setDate(today.getDate()+2)}
     const formattedDate = today.toISOString().split('T')[0];
     setMinDate(formattedDate);
 }, [appointmentSchedule]);

@@ -81,6 +81,34 @@
     background-color: #007bff; 
 }
 
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="VolunteerRegistretionRequest"]:hover,
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="VolunteerRegistretionRequest"].active {
+    background-color: #007bff; 
+}
+
+#parentM > li.nav-item > a.nav-link[data-menu="AllUsers"]:hover,
+#parentM > li.nav-item > a.nav-link[data-menu="AllUsers"].active {
+    background-color: #4d4949;
+}
+
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="NormalUser"]:hover,
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="NormalUser"].active {
+    background-color: #007bff; 
+}
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="HealthProfessional"]:hover,
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="HealthProfessional"].active {
+    background-color: #007bff; 
+}
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="Volunteer"]:hover,
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="Volunteer"].active {
+    background-color: #007bff; 
+}
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="SystemPrivilegeUser"]:hover,
+#submenuDeleted_Events > li.nav-item > a.nav-link[data-menu="SystemPrivilegeUser"].active {
+    background-color: #007bff; 
+}
+
+
 #WellnessVision{
     text-align: center;
     color:aqua;

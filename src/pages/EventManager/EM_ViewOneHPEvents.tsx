@@ -55,7 +55,7 @@ const formatTime = (hour: number): string => {
 
 const EM_ViewOneHPEvents: React.FC = () => {
   const type = localStorage.getItem("eventtype");
-  const [eventType, setEventType] = useState(type ? type :"Physical");
+  const [eventType, setEventType] = useState(type ? type : "Upcoming");
   const [showPopup, togglePopup] = useToggle();
   const [events, setEvents] = useState<PhysicalEvent[] | OnlineEvents[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -64,20 +64,37 @@ const EM_ViewOneHPEvents: React.FC = () => {
   const [searchCode, setSearchCode] = useState('');
   const hp_name = localStorage.getItem('hp_name')
 
+  useEffect(() => {
+    const autoUpdateThePhysicalEventStateToPrevious = async () => {
+      try {
+        await axios.put('http://localhost:15000/autoUpdateThePhysicalEventStateToPrevious');
+      } 
+      catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
+      }
+    };
+  
+    autoUpdateThePhysicalEventStateToPrevious();
+  }, []);
+
   const fetchEvents =  useCallback(async () => {
     try {
-      if (eventType == "Physical"){
-        const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/getAllPhysicalEventsForEM?`, {
-          params: { hpId: hpId, searchCode: searchCode}
+      if (eventType == "Upcoming"){
+        const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/viewPhysicalEvent`, {
+          params: { hp_id: hpId, eventState: "Upcoming", searchCode }
         });
         setEvents(response.data);
       }
-      // if (eventType == "Online"){
-      //   const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/getAllPhysicalEventsForEM?`, {
-      //     params: { hpId: hpId, searchCode: searchCode}
-      //   });
-      //   setEvents(response.data);
-      // }
+      if (eventType == "Previous"){
+        const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/viewPhysicalEvent`, {
+          params: { hp_id: hpId, eventState: "Previous", searchCode }
+        });
+        setEvents(response.data);
+      }
       
     } catch (err) {
       if (err instanceof Error) {
@@ -90,7 +107,10 @@ const EM_ViewOneHPEvents: React.FC = () => {
 
  
   const handleViewDetails = (eventId: number) => {
-    navigate(`/EM_OneEvent/${eventId}`);
+    if(eventType == 'Upcoming'){
+      navigate(`/EM_OneEvent/${eventId}`); }
+    if(eventType == 'Previous'){
+      navigate(`/EM_ViewOnePreviousPhysicalEvent/${eventId}`); }
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,18 +119,22 @@ const EM_ViewOneHPEvents: React.FC = () => {
   };
 
   const openOnlineTab = () => {
-    setEventType("Online");
-    localStorage.setItem("eventtype", "Online");
+    setEventType("Previous");
+    localStorage.setItem("eventtype", "Previous");
     navigate('/EM_ViewOneHPEvents');
     window.location.reload();
   }
 
   const openPhysicalTab = () => {
-    setEventType("Physical");
-    localStorage.setItem("eventtype", "Physical");
+    setEventType("Upcoming");
+    localStorage.setItem("eventtype", "Upcoming");
     navigate('/EM_ViewOneHPEvents');
     window.location.reload();
   }
+
+  const handleBackToHp = () => {
+    navigate(`/EM_ViewOneHealthProfessional/${hpId}`);
+  };
 
   useEffect(() => {
     fetchEvents();
@@ -121,7 +145,7 @@ const EM_ViewOneHPEvents: React.FC = () => {
     <div>
       <EM_Sidebar activeMenuItem={["HealthProfessionals"]}/>
 
-      <div className='smallNavInEM' style={{top:'100px', left:'300px', position:'absolute'}}>
+      <div className='smallNavInEM' style={{top:'100px', left:'280px', position:'absolute'}}>
       <div className='smallNavInEM_Fixed' style={{position:'fixed'}}>
       <h5>All Events from {hp_name} </h5>
 
@@ -141,10 +165,10 @@ const EM_ViewOneHPEvents: React.FC = () => {
 
           <ul className="nav nav-tabs">
             <li className="nav-item">
-              <a className={`nav-link ${eventType == "Physical" ? 'active' : ''}`} aria-current="page" onClick={() => openPhysicalTab()}>Physical Events</a>
+              <a className={`nav-link ${eventType == "Upcoming" ? 'active' : ''}`} aria-current="page" onClick={() => openPhysicalTab()}>Upcoming Events</a>
             </li>
             <li className="nav-item">
-              <a className={`nav-link ${eventType == "Online" ? 'active' : ''}`} aria-current="page" onClick={() => openOnlineTab()}>Online Events</a>
+              <a className={`nav-link ${eventType == "Previous" ? 'active' : ''}`} aria-current="page" onClick={() => openOnlineTab()}>Previous Events</a>
             </li>
             {/* <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
@@ -164,12 +188,12 @@ const EM_ViewOneHPEvents: React.FC = () => {
           </div>
 
           <div className='EM_ViewsEventsinoneHP'>
-            {eventType === "Physical" ? 
+            {eventType === "Upcoming" ? 
             <a className="btn btn-success" style={{height: '40px', position: 'absolute', marginTop: '-57px', marginLeft: '1015px', width: '200px'}}>
             <i className="bi bi-plus-lg"></i> New Physical Event
           </a> : 
-          <a className="btn btn-success" style={{height: '40px', position: 'absolute', marginTop: '-57px', marginLeft: '1015px', width: '200px'}}>
-          <i className="bi bi-plus-lg"></i> New Online Event
+          <a onClick={handleBackToHp} className="btn btn-primary" style={{height: '40px', position: 'absolute', marginTop: '-57px', marginLeft: '1015px', width: '200px'}}>
+          <i className="bi bi-arrow-left-circle"></i> Go Back
         </a>}
           <div className="cardHang EM_ViewsEventsinoneHPcardbody" style={{marginTop: '155px'}}>
           {events.length > 0 ? (

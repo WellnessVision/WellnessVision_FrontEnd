@@ -115,7 +115,7 @@ const HP_ViewOneVolunteerRequestForPhysicalEvents: React.FC<HP_VolunteerRequestF
                         <a className="btn btn-outline-primary view_button" onClick={() => handleViewPreviousWorks(event.volunteerId)}>Previous Works</a>
                     </div>
                     <div className='button_div'>
-                        <a href="/AdminViewHealthProfessionalRegistrationRequest" className="btn btn-primary back_button"><i className='bi bi-arrow-left-circle'></i> Go Back</a>
+                        <a onClick={handleClose} className="btn btn-primary back_button"><i className='bi bi-arrow-left-circle'></i> Go Back</a>
                         <a onClick={handleAcceptVolunteerRequest} className="btn btn-success view_button"><i className='bi bi-chat-left-dots'></i> Accept Request</a>
                         <a href="HP_OneEvents" className="btn btn-danger book_button"><i className='bi bi-trash3'></i> Reject Request</a>
                     </div>

@@ -339,27 +339,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                 </a>
               </li>
 
-              <li
-                className={`nav-item my-1 py-2 py-sm-0 ${isActive(
-                  "Feedback"
-                )}`}
-              >
-                <a
-                  href="#"
-                  className={`nav-link text-white text-center text-sm-start ${isActive(
-                    "Feedback"
-                  )}`}
-                  aria-current="page"
-                >
-                  <i className="bi bi-chat-left"></i>
-                  <span className="ms-2 d-none d-sm-inline">Feedback</span>
-                </a>
-              </li>
               <li>
                 <a
                   href="/"
                   className={`nav-link text-white text-center text-sm-start ${isActive(
-                    "Feedback"
+                    "Logout"
                   )}`}
                   aria-current="page">
                   <i className="bi bi-box-arrow-right"></i>

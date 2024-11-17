@@ -3,9 +3,9 @@ import 'bootstrap/dist/css/bootstrap-grid.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/js/dist/dropdown.js';
 import 'bootstrap/js/dist/collapse.js';
-import './HP_SideBar.css';
-import NotificationIcon from './HP_NotificationIcon';
-import WellnessVision from '../resources/WellnessVision_new_icon.png';
+import '../../../components/HP_SideBar.css';
+import NotificationIcon from '../../../components/HP_NotificationIcon';
+import WellnessVision from '../../../resources/WellnessVision_new_icon.png';
 import axios from 'axios';
 
 interface SidebarProps {
@@ -131,13 +131,13 @@ const Admin_Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                                 aria-current="page"
                                 data-menu="HealthProfessionalRegistretionRequest"
                             >
-                                <i className="bi bi-calendar"></i> Health Professional
+                               Health Professional
                             </a>
                             </li>
                             <li className="nav-item">
                             <a
                                 className={`nav-link text-white ${isActive("VolunteerRegistretionRequest")}`}
-                                href="#"
+                                href="/Admin_ViewVolunteerRegistrationRequest"
                                 aria-current="page"
                                 data-menu="VolunteerRegistretionRequest"
                             >
@@ -146,8 +146,82 @@ const Admin_Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                             </li>
                         </ul>
                 </li>
-                
-                <li
+
+              <li className={`nav-item my-1 py-2 py-sm-0 ${isExpanded([
+                        "AllUsers",
+                        "NormalUser",
+                        "HealthProfessional",
+                        "Volunteer",
+                        "SystemPrivilegeUser"
+                        ])}`}>
+                        <a
+                            href="#submenuAllUsers"
+                            className={`nav-link text-white text-center text-sm-start ${isActive(
+                            "AllUsers"
+                            )}`}
+                            data-bs-toggle="collapse"
+                            aria-current="page"
+                            data-menu="AllUsers"
+                        >
+                            <i className="bi bi-calendar2-week"></i>
+                            <span className="ms-2 d-none d-sm-inline">All Users</span>
+                            <i className="bi bi-arrow-down-short text-end"></i>
+                        </a>
+                        <ul
+                            className={`nav collapse ms-2 flex-column ${isExpanded([
+                              "AllUsers",
+                              "NormalUser",
+                              "HealthProfessional",
+                              "Volunteer",
+                              "SystemPrivilegeUser"
+                            ])}`}
+                            id="submenuAllUsers"
+                            data-bs-parent="#parentM"
+                        >
+                            <li className="nav-item">
+                            <a
+                                className={`nav-link text-white ${isActive("NormalUser")}`}
+                                href="/Admin_ViewAllUsers"
+                                aria-current="page"
+                                data-menu="HealthProfessionalRegistretionRequest"
+                            >
+                                <i className="bi bi-person"></i> Normal User
+                            </a>
+                            </li>
+                            <li className="nav-item">
+                            <a
+                                className={`nav-link text-white ${isActive("HealthProfessional")}`}
+                                href="/Admin_ViewAllHealthProfessionals"
+                                aria-current="page"
+                                data-menu="HealthProfessional"
+                            >
+                                 <i className="bi bi-person"></i> Health Professional
+                            </a>
+                            </li>
+                            <li className="nav-item">
+                            <a
+                                className={`nav-link text-white ${isActive("Volunteer")}`}
+                                href="/Admin_ViewAllVolunteers"
+                                aria-current="page"
+                                data-menu="Volunteer"
+                            >
+                                 <i className="bi bi-person"></i> Volunteer
+                            </a>
+                            </li>
+                            <li className="nav-item">
+                            <a
+                                className={`nav-link text-white ${isActive("SystemPrivilegeUser")}`}
+                                href="/Admin_ViewAllSystemPrivilegeUser"
+                                aria-current="page"
+                                data-menu="SystemPrivilegeUser"
+                            >
+                                 <i className="bi bi-person"></i> Admin Privilege User
+                            </a>
+                            </li>
+                        </ul>
+                </li>
+
+               <li
                 className={`nav-item my-1 py-2 py-sm-0 ${isExpanded([
                   "UpcomingEvents",
                   "PhysicalEvents",

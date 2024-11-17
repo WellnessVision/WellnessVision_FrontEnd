@@ -129,8 +129,9 @@ const NU_AddMoneyReseptsDetailsForAppointment: React.FC<HP_AddPhysicalEventOther
                 bankName
               }
             });
-            // navigate(`/HP_ViewOneAppointmentScheduleDetails/${appointmentDetails.bookingId}`);
-            navigate('/NU_ViewHealthProfessionals');
+
+            navigate(`/NU_ViewOneAppointmentBookingDetails/${appointmentDetails.bookingId}/${appointmentSchedule.appointmentId}`);
+            
           } 
           catch (err) {
             if (err instanceof Error) {

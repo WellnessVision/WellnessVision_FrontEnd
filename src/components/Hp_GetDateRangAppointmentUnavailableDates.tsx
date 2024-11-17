@@ -86,9 +86,9 @@ const handleCloseDelete = () => {
     const setMinValueOfUnavailableStartDate = () => {
       const today = new Date();
          if((appointmentSchedule.dailyState === 'Unavailable') || (appointmentSchedule.appointmentBookingCloseState === 'Yes')){
-             today.setDate(today.getDate()+1)
+             today.setDate(today.getDate()+2)
          }else{
-             today.setDate(today.getDate()) 
+             today.setDate(today.getDate()+1) 
          }
          const formattedDate = today.toISOString().split('T')[0];
          setMinUnavailableTimeStartDate(formattedDate);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import AdminSideBar from '../../components/Admin_Sidebar';
+import AdminSideBar from './Admin_components/Admin_Sidebar';
 import '../HP/HP_ViewEvents.css';
 import './Admin_ViewHealthProfessionalRegistrationRequest.css'
 import { useToggle } from '../../pages/HP/useToggle';

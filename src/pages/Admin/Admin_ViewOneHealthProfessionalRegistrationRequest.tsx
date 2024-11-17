@@ -1,5 +1,5 @@
 import React, { useEffect, useState, FormEvent } from 'react';
-import AdminSideBar from '../../components/Admin_Sidebar';
+import AdminSideBar from './Admin_components/Admin_Sidebar';
 import '../HP/HP_OneEvent.css';
 import yoga01 from '../../resources/yoga01.png';
 import { useParams } from 'react-router-dom';
