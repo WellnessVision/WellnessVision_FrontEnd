@@ -6,10 +6,10 @@ interface NotificationIconProps {
   count: number;
 }
 
-const AM_NotificationIcon: React.FC<NotificationIconProps> = ({ count }) => {
+const NotificationIcon: React.FC<NotificationIconProps> = ({ count }) => {
   return (
     <div style={{ position: 'relative', display: 'inline-block',  left: '300px', top: '5px'}}>
-      <a href='/AM_Notification'>
+      <a href='/Admin_Notification'>
       <i className="bi bi-bell" style={{ fontSize: '24px' }}></i>
       </a>
       {count > 0 && (
@@ -29,4 +29,4 @@ const AM_NotificationIcon: React.FC<NotificationIconProps> = ({ count }) => {
   );
 };
 
-export default AM_NotificationIcon;
+export default NotificationIcon;

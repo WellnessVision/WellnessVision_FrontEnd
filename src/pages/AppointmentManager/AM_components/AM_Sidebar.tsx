@@ -115,7 +115,7 @@ const AM_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                 )}`}
               >
                 <a
-                  href="#"
+                  href="/AM_Dashboard"
                   className={`nav-link text-white text-center text-sm-start ${isActive(
                     "Dashboard"
                   )}`}

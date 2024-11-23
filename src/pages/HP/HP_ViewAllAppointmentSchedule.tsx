@@ -112,12 +112,12 @@ const HP_ViewAllAppointmentSchedule: React.FC = () => {
                                     (<span> {appointmentSchedule.satDay && appointmentSchedule.sunDay && !appointmentSchedule.monDay && !appointmentSchedule.tueDay && !appointmentSchedule.wedDay && !appointmentSchedule.thuDay && !appointmentSchedule.friDay? (' Weekend Days') :     
                                     (<span>
                                     {appointmentSchedule.sunDay ? (' Sun'):('')}
-                                    {appointmentSchedule.sunDay && appointmentSchedule.monDay ? ', Mon' : appointmentSchedule.monDay ? ' Mon' : ''}
-                                    {appointmentSchedule.monDay && appointmentSchedule.tueDay ? ', Tues': appointmentSchedule.tueDay ? ' Tues': ''}
-                                    {appointmentSchedule.tueDay && appointmentSchedule.wedDay ? ', Wed' : appointmentSchedule.wedDay ? ' Wed' : ''}
-                                    {appointmentSchedule.wedDay && appointmentSchedule.thuDay ? ', Thurs' : appointmentSchedule.thuDay ? ' Thurs' : ''}
-                                    {appointmentSchedule.thuDay && appointmentSchedule.friDay ? ', Fri' : appointmentSchedule.friDay ? ' Fri' : ''}
-                                    {appointmentSchedule.friDay && appointmentSchedule.satDay ? ', Sat' : appointmentSchedule.satDay ? ' Sat' : ''} 
+                                    {appointmentSchedule.sunDay && appointmentSchedule.monDay ? ' | Mon' : appointmentSchedule.monDay ? ' Mon' : ''}
+                                    {(appointmentSchedule.sunDay || appointmentSchedule.monDay) && appointmentSchedule.tueDay ? ' | Tues': appointmentSchedule.tueDay ? ' Tues': ''}
+                                    {(appointmentSchedule.sunDay || appointmentSchedule.monDay || appointmentSchedule.tueDay) && appointmentSchedule.wedDay ? ' | Wed' : appointmentSchedule.wedDay ? ' Wed' : ''}
+                                    {(appointmentSchedule.sunDay || appointmentSchedule.monDay || appointmentSchedule.tueDay || appointmentSchedule.wedDay) && appointmentSchedule.thuDay ? ' | Thurs' : appointmentSchedule.thuDay ? ' Thurs' : ''}
+                                    {(appointmentSchedule.sunDay || appointmentSchedule.monDay || appointmentSchedule.tueDay || appointmentSchedule.wedDay || appointmentSchedule.thuDay) && appointmentSchedule.friDay ? ' | Fri' : appointmentSchedule.friDay ? ' Fri' : ''}
+                                    {(appointmentSchedule.sunDay || appointmentSchedule.monDay || appointmentSchedule.tueDay || appointmentSchedule.wedDay || appointmentSchedule.thuDay || appointmentSchedule.friDay) && appointmentSchedule.satDay ? ' | Sat' : appointmentSchedule.satDay ? ' Sat' : ''}
                                     </span>)}</span>)}</span>)}</span>
                                     </h5>
                                 <a onClick={() => handleViewDetails(appointmentSchedule.appointmentId)} className="btn btn-primary Admin_ViewHealthProfessionalRegistrationRequest_viewMore HP_ViewPhysicalEventPayment_viewMore HP_ViewAllAppointmentSchedule_viewMore">

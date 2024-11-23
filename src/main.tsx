@@ -82,6 +82,11 @@ import Admin_AddNewAdminPrivilegeUser from './pages/Admin/Admin_AddNewAdminPrivi
 import Volunteer_Register from './pages/Volunteer/Volunteer_Register'
 import Admin_ViewVolunteerRegistrationRequest from './pages/Admin/Admin_ViewVolunteerRegistrationRequest'
 import EM_ViewOnePreviousPhysicalEvent from './pages/EventManager/EM_ViewOnePreviousPhysicalEvent'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import Admin_Notification from './pages/Admin/Admin_Notification'
+import EM_Notification from './pages/EventManager/EM_Notification'
+import AM_Notification from './pages/AppointmentManager/AM_Notification'
 
 import {
   createBrowserRouter,
@@ -396,6 +401,18 @@ const router = createBrowserRouter([
   {
     path: "EM_ViewOnePreviousPhysicalEvent/:eventId",
     element: <EM_ViewOnePreviousPhysicalEvent/>
+  },
+  {
+    path: "Admin_Notification",
+    element: <Admin_Notification/>
+  },
+  {
+    path: "EM_Notification",
+    element: <EM_Notification/>
+  },
+  {
+    path: "AM_Notification",
+    element: <AM_Notification/>
   }
 ]);
 
