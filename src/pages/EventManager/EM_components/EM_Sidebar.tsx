@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NotificationIcon from "../../../components/HP_NotificationIcon";
 import WellnessVision from "../../../resources/WellnessVision_new_icon.png";
 import axios from "axios";
 import "../../NormalUser/NU_components/NU_Sidebar.css"; 
@@ -115,7 +114,7 @@ const EM_Sidebar: React.FC<NU_SidebarProps> = ({ activeMenuItem }) => {
                 )}`}
               >
                 <a
-                  href="#"
+                  href="/EM_Dashboard"
                   className={`nav-link text-white text-center text-sm-start ${isActive(
                     "Dashboard"
                   )}`}

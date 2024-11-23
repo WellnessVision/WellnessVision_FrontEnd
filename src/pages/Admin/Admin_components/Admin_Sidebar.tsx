@@ -4,7 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/js/dist/dropdown.js';
 import 'bootstrap/js/dist/collapse.js';
 import '../../../components/HP_SideBar.css';
-import NotificationIcon from '../../../components/HP_NotificationIcon';
+import NotificationIcon from '../../../components/Admin_NotificationIcon';
 import WellnessVision from '../../../resources/WellnessVision_new_icon.png';
 import axios from 'axios';
 
@@ -422,41 +422,10 @@ const Admin_Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
                   aria-current="page"
                 >
                   <i className="bi bi-credit-card"></i>
-                  <span className="ms-2 d-none d-sm-inline">Articles</span>
-                </a>
-              </li>
-
-              <li
-                className={`nav-item my-1 py-2 py-sm-0 ${isActive("Payments")}`}
-              >
-                <a
-                  href="#"
-                  className={`nav-link text-white text-center text-sm-start ${isActive(
-                    "Payments"
-                  )}`}
-                  aria-current="page"
-                >
-                  <i className="bi bi-credit-card"></i>
                   <span className="ms-2 d-none d-sm-inline">Payments</span>
                 </a>
               </li>
 
-              <li
-                className={`nav-item my-1 py-2 py-sm-0 ${isActive(
-                  "Feedback"
-                )}`}
-              >
-                <a
-                  href="#"
-                  className={`nav-link text-white text-center text-sm-start ${isActive(
-                    "Feedback"
-                  )}`}
-                  aria-current="page"
-                >
-                  <i className="bi bi-chat-left"></i>
-                  <span className="ms-2 d-none d-sm-inline">Feedback</span>
-                </a>
-              </li>
               <li>
                 <a
                   href="/"
@@ -476,4 +445,4 @@ const Admin_Sidebar: React.FC<SidebarProps> = ({ activeMenuItem }) => {
   );
 };
 
-export default Admin_Sidebar;
+export default Admin_Sidebar; 
