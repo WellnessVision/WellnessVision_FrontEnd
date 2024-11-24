@@ -178,7 +178,7 @@ const NU_Register: React.FC = () => {
                     
                     <div className="name-group">
                     <div className="form-group">
-                    <label className="dob">phone number   </label> 
+                    <label className="dob">Phone Number   </label> 
                         <input 
                             type="text" 
                             className="form-control" 
@@ -271,7 +271,7 @@ const NU_Register: React.FC = () => {
                                 value={province}
                                 onChange={(e) => setProvince(e.target.value)}
                             >
-                                <option value="" disabled>province</option>
+                                <option value="" disabled>Province</option>
                                 <option value="Central">Central</option>
                                 <option value="North Central">North Central</option>
                                 <option value="Northern">Northern</option>
@@ -312,7 +312,7 @@ const NU_Register: React.FC = () => {
                         </div>
                     </div>
                     <div className="form-group">
-                    <label className="Lable-on-left">Profile pic  </label>
+                    <label className="Lable-on-left">Profile Picture  </label>
                         <input 
                                 type="file" 
                                 className="form-control" 
