@@ -51,7 +51,7 @@ const Volunteer_Register: React.FC = () => {
         if (!phoneRegex.test(value)) {
             setPhoneNumberError(
                 <div>
-                    <span>Mobiled number must start with 0</span><br />
+                    <span>Mobile number must start with 0</span><br />
                     <span>and have exactly 10 digits</span>
                 </div>
             );
@@ -131,7 +131,7 @@ const Volunteer_Register: React.FC = () => {
               'Content-Type': 'multipart/form-data',
             },
           });
-          setSuccessMessage('Your registration request has been successfully created. After verifying we will inform you about it via an email. Thank you!');
+          setSuccessMessage('Your registration request has been created successfully. After verifying it we will inform you about it via an email. Thank you!');
           setSuccessState('Success');
           toggleLoadingPopup(false);
           setSuccessFlag(true);
@@ -251,7 +251,7 @@ const Volunteer_Register: React.FC = () => {
                                 required
                                 onChange={(e) => setProvince(e.target.value)}
                             >
-                                <option value="" disabled>province</option>
+                                <option value="" disabled>Province</option>
                                 <option value="Central">Central</option>
                                 <option value="North Central">North Central</option>
                                 <option value="Northern">Northern</option>
@@ -296,7 +296,7 @@ const Volunteer_Register: React.FC = () => {
                             className="form-control" 
                             id="exampleInputEmail1" 
                             aria-describedby="emailHelp" 
-                            placeholder="Mobiled Number" 
+                            placeholder="Mobile Number" 
                             required
                             value={phoneNumber}
                             onChange={handlePhoneNumberChange}
@@ -333,7 +333,7 @@ const Volunteer_Register: React.FC = () => {
                             id="exampleInputEmail1" 
                             required
                             aria-describedby="emailHelp" 
-                            placeholder="Conformation Password" 
+                            placeholder="Confirmation Password" 
                             value={confomationPassword}
                             onChange={(e) => setConfomationPassword(e.target.value)}
                         />
