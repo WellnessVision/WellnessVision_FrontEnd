@@ -38,7 +38,7 @@ const NU_Register: React.FC = () => {
     }
     }, [passwordConfirm]);
 
-    
+
     useEffect(() => {
         
         if(!(password.length >= 8)){
@@ -101,6 +101,25 @@ const NU_Register: React.FC = () => {
             setProfilePic(e.target.files[0]);
         }
     };
+
+    const handleClearForm = () => {
+        setEmail('');
+        setPassword('');
+        setPasswordConfirm('');
+        setFirstName('');
+        setLastName('');
+        setPhone('');
+        setAddress('');
+        setAddress2('');
+        setCity('');
+        setDistrict('');
+        setProvince('');
+        setPreferences('');
+        setZip('');
+        setPasswordErrMessage('');
+        setMessage('');
+    };
+    
     
     return (
         <div className='hp_form user_form_div_NU_Registration'>
