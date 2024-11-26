@@ -29,7 +29,16 @@ const NU_Register: React.FC = () => {
     const [showLoadingPopup, toggleLoadingPopup] = useState(false);
     const [successFlag, setSuccessFlag] = useState(false);
 
+    useEffect(() => {
+        if (password != passwordConfirm) {
+            setPasswordErrMessage("Password and confirmation do not match");
+        }
+        else {
+        setPasswordErrMessage('');
+    }
+    }, [passwordConfirm]);
 
+    
     useEffect(() => {
         
         if(!(password.length >= 8)){
@@ -44,21 +53,6 @@ const NU_Register: React.FC = () => {
     }, [password]);
 
 
-    useEffect(() => {
-        if (password != passwordConfirm) {
-            setPasswordErrMessage("Password and confirmation do not match");
-        }
-        else {
-        setPasswordErrMessage('');
-    }
-    }, [passwordConfirm]);
-
-
-    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setProfilePic(e.target.files[0]);
-        }
-    };
 
     const handleRegister = async (event: FormEvent) => {
         event.preventDefault();
@@ -101,6 +95,13 @@ const NU_Register: React.FC = () => {
             setMessage('Password error');
         }
     };
+
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setProfilePic(e.target.files[0]);
+        }
+    };
+    
     return (
         <div className='hp_form user_form_div_NU_Registration'>
             <div className='form_div'>
