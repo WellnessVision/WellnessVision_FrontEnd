@@ -119,6 +119,27 @@ const NU_Register: React.FC = () => {
         setPasswordErrMessage('');
         setMessage('');
     };
+
+
+    const handleAutoFillDemo = () => {
+        setEmail('demo.user@example.com');
+        setPassword('Demo@1234');
+        setPasswordConfirm('Demo@1234');
+        setFirstName('Demo');
+        setLastName('User');
+        setPhone('0771234567');
+        setAddress('123 Demo Street');
+        setAddress2('Apt 4B');
+        setCity('Colombo');
+        setDistrict('Colombo');
+        setProvince('Western');
+        setPreferences('Yoga, Nutrition');
+        setZip('10000');
+        setProfilePic(null); 
+        setPasswordErrMessage('');
+        setMessage('');
+    };
+    
     
     
     return (
