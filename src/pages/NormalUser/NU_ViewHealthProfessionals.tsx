@@ -79,6 +79,24 @@ const NU_ViewHealthProfessionals: React.FC = () => {
         setSearchCode_2(e.target.value);
       };
 
+      const handleClearFilters = () => {
+        setSearchCode('');
+        setSearchCode_2('');
+        setSuggestions([]);
+    };
+
+    const handleSort = (criteria: 'name' | 'profession') => {
+      const sortedEvents = [...events].sort((a, b) => {
+          if (criteria === 'name') {
+              return a.firstName.localeCompare(b.firstName);
+          } else if (criteria === 'profession') {
+              return a.profession.localeCompare(b.profession);
+          }
+          return 0;
+      });
+      setEvents(sortedEvents);
+  };
+
       const handleSearchChange_2 = (event: ChangeEvent<HTMLInputElement>) => {
         const input = event.target.value;
         setSearchCode(input);
