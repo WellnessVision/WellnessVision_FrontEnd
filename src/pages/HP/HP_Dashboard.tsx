@@ -11,28 +11,28 @@ interface HP_Profile {
 }
 
 const HP_Dashboard: React.FC = () => {
-  // const [error, setError] = useState<string | null>(null);
-  // const hpId = Number(localStorage.getItem('hpId'));
-  // const [profileDetails, setProfileDetails] = useState<HP_Profile[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const hpId = Number(localStorage.getItem('hpId'));
+  const [profileDetails, setProfileDetails] = useState<HP_Profile[]>([]);
 
-  // const fetchProfileDetails = async () => {
-  //   try {
-  //     const response = await axios.get<HP_Profile[]>(`http://localhost:15000/healthProfessionalDashboardProfileDetails`, {
-  //       params: { hpId: hpId }
-  //     });
-  //     setProfileDetails(response.data);
-  //   } catch (err) {
-  //     if (err instanceof Error) {
-  //       setError(err.message);
-  //     } else {
-  //       setError('An unknown error occurred');
-  //     }
-  //   }
-  // };
+  const fetchProfileDetails = async () => {
+    try {
+      const response = await axios.get<HP_Profile[]>(`http://localhost:15000/healthProfessionalDashboardProfileDetails`, {
+        params: { hpId: hpId }
+      });
+      setProfileDetails(response.data);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
+    }
+  };
 
-  // useEffect(() => {
-  //   fetchProfileDetails();
-  // }, []);
+  useEffect(() => {
+    fetchProfileDetails();
+  }, []);
 
   return (
     <div>
