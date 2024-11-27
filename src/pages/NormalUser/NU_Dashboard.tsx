@@ -10,7 +10,7 @@ const NU_Dashboard: React.FC = () => {
   return (
     <div>
       <NU_Sidebar activeMenuItem={["Dashboard"]}/>
-      <h3 className='HP_Dashboard_dashboard'>Dashboard</h3>
+      <h3 className='HP_Dashboard_dashboard'>Normal User Dashboard</h3>
       <CalendarComponent/>
     </div>
   );
