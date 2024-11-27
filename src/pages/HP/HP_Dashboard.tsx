@@ -1,71 +1,141 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../../components/HP_SideBar';
-import axios from 'axios';
-import './HP_Dashboard.css'
-import eventImage from '../../resources/yoga01.png'
+import { Calendar, Clock, Users, Activity } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 
-interface HP_Profile {
+interface HPProfile {
   id: number;
   user_type: string;
   email: string;
 }
 
-const HP_Dashboard: React.FC = () => {
-  // const [error, setError] = useState<string | null>(null);
-  // const hpId = Number(localStorage.getItem('hpId'));
-  // const [profileDetails, setProfileDetails] = useState<HP_Profile[]>([]);
+interface Event {
+  id: number;
+  title: string;
+  date: string;
+  participants: number;
+}
 
-  // const fetchProfileDetails = async () => {
-  //   try {
-  //     const response = await axios.get<HP_Profile[]>(`http://localhost:15000/healthProfessionalDashboardProfileDetails`, {
-  //       params: { hpId: hpId }
-  //     });
-  //     setProfileDetails(response.data);
-  //   } catch (err) {
-  //     if (err instanceof Error) {
-  //       setError(err.message);
-  //     } else {
-  //       setError('An unknown error occurred');
-  //     }
-  //   }
-  // };
+const HPDashboard = () => {
+  const [profileDetails, setProfileDetails] = useState<HPProfile[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [appointments, setAppointments] = useState<number>(0);
+  const [totalParticipants, setTotalParticipants] = useState<number>(0);
 
-  // useEffect(() => {
-  //   fetchProfileDetails();
-  // }, []);
+  // Fetch data simulation
+  useEffect(() => {
+    // Add actual axios calls here
+    setTotalParticipants(125);
+    setAppointments(8);
+  }, []);
 
   return (
-    <div>
-      <Sidebar activeMenuItem={["Dashboard"]}/>
-      <h3 className='HP_Dashboard_dashboard'>Dashboard</h3>
-      <div className="card text-center HP_Dashboard_eventCard">
-  <div className="card-header">
-    Events
-  </div>
-  <div className="card-body">
-    <h5 className="card-title">Add New  Physical Events</h5>
-    <p className="card-text">Create a new physical event for users and start your new journey.</p>
-    <a href="/HP_ViewEvents" className="btn btn-outline-primary">Add New Physical Event</a>
-  </div>
-  <div className="card-footer text-body-secondary">
-    No events available
-  </div>
-</div>
-<div className="card text-center HP_Dashboard_eventCard2">
-  <div className="card-header">
-  Appointment
-  </div>
-  <div className="card-body">
-    <h5 className="card-title">Set Up Appointment Schedule</h5>
-    <p className="card-text">Create a new appointment schedule for users and start your new journey.</p>
-    <a href="/HP_ViewEvents" className="btn btn-outline-primary">Add New Appointment</a>
-  </div>
-  <div className="card-footer text-body-secondary">
-    No appointments available
-  </div>
-</div>
-</div>
+    <div className="p-6 max-w-7xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+        <p className="text-gray-600 mt-2">Welcome back, Health Professional</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-4">
+              <Calendar className="h-8 w-8 text-blue-500" />
+              <div>
+                <p className="text-sm font-medium text-gray-600">Total Events</p>
+                <h3 className="text-2xl font-bold">{events.length || 0}</h3>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-4">
+              <Clock className="h-8 w-8 text-green-500" />
+              <div>
+                <p className="text-sm font-medium text-gray-600">Appointments</p>
+                <h3 className="text-2xl font-bold">{appointments}</h3>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-4">
+              <Users className="h-8 w-8 text-purple-500" />
+              <div>
+                <p className="text-sm font-medium text-gray-600">Total Participants</p>
+                <h3 className="text-2xl font-bold">{totalParticipants}</h3>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-4">
+              <Activity className="h-8 w-8 text-orange-500" />
+              <div>
+                <p className="text-sm font-medium text-gray-600">Active Events</p>
+                <h3 className="text-2xl font-bold">{events.filter(e => new Date(e.date) > new Date()).length || 0}</h3>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              <span>Physical Events</span>
+              <Calendar className="h-5 w-5 text-gray-500" />
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="text-center py-8">
+              <h3 className="text-xl font-semibold mb-4">Start Creating Events</h3>
+              <p className="text-gray-600 mb-6">Create new physical events for users and start your wellness journey.</p>
+              <a 
+                href="/HP_ViewEvents" 
+                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              >
+                Add New Event
+              </a>
+            </div>
+          </CardContent>
+          <CardFooter className="bg-gray-50 p-4 text-sm text-gray-600">
+            No events scheduled
+          </CardFooter>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              <span>Appointments</span>
+              <Clock className="h-5 w-5 text-gray-500" />
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="text-center py-8">
+              <h3 className="text-xl font-semibold mb-4">Manage Appointments</h3>
+              <p className="text-gray-600 mb-6">Set up your availability and start accepting appointments.</p>
+              <a 
+                href="/HP_ViewEvents" 
+                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              >
+                Schedule Appointments
+              </a>
+            </div>
+          </CardContent>
+          <CardFooter className="bg-gray-50 p-4 text-sm text-gray-600">
+            No upcoming appointments
+          </CardFooter>
+        </Card>
+      </div>
+    </div>
   );
 };
 
-export default HP_Dashboard;
+export default HPDashboard;
