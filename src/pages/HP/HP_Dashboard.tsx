@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../../components/HP_SideBar';
 import axios from 'axios';
 import { Calendar, Clock, Activity, Users, Settings, User } from 'lucide-react';
+import './HP_Dashboard.css'; // Make sure to create this CSS file
 
 interface HP_Profile {
   id: number;
@@ -42,28 +43,27 @@ const HP_Dashboard: React.FC = () => {
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div>
       <Sidebar activeMenuItem={["Dashboard"]} />
-      
-      <div className="flex-1 overflow-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Header */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+      <div className="HP_Dashboard_dashboard">
+        {/* Header Section */}
+        <div className="p-8">
+          {/* <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
               <p className="mt-1 text-lg text-gray-600">Welcome back, Health Professional</p>
             </div>
             <div className="flex gap-3">
-              <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-black-700 bg-white rounded-lg border border-gray-300 hover:bg-gray-50">
                 <Settings className="w-4 h-4 mr-2" />
                 Settings
               </button>
-              <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
                 <User className="w-4 h-4 mr-2" />
                 View Profile
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* Stats Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -98,7 +98,7 @@ const HP_Dashboard: React.FC = () => {
                   <p className="text-gray-600 mb-6">Create a new physical event for users and start your new journey.</p>
                   <a 
                     href="/HP_ViewEvents" 
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
                   >
                     Add New Physical Event
                   </a>
@@ -121,7 +121,7 @@ const HP_Dashboard: React.FC = () => {
                   <p className="text-gray-600 mb-6">Create a new appointment schedule for users and start your new journey.</p>
                   <a 
                     href="/HP_ViewEvents" 
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
                   >
                     Add New Appointment
                   </a>

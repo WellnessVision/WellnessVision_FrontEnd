@@ -12,3 +12,10 @@
     margin-left: 280px;
     margin-top: 50px;
 }
+
+.HP_Dashboard_Content {
+    margin-left: 250px; /* Adjust this value based on your sidebar width */
+    padding: 20px;
+    background-color: #f9fafb;
+    min-height: 100vh;
+}
