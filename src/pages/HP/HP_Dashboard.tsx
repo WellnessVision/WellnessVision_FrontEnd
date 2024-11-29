@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../../components/HP_SideBar';
 import axios from 'axios';
-import './HP_Dashboard.css'
-import eventImage from '../../resources/yoga01.png'
+import { Calendar, Clock, Activity, Users, Settings, User } from 'lucide-react';
 
 interface HP_Profile {
   id: number;
@@ -17,9 +16,10 @@ const HP_Dashboard: React.FC = () => {
 
   const fetchProfileDetails = async () => {
     try {
-      const response = await axios.get<HP_Profile[]>(`http://localhost:15000/healthProfessionalDashboardProfileDetails`, {
-        params: { hpId: hpId }
-      });
+      const response = await axios.get<HP_Profile[]>(
+        `http://localhost:15000/healthProfessionalDashboardProfileDetails`,
+        { params: { hpId: hpId } }
+      );
       setProfileDetails(response.data);
     } catch (err) {
       if (err instanceof Error) {
@@ -34,37 +34,107 @@ const HP_Dashboard: React.FC = () => {
     fetchProfileDetails();
   }, []);
 
+  const stats = [
+    { icon: Activity, label: 'Total Events', value: '0', color: 'blue' },
+    { icon: Users, label: 'Active Users', value: '0', color: 'green' },
+    { icon: Clock, label: 'Appointments', value: '0', color: 'purple' },
+    { icon: Calendar, label: 'Upcoming', value: '0', color: 'orange' },
+  ];
+
   return (
-    <div>
-      <Sidebar activeMenuItem={["Dashboard"]}/>
-      <h3 className='HP_Dashboard_dashboard'>Dashboard</h3>
-      <div className="card text-center HP_Dashboard_eventCard">
-  <div className="card-header">
-    Events
-  </div>
-  <div className="card-body">
-    <h5 className="card-title">Add New  Physical Events</h5>
-    <p className="card-text">Create a new physical event for users and start your new journey.</p>
-    <a href="/HP_ViewEvents" className="btn btn-outline-primary">Add New Physical Event</a>
-  </div>
-  <div className="card-footer text-body-secondary">
-    No events available
-  </div>
-</div>
-<div className="card text-center HP_Dashboard_eventCard2">
-  <div className="card-header">
-  Appointment
-  </div>
-  <div className="card-body">
-    <h5 className="card-title">Set Up Appointment Schedule</h5>
-    <p className="card-text">Create a new appointment schedule for users and start your new journey.</p>
-    <a href="/HP_ViewEvents" className="btn btn-outline-primary">Add New Appointment</a>
-  </div>
-  <div className="card-footer text-body-secondary">
-    No appointments available
-  </div>
-</div>
-</div>
+    <div className="flex min-h-screen bg-gray-100">
+      <Sidebar activeMenuItem={["Dashboard"]} />
+      
+      <div className="flex-1 overflow-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+              <p className="mt-1 text-lg text-gray-600">Welcome back, Health Professional</p>
+            </div>
+            <div className="flex gap-3">
+              <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <Settings className="w-4 h-4 mr-2" />
+                Settings
+              </button>
+              <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <User className="w-4 h-4 mr-2" />
+                View Profile
+              </button>
+            </div>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                <div className="p-6">
+                  <div className="flex items-center">
+                    <div className={`p-3 rounded-lg bg-${stat.color}-100`}>
+                      <stat.icon className={`h-6 w-6 text-${stat.color}-600`} />
+                    </div>
+                    <div className="ml-4">
+                      <p className="text-sm font-medium text-gray-600">{stat.label}</p>
+                      <p className="text-2xl font-semibold text-gray-900">{stat.value}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Events Card */}
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+              <div className="border-b border-gray-200 px-6 py-4">
+                <h2 className="text-lg font-semibold text-gray-900">Events</h2>
+              </div>
+              <div className="p-6">
+                <div className="text-center">
+                  <Activity className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">Add New Physical Events</h3>
+                  <p className="text-gray-600 mb-6">Create a new physical event for users and start your new journey.</p>
+                  <a 
+                    href="/HP_ViewEvents" 
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Add New Physical Event
+                  </a>
+                </div>
+              </div>
+              <div className="bg-gray-50 px-6 py-3">
+                <p className="text-sm text-gray-600">No events available</p>
+              </div>
+            </div>
+
+            {/* Appointments Card */}
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+              <div className="border-b border-gray-200 px-6 py-4">
+                <h2 className="text-lg font-semibold text-gray-900">Appointments</h2>
+              </div>
+              <div className="p-6">
+                <div className="text-center">
+                  <Clock className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">Set Up Appointment Schedule</h3>
+                  <p className="text-gray-600 mb-6">Create a new appointment schedule for users and start your new journey.</p>
+                  <a 
+                    href="/HP_ViewEvents" 
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Add New Appointment
+                  </a>
+                </div>
+              </div>
+              <div className="bg-gray-50 px-6 py-3">
+                <p className="text-sm text-gray-600">No appointments available</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
