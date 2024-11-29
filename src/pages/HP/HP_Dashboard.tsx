@@ -17,6 +17,13 @@ interface PhysicalEvent {
   capacity: number;
   ticketPrice: number;
   eventImage: string;
+  hall_capacity: number;
+  total_hall_charge: number;
+  advance_percentage: number;
+  advance_payment: number;
+  payment_id: number;
+  language: string;
+  event_description: string;
   volunteerNeedState: string;
   volunteerType: string;
 }
@@ -34,7 +41,11 @@ interface AppointmentSchedule {
   friDay: number;
   satDay: number;
   startTime: number;
+  endTime: number;
+  duration: number;
   capacity: number;
+  bookingPrice: number;
+  dailyState: string;
 }
 
 const formatTime = (hour: number): string => {
@@ -74,8 +85,27 @@ export default function Dashboard() {
   const [events, setEvents] = useState<PhysicalEvent[]>([]);
   const [appointmentSchedules, setAppointmentSchedules] = useState<AppointmentSchedule[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [searchCode, setSearchCode] = useState('');
   const navigate = useNavigate();
   const hpId = Number(localStorage.getItem('hpId'));
+
+  useEffect(() => {
+    const autoUpdateThePhysicalEventStateToPrevious = async () => {
+      try {
+        await axios.put(
+          'http://localhost:15000/autoUpdateThePhysicalEventStateToPrevious'
+        );
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
+      }
+    };
+
+    autoUpdateThePhysicalEventStateToPrevious();
+  }, []);
 
   const fetchEvents = useCallback(async () => {
     try {
@@ -87,9 +117,38 @@ export default function Dashboard() {
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
     }
-  }, [hpId]);
+  }, [hpId, searchCode]);
 
-  const fetchAppointments = async () => {
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
+
+  const handleViewDetails = (eventId: number) => {
+    navigate(`/HP_OneEvents/${eventId}`);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchCode(e.target.value);
+  };
+
+  useEffect(() => {
+    const automaticallyUpdateTheAppointmentDalyState = async () => {
+      try {
+        await axios.put('http://localhost:15000/automaticallyUpdateTheAppointmentDalyState');
+      } 
+      catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
+      }
+    };
+  
+    automaticallyUpdateTheAppointmentDalyState();
+  }, []);
+
+  const fetchAppointment = async () => {
     try {
       const response = await axios.get<AppointmentSchedule[]>(
         `http://localhost:15000/viewAllAppointmentScheduleForHp`,
@@ -101,10 +160,14 @@ export default function Dashboard() {
     }
   };
 
+  // useEffect(() => {
+  //   fetchEvents();
+  //   fetchAppointments();
+  // }, [fetchEvents]);
+
   useEffect(() => {
-    fetchEvents();
-    fetchAppointments();
-  }, [fetchEvents]);
+    fetchAppointment();
+  }, [setAppointmentSchedules, setError]);
 
   return (
     <div className="min-h-screen bg-gray-50">
