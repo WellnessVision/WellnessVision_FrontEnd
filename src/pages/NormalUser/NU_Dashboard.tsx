@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Calendar, Eye, Activity, Users, Clock } from 'lucide-react';
-import HPSideBar from '../../components/HP_SideBar'; // Adjust the import path as needed
+import NU_Sidebar from './NU_components/NU_Sidebar';
+import yoga01 from '../../resources/yoga01.png';
+import { useToggle } from '../HP/useToggle';
 
 interface PhysicalEvent {
   event_id: number;
@@ -26,220 +27,198 @@ interface PhysicalEvent {
   hp_id: number;
 }
 
-interface AppointmentSchedule {
-  appointmentId: number;
-  title: string;
-  roomId: string;
+interface BookedPhysicalEvent {
+  event_id: number;
+  hall_id: string;
+  eventTitle: string;
+  finalEventType: string;
+  date: string;
   startTime: number;
-  endTime?: number;
-  days?: string;
+  endTime: number;
+  finalDuration: number;
+  capacity: number;
+  ticketPrice: number;
+  eventImage: string;
+  hall_capacity: number;
+  total_hall_charge: number;
+  advance_percentage: number;
+  advance_payment: number;
+  payment_id: number;
+  language: string;
+  event_description: string;
+  hp_id: number;
 }
 
 const NU_Dashboard: React.FC = () => {
-  const navigate = useNavigate();
+  const [showPopup, togglePopup] = useToggle();
   const [events, setEvents] = useState<PhysicalEvent[]>([]);
-  const [appointmentSchedules, setAppointmentSchedules] = useState<AppointmentSchedule[]>([]);
-  const [currentEventIndex, setCurrentEventIndex] = useState(0);
-  const [currentAppointmentIndex, setCurrentAppointmentIndex] = useState(0);
+  const [bookedEvents, setBookedEvents] = useState<BookedPhysicalEvent[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const [searchCode, setSearchCode] = useState('');
   const userId = localStorage.getItem("userId");
 
   const formatTime = (hour: number): string => {
     const period = hour >= 12 ? 'PM' : 'AM';
-    const formattedHour = hour % 12 || 12;
+    const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
     return `${formattedHour}:00 ${period}`;
-  };
-
-  const formatDays = (appointment: AppointmentSchedule): string => {
-    return appointment.days || 'No specific days';
   };
 
   const fetchEvents = useCallback(async () => {
     try {
-      const response = await axios.get<PhysicalEvent[]>(
-        'http://localhost:15000/getUpcomingPhysicalEventsForUsers',
-        { 
-          params: { 
-            eventState: "Upcoming",
-            userId: userId // Add userId to the params
-          } 
+      const response = await axios.get<PhysicalEvent[]>(`http://localhost:15000/getUpcomingPhysicalEventsForUsers`, {
+        params: { 
+          eventState: "Upcoming", 
+          searchCode: searchCode,
+          userId: userId  // Add userId to help with personalized events
         }
-      );
+      });
       setEvents(response.data);
     } catch (err) {
       console.error('Error fetching events:', err);
-      setError(err instanceof Error ? err.message : 'An unknown error occurred while fetching events');
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
     }
-  }, [userId]);
+  }, [searchCode, userId]);
 
-  const fetchAppointmentSchedules = useCallback(async () => {
+  const fetchBookedEvents = useCallback(async () => {
     try {
-      const response = await axios.get<AppointmentSchedule[]>(
-        'http://localhost:15000/getBookedUpcomingPhysicalEventsForUsers',
-        { 
-          params: { 
-            userId: userId, 
-            bookingState: "Booking", 
-            eventState: "Available" 
-          } 
+      const response = await axios.get<BookedPhysicalEvent[]>(`http://localhost:15000/getBookedUpcomingPhysicalEventsForUsers`, {
+        params: { 
+          userId, 
+          bookingState: "Booking", 
+          eventState: "Available" 
         }
-      );
-      setAppointmentSchedules(response.data);
+      });
+      setBookedEvents(response.data);
     } catch (err) {
-      console.error('Error fetching appointment schedules:', err);
+      console.error('Error fetching booked events:', err);
       setError(prev => 
         prev 
-          ? `${prev}\nAdditionally, could not fetch appointment schedules` 
-          : 'Could not fetch appointment schedules'
+          ? `${prev}\nAdditionally, could not fetch booked events` 
+          : 'Could not fetch booked events'
       );
     }
   }, [userId]);
 
   useEffect(() => {
     fetchEvents();
-    fetchAppointmentSchedules();
-  }, [fetchEvents, fetchAppointmentSchedules]);
+    fetchBookedEvents();
+  }, [fetchEvents, fetchBookedEvents]);
 
-  const handleViewEventDetails = (eventId: number, hpId: number) => {
+  const handleViewDetails = (eventId: number, hpId: number) => {
     navigate(`/NU_ViewOneUpcomingPhysicalEvent/${eventId}/${hpId}`);
   };
 
+  const handleViewBookedDetails = (eventId: number, hpId: number) => {
+    navigate(`/NU_ViewOneBookedUpcomingphysicalEvents/${eventId}/${hpId}`);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchCode(e.target.value);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <HPSideBar activeMenuItem={['Dashboard']} />
+    <div className="min-h-screen bg-gray-100">
+      <NU_Sidebar activeMenuItem={["Dashboard"]}/>
+      
       <div className="HP_Dashboard_dashboard">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Updated Events Section */}
-          <div className="card">
-            <div className="card-header">
-              <div className="card-title">Upcoming Events</div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setCurrentEventIndex((i) => Math.max(0, i - 1))}
-                  disabled={currentEventIndex === 0}
-                  className="card-button"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                <button
-                  onClick={() => setCurrentEventIndex((i) => Math.min(events.length - 1, i + 1))}
-                  disabled={currentEventIndex >= events.length - 1}
-                  className="card-button"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-              </div>
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Upcoming Events */}
+          <div className="bg-white shadow-md rounded-lg p-6">
+            <h2 className="text-2xl font-semibold text-gray-700 mb-4">Upcoming Events</h2>
+            
+            {/* Search Input */}
+            <div className="mb-4">
+              <input 
+                type="text" 
+                placeholder="Search events..." 
+                value={searchCode}
+                onChange={handleSearchChange}
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
-            <div className="card-content min-h-[400px]">
-              {events.length > 0 ? (
-                <div key={events[currentEventIndex].event_id} className="space-y-4">
-                  <img
-                    src={events[currentEventIndex].eventImage}
-                    alt={events[currentEventIndex].eventTitle}
-                    className="w-full h-64 object-cover rounded-lg"
-                  />
-                  <h3 className="text-xl font-semibold text-gray-900">
-                    {events[currentEventIndex].eventTitle}
-                  </h3>
-                  <p className="text-gray-600">
-                    {events[currentEventIndex].finalEventType} - {formatTime(events[currentEventIndex].startTime)} to {formatTime(events[currentEventIndex].endTime)}
-                  </p>
-                  <p className="text-gray-600">Capacity: {events[currentEventIndex].capacity}</p>
-                  <button 
-                    onClick={() => handleViewEventDetails(
-                      events[currentEventIndex].event_id, 
-                      events[currentEventIndex].hp_id
-                    )}
-                    className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+
+            {events.length > 0 ? (
+              <div className="grid gap-4">
+                {events.map((event) => (
+                  <div 
+                    key={event.event_id} 
+                    className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                   >
-                    View Event Details
-                  </button>
-                </div>
-              ) : (
-                <p className="text-gray-500">No upcoming events.</p>
-              )}
-            </div>
+                    <img 
+                      src={event.eventImage || yoga01} 
+                      alt={event.eventTitle} 
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-4">
+                      <h3 className="text-xl font-bold mb-2">{event.eventTitle}</h3>
+                      <div className="space-y-2 text-gray-600">
+                        <p><strong>Event Type:</strong> {event.finalEventType}</p>
+                        <p><strong>Date:</strong> {event.date}</p>
+                        <p><strong>Time:</strong> {formatTime(event.startTime)}</p>
+                        <p><strong>Hall:</strong> {event.hall_id} (WellnessVision Hall)</p>
+                      </div>
+                      <button 
+                        onClick={() => handleViewDetails(event.event_id, event.hp_id)}
+                        className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition"
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center text-gray-500">
+                <p>No upcoming events available</p>
+              </div>
+            )}
           </div>
 
-          {/* Appointment Schedules Section */}
-          <div className="card">
-            <div className="card-header">
-              <div className="card-title">Appointment Schedules</div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setCurrentAppointmentIndex((i) => Math.max(0, i - 1))}
-                  disabled={currentAppointmentIndex === 0}
-                  className="card-button"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                <button
-                  onClick={() =>
-                    setCurrentAppointmentIndex((i) =>
-                      Math.min(appointmentSchedules.length - 1, i + 1)
-                    )
-                  }
-                  disabled={currentAppointmentIndex >= appointmentSchedules.length - 1}
-                  className="card-button"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
+          {/* Booked Events */}
+          <div className="bg-white shadow-md rounded-lg p-6">
+            <h2 className="text-2xl font-semibold text-gray-700 mb-4">Booked Events</h2>
+
+            {bookedEvents.length > 0 ? (
+              <div className="grid gap-4">
+                {bookedEvents.map((event) => (
+                  <div 
+                    key={event.event_id} 
+                    className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                  >
+                    <img 
+                      src={event.eventImage || yoga01} 
+                      alt={event.eventTitle} 
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-4">
+                      <h3 className="text-xl font-bold mb-2">{event.eventTitle}</h3>
+                      <div className="space-y-2 text-gray-600">
+                        <p><strong>Event Type:</strong> {event.finalEventType}</p>
+                        <p><strong>Date:</strong> {event.date}</p>
+                        <p><strong>Time:</strong> {formatTime(event.startTime)}</p>
+                        <p><strong>Hall:</strong> {event.hall_id} (WellnessVision Hall)</p>
+                      </div>
+                      <button 
+                        onClick={() => handleViewBookedDetails(event.event_id, event.hp_id)}
+                        className="mt-4 w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition"
+                      >
+                        View Booked Event Details
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-            <div className="card-content min-h-[400px]">
-              {appointmentSchedules.length > 0 ? (
-                <div
-                  key={appointmentSchedules[currentAppointmentIndex].appointmentId}
-                  className="space-y-4"
+            ) : (
+              <div className="text-center text-gray-500">
+                <p>No booked events available</p>
+                <button 
+                  onClick={() => navigate('/NU_ViewUpcomingPhysicalEvents')}
+                  className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                 >
-                  <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-                    <Calendar className="h-24 w-24 text-gray-400" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900">
-                    {appointmentSchedules[currentAppointmentIndex].title}
-                  </h3>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <div className="flex items-center gap-2">
-                      <Activity className="h-4 w-4" />
-                      <span>
-                        Appointment ID:{" "}
-                        {appointmentSchedules[currentAppointmentIndex].appointmentId}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4" />
-                      <span>Room {appointmentSchedules[currentAppointmentIndex].roomId}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4" />
-                      <span>{formatDays(appointmentSchedules[currentAppointmentIndex])}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4" />
-                      <span>{formatTime(appointmentSchedules[currentAppointmentIndex].startTime)}</span>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <p className="text-gray-500 text-center">
-                  No appointment schedules available.
-                </p>
-              )}
-            </div>
-            {appointmentSchedules.length > 0 && (
-              <div className="card-footer">
-                <button
-                  onClick={() =>
-                    navigate(
-                      `/HP_ViewOneAppointmentScheduleDetails/${appointmentSchedules[currentAppointmentIndex].appointmentId}`
-                    )
-                  }
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                >
-                  <Eye className="h-4 w-4" />
-                  View Details
+                  Browse Events
                 </button>
               </div>
             )}
@@ -248,9 +227,8 @@ const NU_Dashboard: React.FC = () => {
 
         {/* Error Handling */}
         {error && (
-          <div className="mt-4 p-4 bg-red-100 text-red-700 rounded-lg">
-            <p>An error occurred:</p>
-            <p>{error}</p>
+          <div className="mt-8 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <span className="block sm:inline">{error}</span>
           </div>
         )}
       </div>
