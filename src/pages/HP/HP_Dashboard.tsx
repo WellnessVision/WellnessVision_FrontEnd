@@ -1,141 +1,394 @@
-import React, { useState, useEffect } from 'react';
-import Sidebar from '../../components/HP_SideBar';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Calendar, Clock, Activity, Users, Settings, User } from 'lucide-react';
-import './HP_Dashboard.css'; // Make sure to create this CSS file
+import { useNavigate } from 'react-router-dom';
+import HPSideBar from '../../components/HP_SideBar';
+import { Calendar, Clock, Activity, Users, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
+import './HP_Dashboard.css';
 
-interface HP_Profile {
-  id: number;
-  user_type: string;
-  email: string;
+interface PhysicalEvent {
+  event_id: number;
+  hall_id: string;
+  eventTitle: string;
+  finalEventType: string;
+  date: string;
+  startTime: number;
+  endTime: number;
+  finalDuration: number;
+  capacity: number;
+  ticketPrice: number;
+  eventImage: string;
+  volunteerNeedState: string;
+  volunteerType: string;
 }
 
-const HP_Dashboard: React.FC = () => {
-  const [error, setError] = useState<string | null>(null);
-  const hpId = Number(localStorage.getItem('hpId'));
-  const [profileDetails, setProfileDetails] = useState<HP_Profile[]>([]);
+interface AppointmentSchedule {
+  appointmentId: number;
+  roomId: number;
+  title: string;
+  roomType: string;
+  sunDay: number;
+  monDay: number;
+  tueDay: number;
+  wedDay: number;
+  thuDay: number;
+  friDay: number;
+  satDay: number;
+  startTime: number;
+  capacity: number;
+}
 
-  const fetchProfileDetails = async () => {
+const formatTime = (hour: number): string => {
+  const period = hour >= 12 ? 'PM' : 'AM';
+  const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+  return `${formattedHour}:00 ${period}`;
+};
+
+const formatDays = (schedule: AppointmentSchedule): string => {
+  if (schedule.sunDay && schedule.monDay && schedule.tueDay && 
+      schedule.wedDay && schedule.thuDay && schedule.friDay && schedule.satDay) {
+    return 'Every Day';
+  }
+  if (schedule.monDay && schedule.tueDay && schedule.wedDay && 
+      schedule.thuDay && schedule.friDay && !schedule.satDay && !schedule.sunDay) {
+    return 'Weekdays';
+  }
+  if (schedule.satDay && schedule.sunDay && !schedule.monDay && !schedule.tueDay && 
+      !schedule.wedDay && !schedule.thuDay && !schedule.friDay) {
+    return 'Weekend Days';
+  }
+  
+  const days = [];
+  if (schedule.sunDay) days.push('Sun');
+  if (schedule.monDay) days.push('Mon');
+  if (schedule.tueDay) days.push('Tue');
+  if (schedule.wedDay) days.push('Wed');
+  if (schedule.thuDay) days.push('Thu');
+  if (schedule.friDay) days.push('Fri');
+  if (schedule.satDay) days.push('Sat');
+  return days.join(' | ');
+};
+
+export default function Dashboard() {
+  const [currentEventIndex, setCurrentEventIndex] = useState(0);
+  const [currentAppointmentIndex, setCurrentAppointmentIndex] = useState(0);
+  const [events, setEvents] = useState<PhysicalEvent[]>([]);
+  const [appointmentSchedules, setAppointmentSchedules] = useState<AppointmentSchedule[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const hpId = Number(localStorage.getItem('hpId'));
+
+  const fetchEvents = useCallback(async () => {
     try {
-      const response = await axios.get<HP_Profile[]>(
-        `http://localhost:15000/healthProfessionalDashboardProfileDetails`,
-        { params: { hpId: hpId } }
+      const response = await axios.get<PhysicalEvent[]>(
+        `http://localhost:15000/viewPhysicalEvent`,
+        { params: { hp_id: hpId, eventState: 'Upcoming' } }
       );
-      setProfileDetails(response.data);
+      setEvents(response.data);
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('An unknown error occurred');
-      }
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+    }
+  }, [hpId]);
+
+  const fetchAppointments = async () => {
+    try {
+      const response = await axios.get<AppointmentSchedule[]>(
+        `http://localhost:15000/viewAllAppointmentScheduleForHp`,
+        { params: { hpId } }
+      );
+      setAppointmentSchedules(response.data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
     }
   };
 
   useEffect(() => {
-    fetchProfileDetails();
-  }, []);
-
-  const stats = [
-    { icon: Activity, label: 'Total Events', value: '0', color: 'blue' },
-    { icon: Users, label: 'Active Users', value: '0', color: 'green' },
-    { icon: Clock, label: 'Appointments', value: '0', color: 'purple' },
-    { icon: Calendar, label: 'Upcoming', value: '0', color: 'orange' },
-  ];
+    fetchEvents();
+    fetchAppointments();
+  }, [fetchEvents]);
 
   return (
-    <div>
-      <Sidebar activeMenuItem={["Dashboard"]} />
+    <div className="min-h-screen bg-gray-50">
+      <HPSideBar activeMenuItem={['Dashboard']} />
       <div className="HP_Dashboard_dashboard">
-        {/* Header Section */}
-        <div className="p-8">
-          {/* <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-              <p className="mt-1 text-lg text-gray-600">Welcome back, Health Professional</p>
-            </div>
-            <div className="flex gap-3">
-              <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-black-700 bg-white rounded-lg border border-gray-300 hover:bg-gray-50">
-                <Settings className="w-4 h-4 mr-2" />
-                Settings
-              </button>
-              <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-                <User className="w-4 h-4 mr-2" />
-                View Profile
-              </button>
-            </div>
-          </div> */}
-
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="p-6">
-                  <div className="flex items-center">
-                    <div className={`p-3 rounded-lg bg-${stat.color}-100`}>
-                      <stat.icon className={`h-6 w-6 text-${stat.color}-600`} />
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">Dashboard</h1>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Events Section */}
+          {/* <Card className="bg-white shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Upcoming Events</span>
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => setCurrentEventIndex(i => Math.max(0, i - 1))}
+                    disabled={currentEventIndex === 0}
+                    className="p-1 rounded hover:bg-gray-100 disabled:opacity-50"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <button 
+                    onClick={() => setCurrentEventIndex(i => Math.min(events.length - 1, i + 1))}
+                    disabled={currentEventIndex >= events.length - 1}
+                    className="p-1 rounded hover:bg-gray-100 disabled:opacity-50"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="min-h-[400px]">
+              {events.length > 0 ? (
+                <div key={events[currentEventIndex].event_id} className="space-y-4">
+                  <img
+                    src={events[currentEventIndex].eventImage}
+                    alt={events[currentEventIndex].eventTitle}
+                    className="w-full h-48 object-cover rounded-lg"
+                  />
+                  <h3 className="text-xl font-semibold">{events[currentEventIndex].eventTitle}</h3>
+                  <div className="grid gap-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <Activity className="h-4 w-4" />
+                      <span>Event ID: {events[currentEventIndex].event_id}</span>
                     </div>
-                    <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-600">{stat.label}</p>
-                      <p className="text-2xl font-semibold text-gray-900">{stat.value}</p>
+                    <div className="flex items-center gap-2">
+                      <Users className="h-4 w-4" />
+                      <span>{events[currentEventIndex].finalEventType}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4" />
+                      <span>{events[currentEventIndex].date}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4" />
+                      <span>{formatTime(events[currentEventIndex].startTime)}</span>
                     </div>
                   </div>
                 </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center h-full gap-4">
+                  <p className="text-gray-500">No events available</p>
+                  <a 
+                    href="/HP_ViewEvents"
+                    className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  >
+                    Add New Event
+                  </a>
+                </div>
+              )}
+            </CardContent>
+            {events.length > 0 && (
+              <CardFooter>
+                <button
+                  onClick={() => navigate(`/HP_OneEvents/${events[currentEventIndex].event_id}`)}
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
+                  <Eye className="h-4 w-4" />
+                  View Details
+                </button>
+              </CardFooter>
+            )}
+          </Card> */}
+          {/* Updated Events Section */}
+          <div className="card">
+            <div className="card-header">
+              <div className="card-title">Upcoming Events</div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setCurrentEventIndex((i) => Math.max(0, i - 1))}
+                  disabled={currentEventIndex === 0}
+                  className="card-button"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={() => setCurrentEventIndex((i) => Math.min(events.length - 1, i + 1))}
+                  disabled={currentEventIndex >= events.length - 1}
+                  className="card-button"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
               </div>
-            ))}
+            </div>
+            <div className="card-content min-h-[400px]">
+              {events.length > 0 ? (
+                <div key={events[currentEventIndex].event_id} className="space-y-4">
+                  <img
+                    src={events[currentEventIndex].eventImage}
+                    alt={events[currentEventIndex].eventTitle}
+                    className="w-full h-64 object-cover rounded-lg"
+                  />
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {events[currentEventIndex].eventTitle}
+                  </h3>
+                  <p className="text-gray-600">
+                    {events[currentEventIndex].finalEventType} - {formatTime(events[currentEventIndex].startTime)} to {formatTime(events[currentEventIndex].endTime)}
+                  </p>
+                  <p className="text-gray-600">Capacity: {events[currentEventIndex].capacity}</p>
+                </div>
+              ) : (
+                <p className="text-gray-500">No upcoming events.</p>
+              )}
+            </div>
           </div>
 
-          {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Events Card */}
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-              <div className="border-b border-gray-200 px-6 py-4">
-                <h2 className="text-lg font-semibold text-gray-900">Events</h2>
-              </div>
-              <div className="p-6">
-                <div className="text-center">
-                  <Activity className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Add New Physical Events</h3>
-                  <p className="text-gray-600 mb-6">Create a new physical event for users and start your new journey.</p>
-                  <a 
-                    href="/HP_ViewEvents" 
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+          {/* Appointments Section */}
+          {/* <Card className="bg-white shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Appointment Schedules</span>
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => setCurrentAppointmentIndex(i => Math.max(0, i - 1))}
+                    disabled={currentAppointmentIndex === 0}
+                    className="p-1 rounded hover:bg-gray-100 disabled:opacity-50"
                   >
-                    Add New Physical Event
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <button 
+                    onClick={() => setCurrentAppointmentIndex(i => Math.min(appointmentSchedules.length - 1, i + 1))}
+                    disabled={currentAppointmentIndex >= appointmentSchedules.length - 1}
+                    className="p-1 rounded hover:bg-gray-100 disabled:opacity-50"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="min-h-[400px]">
+              {appointmentSchedules.length > 0 ? (
+                <div key={appointmentSchedules[currentAppointmentIndex].appointmentId} className="space-y-4">
+                  <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
+                    <Calendar className="h-24 w-24 text-gray-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold">
+                    {appointmentSchedules[currentAppointmentIndex].title}
+                  </h3>
+                  <div className="grid gap-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <Activity className="h-4 w-4" />
+                      <span>Appointment ID: {appointmentSchedules[currentAppointmentIndex].appointmentId}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Users className="h-4 w-4" />
+                      <span>Room {appointmentSchedules[currentAppointmentIndex].roomId}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4" />
+                      <span>{formatDays(appointmentSchedules[currentAppointmentIndex])}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4" />
+                      <span>{formatTime(appointmentSchedules[currentAppointmentIndex].startTime)}</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center h-full gap-4">
+                  <p className="text-gray-500">No appointment schedules available</p>
+                  <a 
+                    href="/HP_ViewAllAppointmentSchedule"
+                    className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  >
+                    Add New Appointment Schedule
                   </a>
                 </div>
-              </div>
-              <div className="bg-gray-50 px-6 py-3">
-                <p className="text-sm text-gray-600">No events available</p>
+              )}
+            </CardContent>
+            {appointmentSchedules.length > 0 && (
+              <CardFooter>
+                <button
+                  onClick={() => navigate(`/HP_ViewOneAppointmentScheduleDetails/${appointmentSchedules[currentAppointmentIndex].appointmentId}`)}
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
+                  <Eye className="h-4 w-4" />
+                  View Details
+                </button>
+              </CardFooter>
+            )}
+          </Card> */}
+          {/* Updated Appointment Schedules Section */}
+          <div className="card">
+            <div className="card-header">
+              <div className="card-title">Appointment Schedules</div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setCurrentAppointmentIndex((i) => Math.max(0, i - 1))}
+                  disabled={currentAppointmentIndex === 0}
+                  className="card-button"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={() =>
+                    setCurrentAppointmentIndex((i) =>
+                      Math.min(appointmentSchedules.length - 1, i + 1)
+                    )
+                  }
+                  disabled={currentAppointmentIndex >= appointmentSchedules.length - 1}
+                  className="card-button"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
               </div>
             </div>
-
-            {/* Appointments Card */}
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-              <div className="border-b border-gray-200 px-6 py-4">
-                <h2 className="text-lg font-semibold text-gray-900">Appointments</h2>
-              </div>
-              <div className="p-6">
-                <div className="text-center">
-                  <Clock className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Set Up Appointment Schedule</h3>
-                  <p className="text-gray-600 mb-6">Create a new appointment schedule for users and start your new journey.</p>
-                  <a 
-                    href="/HP_ViewEvents" 
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
-                  >
-                    Add New Appointment
-                  </a>
+            <div className="card-content min-h-[400px]">
+              {appointmentSchedules.length > 0 ? (
+                <div
+                  key={appointmentSchedules[currentAppointmentIndex].appointmentId}
+                  className="space-y-4"
+                >
+                  <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
+                    <Calendar className="h-24 w-24 text-gray-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {appointmentSchedules[currentAppointmentIndex].title}
+                  </h3>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <Activity className="h-4 w-4" />
+                      <span>
+                        Appointment ID:{" "}
+                        {appointmentSchedules[currentAppointmentIndex].appointmentId}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Users className="h-4 w-4" />
+                      <span>Room {appointmentSchedules[currentAppointmentIndex].roomId}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4" />
+                      <span>{formatDays(appointmentSchedules[currentAppointmentIndex])}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4" />
+                      <span>{formatTime(appointmentSchedules[currentAppointmentIndex].startTime)}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-gray-50 px-6 py-3">
-                <p className="text-sm text-gray-600">No appointments available</p>
-              </div>
+              ) : (
+                <p className="text-gray-500 text-center">
+                  No appointment schedules available.
+                </p>
+              )}
             </div>
+            {appointmentSchedules.length > 0 && (
+              <div className="card-footer">
+                <button
+                  onClick={() =>
+                    navigate(
+                      `/HP_ViewOneAppointmentScheduleDetails/${appointmentSchedules[currentAppointmentIndex].appointmentId}`
+                    )
+                  }
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
+                  <Eye className="h-4 w-4" />
+                  View Details
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default HP_Dashboard;
+}
