@@ -121,7 +121,7 @@ const handleViewDetails = (eventId: number, hpId: number) => {
     <div>
       <NU_Sidebar activeMenuItem={["Dashboard"]}/>
       <h3 className='HP_Dashboard_dashboard'>Dashboard</h3>
-      <div style={{ marginLeft: '310px', marginTop: '-60px', width: '500px', backgroundColor: '#b0c4de', borderRadius: '25px', height: '485px'}}>
+      <div style={{ marginLeft: '310px', marginTop: '-105px', width: '500px', backgroundColor: '#b0c4de', borderRadius: '25px', height: '485px'}}>
         <h4 style={{position: 'absolute', marginLeft:'150px', marginTop: '10px'}}>Upcoming Events</h4>
         <div
           id="carouselExample"
