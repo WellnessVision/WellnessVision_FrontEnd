@@ -143,15 +143,14 @@ const NU_Dashboard: React.FC = () => {
             {events.length > 0 ? (
               <div className="grid gap-4">
                 {events.map((event) => (
-                  <div 
-                    key={event.event_id} 
+                  <><div
+                    key={event.event_id}
                     className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                   >
-                    <img 
-                      src={event.eventImage || yoga01} 
-                      alt={event.eventTitle} 
-                      className="w-full h-48 object-cover"
-                    />
+                    <img
+                      src={event.eventImage || yoga01}
+                      alt={event.eventTitle}
+                      className="w-full h-48 object-cover" />
                     <div className="p-4">
                       <h3 className="text-xl font-bold mb-2">{event.eventTitle}</h3>
                       <div className="space-y-2 text-gray-600">
@@ -160,14 +159,14 @@ const NU_Dashboard: React.FC = () => {
                         <p><strong>Time:</strong> {formatTime(event.startTime)}</p>
                         <p><strong>Hall:</strong> {event.hall_id} (WellnessVision Hall)</p>
                       </div>
-                      <button 
+                      <button
                         onClick={() => handleViewDetails(event.event_id, event.hp_id)}
                         className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition"
                       >
                         View Details
                       </button>
                     </div>
-                  </div>
+                  </div><br /></>
                 ))}
               </div>
             ) : (
@@ -175,6 +174,7 @@ const NU_Dashboard: React.FC = () => {
                 <p>No upcoming events available</p>
               </div>
             )}
+            <hr />
           </div>
 
           {/* Booked Events */}
@@ -224,6 +224,7 @@ const NU_Dashboard: React.FC = () => {
             )}
           </div>
         </div>
+        <br />
 
         {/* Error Handling */}
         {error && (
