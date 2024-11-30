@@ -164,7 +164,7 @@ const handleViewDetailsAppointment = (appointmentId: number) => {
     <div>
       <HPSideBar activeMenuItem={['Dashboard']} />
       <h3 className="HP_Dashboard_dashboard">Dashboard</h3>
-      <div style={{ marginLeft: '310px', marginTop: '-70px', width: '500px', backgroundColor: '#b0c4de', borderRadius: '25px', height: '515px'}}>
+      <div style={{ marginLeft: '310px', marginTop: '-120px', width: '500px', backgroundColor: '#b0c4de', borderRadius: '25px', height: '515px'}}>
         <h4 style={{position: 'absolute', marginLeft:'150px', marginTop: '10px'}}>Upcoming Events</h4>
         <div
           id="carouselExample"

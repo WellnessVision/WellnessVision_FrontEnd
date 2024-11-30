@@ -153,7 +153,8 @@ const handleSuggestionClick = (suggestion: string) => {
     return(
         <div>
             <Volunteer_Sidebar activeMenuItem={["Dashboard"]}/>
-            <div style={{ marginLeft: '310px', marginTop: '-25px', width: '500px', backgroundColor: '#b0c4de', borderRadius: '25px', height: '485px'}}>
+            <h3 className="HP_Dashboard_dashboard">Dashboard</h3>
+            <div style={{ marginLeft: '310px', marginTop: '-110px', width: '500px', backgroundColor: '#b0c4de', borderRadius: '25px', height: '485px'}}>
         <h4 style={{position: 'absolute', marginLeft:'90px', marginTop: '10px'}}>Upcoming Events to Volunteer</h4>
         <div
           id="carouselExample"
