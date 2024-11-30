@@ -267,7 +267,7 @@ const HP_Register: React.FC = () => {
                                 required
                                 onChange={(e) => setProvince(e.target.value)}
                             >
-                                <option value="" disabled>province</option>
+                                <option value="" disabled>Province</option>
                                 <option value="Central">Central</option>
                                 <option value="North Central">North Central</option>
                                 <option value="Northern">Northern</option>
@@ -312,7 +312,7 @@ const HP_Register: React.FC = () => {
                             className="form-control" 
                             id="exampleInputEmail1" 
                             aria-describedby="emailHelp" 
-                            placeholder="Mobiled Number" 
+                            placeholder="Mobile Number" 
                             required
                             value={phoneNumber}
                             onChange={handlePhoneNumberChange}
@@ -349,7 +349,7 @@ const HP_Register: React.FC = () => {
                             id="exampleInputEmail1" 
                             required
                             aria-describedby="emailHelp" 
-                            placeholder="Conformation Password" 
+                            placeholder="Confirmation Password" 
                             value={confomationPassword}
                             onChange={(e) => setConfomationPassword(e.target.value)}
                         />
@@ -430,7 +430,7 @@ const HP_Register: React.FC = () => {
                         </div>
                     </div>
                     <div className="form-group">
-                       <label htmlFor="exampleFormControlFile1">Verification certificate</label>
+                       <label htmlFor="exampleFormControlFile1">Verification Certificate</label>
                        <input 
                        type="file" 
                        className="form-control-file" 
